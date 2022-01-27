@@ -1,0 +1,22 @@
+.efrei-logo {
+    width: 50%;
+    height:50%;
+}
+p {
+    text-align: center;
+    margin: 0;
+}
+#login_form {
+    background-color: whitesmoke;
+    box-shadow: 5px 5px 5px black;
+}
+#footer {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(37, 37, 37);
+    color: honeydew;
+    text-align: center;
+    padding: 10px;
+}
