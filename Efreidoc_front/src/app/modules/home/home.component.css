@@ -13,6 +13,7 @@
     margin: 10px;
     font-size: 3em;
     position: relative;
+    box-shadow: 5px 5px 5px black;
 }
 
 .rectanglarondi p {
@@ -24,4 +25,20 @@
     padding: 20px;
     transform: translateY(-50%);
     resize: vertical;
+}
+
+.rectanglarondi .lignegauche{
+    left: 1em;
+    padding: 0px;
+    width: 5em;
+    height: 0px;
+    border: 0.3px solid #FFFFFF;
+}
+
+.rectanglarondi .lignedroite{
+    left: 11.5em;
+    padding: 0px;
+    width: 5em;
+    height: 0px;
+    border: 0.3px solid #FFFFFF;
 }
