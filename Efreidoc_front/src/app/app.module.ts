@@ -9,11 +9,15 @@ import { SignupComponent } from './modules/signup/signup.component';
 import {MatCardModule} from '@angular/material/card';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
+import { HomeComponent } from './modules/home/home.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    HomeComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -22,6 +26,9 @@ import {MatSelectModule} from '@angular/material/select';
     MatCardModule,
     MatFormFieldModule,
     MatSelectModule
+  ],
+  exports:[
+    NavbarComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

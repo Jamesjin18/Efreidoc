@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <div class="row">
+        <p id="titre">Année des ressources</p>
+    </div>
+
+    <div *ngFor="let annee of annees" class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <div class="rectanglarondi">
+                <p>{{annee}}</p>
+            </div>
+        </div> 
+        <div class="col-2"></div>
+    </div>
+</div>
