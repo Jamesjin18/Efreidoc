@@ -11,13 +11,17 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import { HomeComponent } from './modules/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { SelecmatComponent } from './modules/selecmat/selecmat.component';
+import { ResourcesComponent } from './modules/resources/resources.component';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     SignupComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    SelecmatComponent,
+    ResourcesComponent
   ],
   imports: [
     BrowserModule,
