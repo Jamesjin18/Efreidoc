@@ -13,6 +13,9 @@ import { HomeComponent } from './modules/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SelecmatComponent } from './modules/selecmat/selecmat.component';
 import { ResourcesComponent } from './modules/resources/resources.component';
+import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
+import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +24,9 @@ import { ResourcesComponent } from './modules/resources/resources.component';
     HomeComponent,
     NavbarComponent,
     SelecmatComponent,
-    ResourcesComponent
+    ResourcesComponent,
+    ResourcespageComponent,
+    AjoutdocComponent
   ],
   imports: [
     BrowserModule,
