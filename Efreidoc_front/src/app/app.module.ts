@@ -16,6 +16,17 @@ import { ResourcesComponent } from './modules/resources/resources.component';
 import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 
+import { environment } from "src/environments/environment";
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+
+import { ReactiveFormsModule } from '@angular/forms';
+
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +45,13 @@ import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
     BrowserAnimationsModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    ReactiveFormsModule
   ],
   exports:[
     NavbarComponent

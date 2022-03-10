@@ -6,9 +6,11 @@ import { LoginComponent } from './modules/login/login.component';
 import { ResourcesComponent } from './modules/resources/resources.component';
 import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
 import { SelecmatComponent } from './modules/selecmat/selecmat.component';
+import { SignupComponent } from './modules/signup/signup.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
   { path: 'home', component: HomeComponent},
   { path: 'selecmat', component: SelecmatComponent},
   { path: 'resources', component: ResourcesComponent},
