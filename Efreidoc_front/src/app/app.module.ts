@@ -24,6 +24,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './core/services/auth.service';
 
 
 
@@ -56,7 +57,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   exports:[
     NavbarComponent
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
