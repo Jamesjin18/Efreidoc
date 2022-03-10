@@ -18,8 +18,6 @@ export class AuthService {
 
     // Sign in with email/password
     SignIn(email: string, password: string) {
-      var user = this.afAuth.currentUser;
-      console.log(user.then(u => u?.emailVerified))
       this.afAuth.currentUser.then((u: any) => {
         if(u.emailVerified){
           return this.afAuth
