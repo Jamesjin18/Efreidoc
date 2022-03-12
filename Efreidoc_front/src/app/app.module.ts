@@ -25,6 +25,7 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth.service';
+import { MajeurService } from './core/services/majeur.service';
 
 
 
@@ -57,7 +58,7 @@ import { AuthService } from './core/services/auth.service';
   exports:[
     NavbarComponent
   ],
-  providers: [AuthService],
+  providers: [AuthService,MajeurService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
