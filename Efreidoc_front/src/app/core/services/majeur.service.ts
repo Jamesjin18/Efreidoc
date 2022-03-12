@@ -12,7 +12,7 @@ export class MajeurService {
   majeur: Observable<Item[]>
 
   constructor(private firestore: AngularFirestore) {
-    this.majeur = this.firestore.collection<Item>('majeures').valueChanges()
+    this.majeur = this.firestore.collection<Item>('majeures').valueChanges({idField: 'id'})
   }
 
   getMajeurs() {

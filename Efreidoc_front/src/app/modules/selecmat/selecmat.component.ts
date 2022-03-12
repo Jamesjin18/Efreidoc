@@ -13,7 +13,6 @@ export class SelecmatComponent implements OnInit {
 
   constructor(afs:AngularFirestore, private majeurService: MajeurService) {
     this.majeurService.getMajeurs().subscribe(items => {
-      //console.log(items)
       this.majeurList = items;
     })
   }
