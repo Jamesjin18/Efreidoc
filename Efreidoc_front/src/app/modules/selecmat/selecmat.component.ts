@@ -9,8 +9,6 @@ import { Item } from 'src/app/models/Item';
   styleUrls: ['./selecmat.component.css']
 })
 export class SelecmatComponent implements OnInit {
-  @Input() majeurName:String = 'Matiere'
-  testMajeur = ['SE','Big Data','IA']
   majeurList: Item[] | undefined;
 
   constructor(afs:AngularFirestore, private majeurService: MajeurService) {
