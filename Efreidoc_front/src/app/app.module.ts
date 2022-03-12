@@ -16,9 +16,17 @@ import { ResourcesComponent } from './modules/resources/resources.component';
 import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 
+import { environment } from "src/environments/environment";
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-import { environment } from '../environments/environment';
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { AuthService } from './core/services/auth.service';
+
+
 
 @NgModule({
   declarations: [
@@ -40,12 +48,16 @@ import { environment } from '../environments/environment';
     MatFormFieldModule,
     MatSelectModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule,
+    AngularFireDatabaseModule,
+    ReactiveFormsModule
   ],
   exports:[
     NavbarComponent
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
