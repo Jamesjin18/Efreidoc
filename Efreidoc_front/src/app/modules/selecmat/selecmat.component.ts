@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { MajeurService } from 'src/app/services/majeur.service';
+import { MajeurService } from 'src/app/core/services/majeur.service';
 @Component({
   selector: 'app-selecmat',
   templateUrl: './selecmat.component.html',
