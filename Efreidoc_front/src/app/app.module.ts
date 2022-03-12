@@ -16,6 +16,10 @@ import { ResourcesComponent } from './modules/resources/resources.component';
 import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { environment } from '../environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +38,9 @@ import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
     BrowserAnimationsModule,
     MatCardModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireDatabaseModule
   ],
   exports:[
     NavbarComponent

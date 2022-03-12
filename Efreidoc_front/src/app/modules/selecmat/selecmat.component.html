@@ -1,1 +1,10 @@
-<p>selecmat works!</p>
+<app-navbar></app-navbar>
+<div>
+    <div id="majeur-list" class="list-group list-group-item-action" >
+        <button href="#" class="list-group-item list-group-item-action" 
+        *ngFor="let i of testMajeur" 
+        style="text-align: center;">
+            {{i}}
+        </button>
+    </div>
+</div>
