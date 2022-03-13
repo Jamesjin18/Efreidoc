@@ -7,7 +7,7 @@
     <div *ngFor="let annee of annees" class="row">
         <div class="col-2"></div>
         <div class="col-8">
-            <div class="rectanglarondi">
+            <div class="rectanglarondi" (click)="goToSelecmat(annee)">
                 <p class="lignegauche"></p><p>{{annee}}</p><p class="lignedroite"></p>
             </div>
         </div> 
