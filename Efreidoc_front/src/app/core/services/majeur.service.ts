@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import {Item} from '../../models/Item';
+import {Majeur} from '../../models/majeur';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,10 @@ import {Item} from '../../models/Item';
 export class MajeurService {
 
   //majeurCollection: AngularFirestoreCollection<Item>;
-  majeur: Observable<Item[]>
+  majeur: Observable<Majeur[]>
 
   constructor(private firestore: AngularFirestore) {
-    this.majeur = this.firestore.collection<Item>('majeures').valueChanges({idField: 'id'})
+    this.majeur = this.firestore.collection<Majeur>('majeures').valueChanges({idField: 'id'})
   }
 
   getMajeurs() {
