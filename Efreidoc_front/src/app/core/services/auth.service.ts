@@ -18,21 +18,14 @@ export class AuthService {
 
     // Sign in with email/password
     SignIn(email: string, password: string) {
-      this.afAuth.currentUser.then((u: any) => {
-        if(u.emailVerified){
-          return this.afAuth
-            .signInWithEmailAndPassword(email, password)
-            .then((result) => {
-              this.router.navigate(['/', 'home'])
-            })
-            .catch((error) => {
-              window.alert(error.message);
-            });
-        } else {
-          window.alert("email not verified")
-          return
-        }
-      })
+      return this.afAuth
+        .signInWithEmailAndPassword(email, password)
+        .then((result) => {
+          this.router.navigate(['/', 'home'])
+        })
+        .catch((error) => {
+          window.alert(error.message);
+        });
     }
 
     // SignIn(email: string, password: string) {
@@ -53,7 +46,8 @@ export class AuthService {
         .then((result) => {
           /* Call the SendVerificaitonMail() function when new user sign 
           up and returns promise */
-          this.SendVerificationMail();
+          // this.SendVerificationMail();
+          this.router.navigate(['/','login']);
         })
         .catch((error) => {
           window.alert(error.message);
@@ -61,13 +55,14 @@ export class AuthService {
     }
 
     // Send email verfificaiton when new user sign up
-    SendVerificationMail() {
-      return this.afAuth.currentUser
-        .then((u: any) => u.sendEmailVerification())
-        .then(() => {
-          this.router.navigate(['/','login']);
-        });
-    }
+    // SendVerificationMail() {
+    //   return this.afAuth.currentUser
+    //     .then((u: any) => u.sendEmailVerification())
+    //     .then(() => {
+    //       this.router.navigate(['/','login']);
+    //       alert("Rechargez la page après avoir validé votre email")
+    //     });
+    // }
 
     // Reset Forggot password
     ForgotPassword(passwordResetEmail: string) {
@@ -91,8 +86,7 @@ export class AuthService {
     // Sign out
     SignOut() {
       return this.afAuth.signOut().then(() => {
-        localStorage.removeItem('user');
-        this.router.navigate(['sign-in']);
+        this.router.navigate(['/','login']);
       });
     }
   }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+
 import { AngularFirestore, QueryDocumentSnapshot, QuerySnapshot } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
