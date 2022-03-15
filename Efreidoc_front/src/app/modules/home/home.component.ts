@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NavigationService } from 'src/app/core/services/navigation.service';
+
+import { AngularFirestore, QueryDocumentSnapshot, QuerySnapshot } from '@angular/fire/compat/firestore';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-home',
@@ -8,19 +10,11 @@ import { NavigationService } from 'src/app/core/services/navigation.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  promoSnap: any;
 
-  annees = ["Master 2","Master 1","Licence 3", "Licence 2", "Licence 1"]
-
-  constructor(public navigationservice: NavigationService,
-              public router: Router) { }
+  constructor(private afs:AngularFirestore, private router: ActivatedRoute, private _route:Router) { }
 
   ngOnInit(): void {
+    this.afs.collection('efrei').ref.get().then(data => this.promoSnap = data.docs)
   }
-
-  goToSelecmat(annee : string) {
-    console.log(annee);
-    this.navigationservice.setAnnee(annee);
-    this.router.navigate(['/','selecmat']);
-  }
-
 }

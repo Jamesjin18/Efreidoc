@@ -26,6 +26,9 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth.service';
 import { MajeurService } from './core/services/majeur.service';
+import { SelecClassComponent } from './selec-class/selec-class.component';
+import { SelectCoursComponent } from './select-cours/select-cours.component';
+import { SelectDocumentsComponent } from './select-documents/select-documents.component';
 
 
 
@@ -39,7 +42,10 @@ import { MajeurService } from './core/services/majeur.service';
     SelecmatComponent,
     ResourcesComponent,
     ResourcespageComponent,
-    AjoutdocComponent
+    AjoutdocComponent,
+    SelecClassComponent,
+    SelectCoursComponent,
+    SelectDocumentsComponent
   ],
   imports: [
     BrowserModule,

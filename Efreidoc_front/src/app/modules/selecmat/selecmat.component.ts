@@ -11,16 +11,12 @@ import { Majeur } from 'src/app/models/majeur';
 export class SelecmatComponent implements OnInit {
   majeurList: Majeur[] | undefined;
 
-  constructor(afs:AngularFirestore, private majeurService: MajeurService) {
-    this.majeurService.getMajeurs().subscribe(items => {
-      this.majeurList = items;
-    })
+  constructor(private afs:AngularFirestore, private majeurService: MajeurService) {
   }
   
-
   ngOnInit(): void {
 
-    
+    this.afs.collection('efrei').ref.get().then(data => data.forEach(ele => console.log(ele.id)))
   }
   
 }
