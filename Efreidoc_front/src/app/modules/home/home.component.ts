@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore, QueryDocumentSnapshot, QuerySnapshot } from '@angular/fire/compat/firestore';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,12 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  promoSnap: any;
 
-  annees = ["Master 2","Master 1","Licence 3", "Licence 2", "Licence 1"]
-
-  constructor() { }
+  constructor(private afs:AngularFirestore, private router: ActivatedRoute, private _route:Router) { }
 
   ngOnInit(): void {
+    this.afs.collection('efrei').ref.get().then(data => this.promoSnap = data.docs)
   }
-
 }

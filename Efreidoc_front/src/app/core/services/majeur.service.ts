@@ -9,14 +9,14 @@ import {Majeur} from '../../models/majeur';
 export class MajeurService {
 
   //majeurCollection: AngularFirestoreCollection<Item>;
-  majeur: Observable<Majeur[]>
+  promo: Observable<Majeur[]>
 
   constructor(private firestore: AngularFirestore) {
-    this.majeur = this.firestore.collection<Majeur>('majeures').valueChanges({idField: 'id'})
+    this.promo = this.firestore.collection<Majeur>('efrei').valueChanges({idField: 'id'})
   }
 
   getMajeurs() {
-    return this.majeur
+    return this.promo
   }
 
   /**
