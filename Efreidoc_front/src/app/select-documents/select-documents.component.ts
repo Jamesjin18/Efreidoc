@@ -65,7 +65,9 @@ export class SelectDocumentsComponent implements OnInit {
     console.log(allFile);
     const date = new Date();
     const dateUpload = date.getTime();
-    for (let i in allFile) {
+    let index = -1;
+    for (let file of allFile) {
+      index++;
       // Create a root reference
       const storageRef = firebase.storage().ref();
 
@@ -75,14 +77,15 @@ export class SelectDocumentsComponent implements OnInit {
       };
 
       // Upload file and metadata to the object 'images/mountains.jpg'
-      if (allFile[i].webkitRelativePath) {
-        var filePath = allFile[i].webkitRelativePath.slice(
+      if (file.webkitRelativePath) {
+        var filePath = file.webkitRelativePath.slice(
           0,
-          allFile[i].webkitRelativePath.lastIndexOf('/')
+          file.webkitRelativePath.lastIndexOf('/')
         );
       }
       //var filePath = allFile[0].webkitRelativePath.slice(0,allFile[0].webkitRelativePath.lastIndexOf('/'))
-      console.log(allFile[i].webkitRelativePath);
+      console.log(index);
+      console.log(file.webkitRelativePath);
       console.log(filePath);
       const uploadTask = storageRef
         .child(
@@ -93,9 +96,9 @@ export class SelectDocumentsComponent implements OnInit {
             '/' +
             filePath +
             '/' +
-            allFile[i].name
+            file.name
         )
-        .put(allFile[i], metadata);
+        .put(file, metadata);
 
       // Listen for state changes, errors, and completion of the upload.
       uploadTask.on(
@@ -154,14 +157,14 @@ export class SelectDocumentsComponent implements OnInit {
                 { merge: true }
               )
               .then(() => {
-                for (let file of allFile) {
+                uploadTask.snapshot.ref.getMetadata().then((metadata) => {
                   this.setUploadName(
                     ref,
                     file.webkitRelativePath,
                     dateUpload.toString(),
-                    uploadTask
+                    metadata.size
                   );
-                }
+                });
               });
           });
         }
@@ -173,30 +176,66 @@ export class SelectDocumentsComponent implements OnInit {
     ref: AngularFirestoreDocument<firebase.firestore.DocumentData>,
     filePath: string,
     date: string,
-    uploadTask: firebase.storage.UploadTask
+    size: number
   ) {
-    uploadTask.snapshot.ref.getMetadata().then((metadata) => {
-      const allNameFolder: string[] = filePath.split('/');
-      let refUpdate = ref;
-      let index = 0;
-      let path = this.folderinit + '/' + date;
-      for (let nameFolder of allNameFolder) {
-        path = path + '/' + nameFolder;
-        if (index < allNameFolder.length - 1) {
-          refUpdate
-            .collection('folder')
-            .doc(nameFolder)
-            .set({ path: path }, { merge: true });
-          refUpdate = refUpdate.collection('folder').doc(nameFolder);
-          index++;
-        } else {
-          refUpdate
-            .collection('file')
-            .doc(nameFolder)
-            .set({ path: path, size: metadata.size }, { merge: true });
-          refUpdate = refUpdate.collection('folder').doc(nameFolder);
-        }
+    const allNameFolder: string[] = filePath.split('/');
+    let refUpdate = ref;
+    let index = 0;
+    let path = this.folderinit + '/' + date;
+    for (let nameFolder of allNameFolder) {
+      path = path + '/' + nameFolder;
+      if (index < allNameFolder.length - 1) {
+        refUpdate
+          .collection('folder')
+          .doc(nameFolder)
+          .set(
+            {
+              path: path,
+              name: nameFolder,
+              type: 'folder',
+              description: '',
+              size: firebase.firestore.FieldValue.increment(0),
+            },
+            { merge: true }
+          );
+        refUpdate = refUpdate.collection('folder').doc(nameFolder);
+      } else {
+        refUpdate.collection('file').doc(nameFolder).set(
+          {
+            path: path,
+            name: nameFolder,
+            type: 'file',
+            description: '',
+            size: size,
+          },
+          { merge: true }
+        );
+        refUpdate = refUpdate.collection('folder').doc(nameFolder);
       }
-    });
+      index++;
+    }
+    let index2 = 0;
+    let refUpdate2 = ref;
+    let path2 = this.folderinit + '/' + date;
+    for (let nameFolder of allNameFolder) {
+      path2 = path2 + '/' + nameFolder;
+      if (index2 < allNameFolder.length - 1) {
+        console.log('update');
+        console.log(nameFolder);
+        console.log(size);
+        refUpdate2
+          .collection('folder')
+          .doc(nameFolder)
+          .set(
+            {
+              path: path2,
+              size: firebase.firestore.FieldValue.increment(size),
+            },
+            { merge: true }
+          );
+        refUpdate2 = refUpdate2.collection('folder').doc(nameFolder);
+      }
+      index2++;
+    }
   }
 }
