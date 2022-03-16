@@ -9,7 +9,7 @@
       class="rectanglarondi list-group-item list-group-item-action"
       *ngFor="let i of coursSnap"
       style="text-align: center"
-      [routerLink]="['documents']"
+      [routerLink]="[i.id]"
     >
       {{ i.id }}
     </a>
