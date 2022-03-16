@@ -153,7 +153,12 @@ export class SelectDocumentsComponent implements OnInit {
 
             ref
               .set(
-                { path: this.folderinit + '/' + dateUpload.toString() },
+                {
+                  path: this.folderinit + '/' + dateUpload.toString(),
+                  name: file.webkitRelativePath.split('/')[0],
+                  type: 'folder',
+                  description: '',
+                },
                 { merge: true }
               )
               .then(() => {
@@ -237,5 +242,20 @@ export class SelectDocumentsComponent implements OnInit {
       }
       index2++;
     }
+
+    this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .collection('documents')
+      .doc(date)
+      .update({
+        size: firebase.firestore.FieldValue.increment(size),
+      });
   }
 }
