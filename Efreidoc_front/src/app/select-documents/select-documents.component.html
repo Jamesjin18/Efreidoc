@@ -13,6 +13,7 @@
     <tr>
       <td>name</td>
       <td>type</td>
+      <td>description</td>
       <td>download</td>
     </tr>
     <tr *ngFor="let i of documentsSnap" style="text-align: center">
@@ -21,6 +22,9 @@
       </td>
       <td>
         {{ i.get("type") }}
+      </td>
+      <td>
+        {{ i.get("description") }}
       </td>
       <td>
         <button></button>
