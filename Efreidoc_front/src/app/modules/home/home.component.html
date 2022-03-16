@@ -1,14 +1,25 @@
 <app-navbar></app-navbar>
 <div class="container">
-    <div class="row">
-        <p id="titre">Année des ressources</p>
-    </div>
-    <div class="row" >
-        <a class="rectanglarondi list-group-item list-group-item-action" 
-        *ngFor="let i of promoSnap" 
-        style="text-align: center;" 
-        [routerLink]="[i.id]">
-            {{i.id}}
-        </a>
-    </div>
+  <div class="row">
+    <p id="titre">Année des ressources</p>
+  </div>
+  <div class="row">
+    <a
+      class="rectanglarondi list-group-item list-group-item-action"
+      *ngFor="let i of promoSnap"
+      style="text-align: center"
+      [routerLink]="[i.id]"
+    >
+      {{ i.id }}
+    </a>
+    <ng-container *ngIf="appComponent.user">
+      <a
+        *ngIf="appComponent.user.roles.admin === true"
+        class="rectanglarondi list-group-item list-group-item-action"
+        style="text-align: center; background-color: red"
+        (click)="openAddPromo()"
+        >Add new promotion</a
+      >
+    </ng-container>
+  </div>
 </div>

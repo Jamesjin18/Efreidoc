@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
             reject(false);
           }
         } else {
-          console.log('no user');
+          console.log('no user authguard');
           this.router.navigate(['/login']);
           reject(false);
         }

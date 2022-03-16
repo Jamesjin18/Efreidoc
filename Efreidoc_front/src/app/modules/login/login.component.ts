@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { getAuth } from 'firebase/auth';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -30,11 +32,20 @@ export class LoginComponent implements OnInit {
         const emailVerified = user.emailVerified;
         if (emailVerified === false) {
           this.auth.SignOut();
+          this.popUpEmailNotVerified();
           console.log('email not verified');
         } else {
           console.log('login success');
         }
       }
+    });
+  }
+
+  popUpEmailNotVerified() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Email non vérifié',
+      text: 'Cliquez sur le lien de validation envoyer par mail',
     });
   }
 }
