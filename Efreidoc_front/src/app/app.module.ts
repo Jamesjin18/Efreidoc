@@ -6,9 +6,9 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './modules/login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupComponent } from './modules/signup/signup.component';
-import {MatCardModule} from '@angular/material/card';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatSelectModule} from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { HomeComponent } from './modules/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SelecmatComponent } from './modules/selecmat/selecmat.component';
@@ -16,7 +16,7 @@ import { ResourcesComponent } from './modules/resources/resources.component';
 import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 
-import { environment } from "src/environments/environment";
+import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFireStorageModule } from '@angular/fire/compat/storage';
@@ -30,7 +30,7 @@ import { SelecClassComponent } from './selec-class/selec-class.component';
 import { SelectCoursComponent } from './select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './select-documents/select-documents.component';
 
-
+import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +45,7 @@ import { SelectDocumentsComponent } from './select-documents/select-documents.co
     AjoutdocComponent,
     SelecClassComponent,
     SelectCoursComponent,
-    SelectDocumentsComponent
+    SelectDocumentsComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,12 +59,10 @@ import { SelectDocumentsComponent } from './select-documents/select-documents.co
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  exports:[
-    NavbarComponent
-  ],
-  providers: [AuthService,MajeurService],
-  bootstrap: [AppComponent]
+  exports: [NavbarComponent],
+  providers: [AuthService, MajeurService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

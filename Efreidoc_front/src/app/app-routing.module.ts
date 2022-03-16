@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/login.component';
@@ -11,23 +12,44 @@ import { SelecClassComponent } from './selec-class/selec-class.component';
 import { SelectCoursComponent } from './select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './select-documents/select-documents.component';
 
-
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'home', component: HomeComponent},
-  { path: 'home/:promo', component: SelecClassComponent},
-  { path: 'home/:promo/:class', component: SelectCoursComponent},
-  { path: 'home/:promo/:class/documents', component: SelectDocumentsComponent},
-  { path: 'selecmat', component: SelecmatComponent},
-  { path: 'resources', component: ResourcesComponent},
-  { path: 'resourcespage', component: ResourcespageComponent},
-  { path: 'ajoutdoc', component: AjoutdocComponent},
-  { path: '',   redirectTo: '/login', pathMatch: 'full' }
+  { canActivate: [AuthGuard], path: 'home', component: HomeComponent },
+  {
+    canActivate: [AuthGuard],
+    path: 'home/:promo',
+    component: SelecClassComponent,
+  },
+  {
+    canActivate: [AuthGuard],
+    path: 'home/:promo/:class',
+    component: SelectCoursComponent,
+  },
+  {
+    canActivate: [AuthGuard],
+    path: 'home/:promo/:class/documents',
+    component: SelectDocumentsComponent,
+  },
+  { canActivate: [AuthGuard], path: 'selecmat', component: SelecmatComponent },
+  {
+    canActivate: [AuthGuard],
+    path: 'resources',
+    component: ResourcesComponent,
+  },
+  {
+    canActivate: [AuthGuard],
+    path: 'resourcespage',
+    component: ResourcespageComponent,
+  },
+  { canActivate: [AuthGuard], path: 'ajoutdoc', component: AjoutdocComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', redirectTo: '/login' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
