@@ -1,0 +1,11 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <a
+    class="list-group-item list-group-item-action"
+    *ngFor="let i of coursTypeSnap"
+    style="text-align: center"
+    [routerLink]="[i.id]"
+  >
+    {{ i.id }}
+  </a>
+</div>

@@ -31,6 +31,7 @@ import { SelectCoursComponent } from './select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './select-documents/select-documents.component';
 
 import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
+import { SelectCoursTypeComponent } from './select-cours-type/select-cours-type.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
     SelecClassComponent,
     SelectCoursComponent,
     SelectDocumentsComponent,
+    SelectCoursTypeComponent,
   ],
   imports: [
     BrowserModule,
