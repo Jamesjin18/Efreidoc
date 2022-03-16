@@ -1,23 +1,30 @@
 <app-navbar></app-navbar>
+<p>
+  Directory:
+  <input
+    type="file"
+    webkitdirectory
+    mozdirectory
+    (change)="uploading($event)"
+  />
+</p>
 <div class="container">
-    <table>
-        <tr>
-            <td>name</td>
-            <td>type</td>
-            <td>download</td>
-        </tr>
-        <tr
-        *ngFor="let i of documentsSnap"
-        style="text-align: center">
-            <td>
-                {{ i.get('name') }}
-            </td>
-            <td>
-                {{ i.get('type') }}
-            </td>
-            <td>
-                <button></button>
-            </td>
-        </tr>
-    </table>
+  <table>
+    <tr>
+      <td>name</td>
+      <td>type</td>
+      <td>download</td>
+    </tr>
+    <tr *ngFor="let i of documentsSnap" style="text-align: center">
+      <td>
+        {{ i.get("name") }}
+      </td>
+      <td>
+        {{ i.get("type") }}
+      </td>
+      <td>
+        <button></button>
+      </td>
+    </tr>
+  </table>
 </div>
