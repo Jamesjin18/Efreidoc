@@ -13,5 +13,14 @@
     >
       {{ i.id }}
     </a>
+    <ng-container *ngIf="appComponent.user">
+      <a
+        *ngIf="appComponent.user.roles.admin === true"
+        class="rectanglarondi list-group-item list-group-item-action"
+        style="text-align: center; background-color: red"
+        (click)="openAddMatiere()"
+        >Ajouter une matière</a
+      >
+    </ng-container>
   </div>
 </div>
