@@ -7,6 +7,11 @@ import { ActivatedRoute } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
+import {getDownloadURL, getStorage, list, ref} from 'firebase/storage'
+import { fileToZip } from '../models/listFileToZip';
+import * as JSZip from 'jszip';
+import { FormGroup } from '@angular/forms';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-select-documents',
@@ -24,6 +29,33 @@ export class SelectDocumentsComponent implements OnInit {
   public folderinit = '';
   public folder: any = null;
   documentsSnap: any;
+  jsonHeader = 'application/json; odata=verbose';
+  headersOld = new Headers({
+    'Content-Type': this.jsonHeader,
+    Accept: this.jsonHeader,
+  });
+  headers = { 'Content-Type': this.jsonHeader, Accept: this.jsonHeader };
+  title = 'uploadtest';
+  public progressFile = 0;
+  public numberFiles = 0;
+  public downloadProgress = 0;
+
+  errorMessage = '';
+  signInForm!: FormGroup;
+  authStatus: boolean | undefined;
+  public hovered = false;
+
+  public isAuth = false;
+
+  public url = '';
+
+  public filesArray = [];
+
+  public links: string[] = [];
+
+  public listFileToZip: fileToZip[] = [];
+  public finish: number[] = [];
+  
   constructor(private router: ActivatedRoute, private afs: AngularFirestore) {}
 
   ngOnInit(): void {
@@ -54,9 +86,10 @@ export class SelectDocumentsComponent implements OnInit {
           '/documents'
       )
       .ref.get()
-      .then((data) => (this.documentsSnap = data.docs));
+      .then((data) => this.documentsSnap = data.docs);
     console.log(this.documentsSnap);
   }
+
   displaySize(size: number) {
     if(size>=1000000) {
       return size/1000000.0+" Go"
@@ -65,6 +98,131 @@ export class SelectDocumentsComponent implements OnInit {
     }
     return size+" Ko"
   }
+
+  async pageTokenExample(folder: string, folderinit: string) {
+    this.finish.push(0);
+    const storage = getStorage();
+    const listRef = ref(storage, folder);
+
+    const firstPage = await list(listRef, { maxResults: 100 });
+    console.log(firstPage);
+    for (let folder of firstPage.prefixes) {
+      this.pageTokenExample(folder.fullPath, folderinit);
+    }
+    for (let file of firstPage.items) {
+      this.listFileToZip.push({
+        path: file.fullPath,
+        name: file.name,
+      });
+    }
+    this.finish.pop();
+    if (this.finish.length === 0) {
+      console.log('fini');
+      console.log(this.listFileToZip);
+      if (this.listFileToZip.length === 0) {
+        this.downloadBlobFile(
+          folder,
+          folderinit[folderinit.length - 1] === '/'
+            ? folderinit
+            : folderinit + '/'
+        );
+      } else {
+        this.downloadBlob(
+          folderinit[folderinit.length - 1] === '/'
+            ? folderinit
+            : folderinit + '/'
+        );
+      }
+    }
+  }
+
+  downloadBlobFile(folder: string, folderinit: string) {
+    const storage = getStorage();
+    const zip = new JSZip();
+    const docRef = ref(storage, folder);
+    getDownloadURL(docRef)
+      .then((url) => {
+        const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = (event) => {
+          const blob = xhr.response;
+          console.log(blob);
+          let file = folder.replace(folderinit, '');
+          console.log(file);
+          zip.file(file, blob);
+          var that = this;
+          console.log('in');
+          zip
+            .generateAsync({ type: 'blob' }, function updateCallback(metadata) {
+              console.log(metadata.percent);
+              that.downloadProgress = metadata.percent;
+            })
+            .then(function (content: any) {
+              console.log('fini');
+              FileSaver.saveAs(content, 'file.zip');
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        };
+        xhr.open('GET', url);
+        xhr.send();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  downloadBlob(folderinit: string) {
+    const storage = getStorage();
+    const zip = new JSZip();
+    var index = 0;
+
+    for (let doc of this.listFileToZip) {
+      console.log('ici');
+      console.log(doc);
+      const docRef = ref(storage, doc.path);
+      getDownloadURL(docRef)
+        .then((url) => {
+          const xhr = new XMLHttpRequest();
+          xhr.responseType = 'blob';
+          xhr.onload = (event) => {
+            const blob = xhr.response;
+            console.log(blob);
+            let folder = doc.path.replace(folderinit, '');
+            console.log(folder);
+            zip.file(folder, blob);
+            index++;
+            console.log(index, this.listFileToZip.length);
+            if (index === this.listFileToZip.length) {
+              var that = this;
+              console.log('in');
+              zip
+                .generateAsync(
+                  { type: 'blob' },
+                  function updateCallback(metadata) {
+                    console.log(metadata.percent);
+                    that.downloadProgress = metadata.percent;
+                  }
+                )
+                .then(function (content: any) {
+                  console.log('fini');
+                  FileSaver.saveAs(content, 'file.zip');
+                })
+                .catch((error) => {
+                  console.log(error);
+                });
+            }
+          };
+          xhr.open('GET', url);
+          xhr.send();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }
+
   uploading(event: any) {
     console.log(event);
     var allFile = event.target.files;
@@ -99,7 +257,6 @@ export class SelectDocumentsComponent implements OnInit {
       console.log(filePath);
       const uploadTask = storageRef
         .child(
-          'efrei/' +
             this.folderinit +
             '/' +
             dateUpload +
