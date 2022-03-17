@@ -1,19 +1,19 @@
 #titre {
     margin-top: 1em;
     text-align: center;
-    color: white;
+    color: black;
     font-size: 2em;
 }
 
 .rectanglarondi {
     text-align: center;
-    background-color: rgb(23, 23, 92);
-    border-radius: 10px;
-    height: 10vh;
+    border: 5px solid rgb(2, 62, 138, 0.75);
+    background-color: #CAF0F8;
+    height: 70px;
     margin: 10px;
     font-size: 3em;
     position: relative;
-    box-shadow: 5px 5px 5px black;
+    /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondi p {
@@ -21,7 +21,7 @@
     top: 50%;
     left: 1px;
     right: 1px;
-    color: white;
+    color: rgb(2, 62, 138, 0.75);
     padding: 20px;
     transform: translateY(-50%);
     resize: vertical;
@@ -30,15 +30,105 @@
 .rectanglarondi .lignegauche{
     left: 1em;
     padding: 0px;
-    width: 5em;
+    width: 10em;
     height: 0px;
-    border: 0.3px solid #FFFFFF;
+    border: 0.3px solid rgb(2, 62, 138, 0.75);
 }
 
 .rectanglarondi .lignedroite{
-    left: 11.5em;
+    left: 16.5em;
     padding: 0px;
-    width: 5em;
+    width: 10em;
     height: 0px;
-    border: 0.3px solid #FFFFFF;
+    border: 0.3px solid rgb(2, 62, 138, 0.75);
+}
+
+.rectanglarondiinverse {
+    transition: 0.5s;
+    text-align: center;
+    background-color: rgb(2, 62, 138, 0.75);
+    height: 70px;
+    margin: 10px;
+    font-size: 3em;
+    border: 5px solid rgb(2, 62, 138, 0);
+    position: relative;
+    cursor: pointer;
+    /* box-shadow: 5px 5px 5px black; */
+}
+
+.rectanglarondiinverse p {
+    transition: 0.5s;
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    right: 1px;
+    color: #CAF0F8;
+    padding: 20px;
+    transform: translateY(-50%);
+    resize: vertical;
+}
+
+.rectanglarondi:hover {
+    transition: 0.5s;
+    text-align: center;
+    background-color: rgb(2, 62, 138, 0.75);
+    height: 70px;
+    margin: 10px;
+    font-size: 3em;
+    border: 5px solid rgb(2, 62, 138, 0);
+    position: relative;
+    /* box-shadow: 5px 5px 5px black; */
+}
+
+.rectanglarondi:hover p {
+    transition: 0.5s;
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    right: 1px;
+    color: #CAF0F8;
+    padding: 20px;
+    transform: translateY(-50%);
+    resize: vertical;
+}
+
+.rectanglarondi:hover .lignegauche{
+    transition: 0.5s;
+    left: 1em;
+    padding: 0px;
+    width: 10em;
+    height: 0px;
+    border: 0.3px solid #CAF0F8;
+}
+
+.rectanglarondi:hover .lignedroite{
+    transition: 0.5s;
+    left: 16.5em;
+    padding: 0px;
+    width: 10em;
+    height: 0px;
+    border: 0.3px solid #CAF0F8;
+}
+
+.rectanglarondiinverse:hover {
+    text-align: center;
+    border: 5px solid rgb(2, 62, 138, 0.75);
+    background-color: #CAF0F8;
+    height: 70px;
+    margin: 10px;
+    font-size: 3em;
+    position: relative;
+    cursor: pointer;
+    /* box-shadow: 5px 5px 5px black; */
+}
+
+.rectanglarondiinverse:hover p {
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    right: 1px;
+    color: rgb(2, 62, 138, 0.75);
+    padding: 20px;
+    transform: translateY(-50%);
+    resize: vertical;
 }

@@ -1,0 +1,100 @@
+#titre {
+    margin-top: 1em;
+    text-align: center;
+    color: black;
+    font-size: 2em;
+}
+
+.rectanglarondi {
+    text-align: center;
+    border: 2px solid rgb(2, 62, 138, 0.75);
+    background-color: #CAF0F8;
+    height: 50px;
+    margin: 5px;
+    font-size: 1em;
+    position: relative;
+    /* box-shadow: 5px 5px 5px black; */
+}
+
+.rectanglarondi p {
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    right: 1px;
+    color: rgb(2, 62, 138, 0.75);
+    transform: translateY(-50%);
+    resize: vertical;
+    font-size: 20px;
+}
+
+.rectanglarondiinverse {
+    text-align: center;
+    background-color: rgb(2, 62, 138, 0.75);
+    height: 50px;
+    margin: 5px;
+    font-size: 1em;
+    border: 1px solid rgb(2, 62, 138, 0);
+    position: relative;
+    cursor: pointer;
+    /* box-shadow: 5px 5px 5px black; */
+}
+
+.rectanglarondiinverse p {
+    transition: 0.5s;
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    right: 1px;
+    color: #CAF0F8;
+    padding: 20px;
+    transform: translateY(-50%);
+    resize: vertical;
+}
+
+.rectanglarondi:hover {
+    transition: 0.5s;
+    text-align: center;
+    background-color: rgb(2, 62, 138, 0.75);
+    height: 50px;
+    margin: 5px;
+    font-size: 1em;
+    border: 1px solid rgb(2, 62, 138, 0);
+    position: relative;
+    /* box-shadow: 5px 5px 5px black; */
+}
+
+.rectanglarondi:hover p {
+    transition: 0.5s;
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    right: 1px;
+    color: #CAF0F8;
+    transform: translateY(-50%);
+    resize: vertical;
+    font-size: 20px;
+}
+
+.rectanglarondiinverse:hover {
+    transition: 0.5s;
+    text-align: center;
+    border: 2px solid rgb(2, 62, 138, 0.75);
+    background-color: #CAF0F8;
+    height: 50px;
+    margin: 5px;
+    font-size: 1em;
+    position: relative;
+    cursor: pointer;
+    /* box-shadow: 5px 5px 5px black; */
+}
+
+.rectanglarondiinverse:hover p {
+    position: absolute;
+    top: 50%;
+    left: 1px;
+    right: 1px;
+    color: rgb(2, 62, 138, 0.75);
+    padding: 20px;
+    transform: translateY(-50%);
+    resize: vertical;
+}

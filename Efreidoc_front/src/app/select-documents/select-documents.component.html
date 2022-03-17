@@ -2,12 +2,15 @@
 <p>
   Directory:
   <input
+    [attr.disabled]="description.length === 0 ? '' : null"
     type="file"
     webkitdirectory
     mozdirectory
     (change)="uploading($event)"
   />
 </p>
+<p>Description de l'upload</p>
+<input [(ngModel)]="description" />
 <div class="container">
   <table class="table table-bordered table-dark">
     <thead>
