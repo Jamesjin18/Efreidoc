@@ -1,7 +1,7 @@
-import { Doc } from "./doc";
+import { Doc } from './doc';
 
 export class Cour {
-    id?: string;
-    name?: string;
-    documents?: Array<Doc>
+  id?: string;
+  name?: string;
+  documents?: Array<Doc>;
 }

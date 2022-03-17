@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreCollection,
+} from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import {Majeur} from '../../models/majeur';
+import { Majeur } from '../../models/majeur';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MajeurService {
-
   //majeurCollection: AngularFirestoreCollection<Item>;
-  promo: Observable<Majeur[]>
+  promo: Observable<Majeur[]>;
 
   constructor(private firestore: AngularFirestore) {
-    this.promo = this.firestore.collection<Majeur>('efrei').valueChanges({idField: 'id'})
+    this.promo = this.firestore
+      .collection<Majeur>('efrei')
+      .valueChanges({ idField: 'id' });
   }
 
   getMajeurs() {
-    return this.promo
+    return this.promo;
   }
 
   /**
@@ -31,5 +35,4 @@ export class MajeurService {
   // deleteMajeur(id: string){
   //   this.firestore.doc('majeurs/' + id).delete();
   // }
-
 }

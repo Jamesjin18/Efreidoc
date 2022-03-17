@@ -8,9 +8,8 @@ describe('AjoutdocComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AjoutdocComponent ]
-    })
-    .compileComponents();
+      declarations: [AjoutdocComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

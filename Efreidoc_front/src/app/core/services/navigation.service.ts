@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
-
-  private annee : string | null = "";
-  private ressource : string = "";
-  private majeure : string = "";
-  private matiere : string = "";
+  private annee: string | null = '';
+  private ressource: string = '';
+  private majeure: string = '';
+  private matiere: string = '';
 
   constructor() {
     this.annee = JSON.parse(localStorage.getItem('annee')!);
@@ -17,40 +16,39 @@ export class NavigationService {
     this.matiere = JSON.parse(localStorage.getItem('matiere')!);
   }
 
-  getAnnee(){
+  getAnnee() {
     return this.annee;
   }
 
-  setAnnee(annee: string){
+  setAnnee(annee: string) {
     localStorage.setItem('annee', JSON.stringify(annee));
     this.annee = annee;
   }
 
-  getRessource(){
+  getRessource() {
     return this.ressource;
   }
 
-  setRessource(ressource: string){
+  setRessource(ressource: string) {
     localStorage.setItem('ressource', JSON.stringify(ressource));
     this.ressource = ressource;
   }
 
-  getMajeure(){
+  getMajeure() {
     return this.majeure;
   }
 
-  setMajeure(majeure: string){
+  setMajeure(majeure: string) {
     localStorage.setItem('majeure', JSON.stringify(majeure));
     this.majeure = majeure;
   }
 
-  getMatiere(){
+  getMatiere() {
     return this.matiere;
   }
 
-  setMatiere(matiere: string){
+  setMatiere(matiere: string) {
     localStorage.setItem('matiere', JSON.stringify(matiere));
     this.matiere = matiere;
   }
-
 }

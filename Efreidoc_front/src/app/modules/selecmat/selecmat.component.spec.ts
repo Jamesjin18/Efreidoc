@@ -8,9 +8,8 @@ describe('SelecmatComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelecmatComponent ]
-    })
-    .compileComponents();
+      declarations: [SelecmatComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

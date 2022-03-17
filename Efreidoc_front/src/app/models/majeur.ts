@@ -1,8 +1,8 @@
-import { Cour } from "./cour";
+import { Cour } from './cour';
 
 export class Majeur {
-    id?: string;
-    name?: string;
-    type?: string;
-    cours?: Array<Cour>
+  id?: string;
+  name?: string;
+  type?: string;
+  cours?: Array<Cour>;
 }
