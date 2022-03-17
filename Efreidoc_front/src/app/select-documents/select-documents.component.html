@@ -18,6 +18,7 @@
         <td scope="col">name</td>
         <td scope="col">type</td>
         <td scope="col">description</td>
+        <td scope="col">size</td>
         <td scope="col">download</td>
       </tr>
     </thead>
@@ -31,6 +32,9 @@
         </td>
         <td>
           {{ i.get("description") }}
+        </td>
+        <td>
+          {{ displaySize(i.get("size")) }}
         </td>
         <td>
           <button></button>
