@@ -1,20 +1,19 @@
 <app-navbar></app-navbar>
 <div class="container">
   <a
-    class="list-group-item list-group-item-action"
+    class="rectanglarondi list-group-item list-group-item-action"
     *ngFor="let i of coursTypeSnap"
     style="text-align: center"
     [routerLink]="[i.id]"
   >
-    {{ i.id }}
+    <p>{{ i.id }}</p>
   </a>
   <ng-container *ngIf="appComponent.user">
     <a
       *ngIf="appComponent.user.roles.admin === true"
-      class="rectanglarondi list-group-item list-group-item-action"
-      style="text-align: center; background-color: red"
+      class="rectanglarondiinverse list-group-item list-group-item-action"
       (click)="openAddCoursType()"
-      >Ajouter une matière</a
+      ><p>Ajouter une matière</p></a
     >
   </ng-container>
 </div>
