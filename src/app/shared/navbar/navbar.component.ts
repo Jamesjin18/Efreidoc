@@ -6,6 +6,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -108,12 +110,36 @@ export class NavbarComponent {
                     doc.id + '/' + doc2.id + '/' + doc3.id + '/' + doc4.id
                   );
                 }
-                console.log(this.resultResearch);
+                Swal.fire({
+                  title: 'Results',
+                  icon: 'info',
+                  showClass: {
+                    popup: 'animated fadeInDown faster',
+                    icon: 'animated heartBeat delay-1s'
+                  },
+                  hideClass: {
+                    popup: 'animated fadeOutUp faster',
+                  },
+                  html: this.arrayToListHtml(this.resultResearch)
+                })
+                
               }
             });
           });
         });
       });
     });
+  }
+
+  arrayToListHtml(array: Array<string>) {
+    if (array.length === 0) {
+      return '<p>resources not found.</p>';
+    }
+    let html = '<ul>';
+    for(var index in array) { 
+      html += '<li><a href="home/'+array[index]+'">'+array[index]+'</a></li>';
+    }
+    html += '</ul>';
+    return html;
   }
 }
