@@ -103,14 +103,16 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   async pageTokenExample(folder: string, folderinit: string) {
+    console.log(folder);
+    console.log(folderinit);
     this.finish.push(0);
     const storage = getStorage();
     const listRef = ref(storage, folder);
 
     const firstPage = await list(listRef, { maxResults: 100 });
     console.log(firstPage);
-    for (let folder of firstPage.prefixes) {
-      this.pageTokenExample(folder.fullPath, folderinit);
+    for (let folders of firstPage.prefixes) {
+      this.pageTokenExample(folders.fullPath, folderinit);
     }
     for (let file of firstPage.items) {
       this.listFileToZip.push({
@@ -163,6 +165,7 @@ export class SelectDocumentsComponent implements OnInit {
             .then(function (content: any) {
               console.log('fini');
               FileSaver.saveAs(content, 'file.zip');
+              that.listFileToZip = [];
             })
             .catch((error) => {
               console.log(error);
@@ -211,6 +214,7 @@ export class SelectDocumentsComponent implements OnInit {
                 .then(function (content: any) {
                   console.log('fini');
                   FileSaver.saveAs(content, 'file.zip');
+                  that.listFileToZip = [];
                 })
                 .catch((error) => {
                   console.log(error);
