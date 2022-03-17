@@ -8,6 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { empty, Observable, switchMap } from 'rxjs';
 import { User } from 'src/app/models/user';
+import Swal from 'sweetalert2';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -42,7 +43,20 @@ export class AuthService {
         this.router.navigate(['/', 'home']);
       })
       .catch((error) => {
-        window.alert(error.message);
+        Swal.fire({
+          title: 'Sign in error',
+          input: error,
+          inputAttributes: {
+            autocapitalize: 'off',
+          },
+          confirmButtonText: 'Close',
+          showLoaderOnConfirm: true,
+          allowOutsideClick: () => !Swal.isLoading(),
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.close();
+          }
+        });
       });
   }
 
@@ -69,7 +83,20 @@ export class AuthService {
         this.router.navigate(['/', 'login']);
       })
       .catch((error) => {
-        window.alert(error.message);
+        Swal.fire({
+          title: 'Sign in error',
+          input: error,
+          inputAttributes: {
+            autocapitalize: 'off',
+          },
+          confirmButtonText: 'Close',
+          showLoaderOnConfirm: true,
+          allowOutsideClick: () => !Swal.isLoading(),
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.close();
+          }
+        });
       });
   }
 

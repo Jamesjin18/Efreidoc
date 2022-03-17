@@ -8,10 +8,10 @@ import { ResourcesComponent } from './modules/resources/resources.component';
 import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
 import { SelecmatComponent } from './modules/selecmat/selecmat.component';
 import { SignupComponent } from './modules/signup/signup.component';
-import { SelecClassComponent } from './selec-class/selec-class.component';
-import { SelectCoursTypeComponent } from './select-cours-type/select-cours-type.component';
-import { SelectCoursComponent } from './select-cours/select-cours.component';
-import { SelectDocumentsComponent } from './select-documents/select-documents.component';
+import { SelecClassComponent } from './modules/selec-class/selec-class.component';
+import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
+import { SelectCoursComponent } from './modules/select-cours/select-cours.component';
+import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },

@@ -26,12 +26,12 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth.service';
 import { MajeurService } from './core/services/majeur.service';
-import { SelecClassComponent } from './selec-class/selec-class.component';
-import { SelectCoursComponent } from './select-cours/select-cours.component';
-import { SelectDocumentsComponent } from './select-documents/select-documents.component';
+import { SelecClassComponent } from './modules/selec-class/selec-class.component';
+import { SelectCoursComponent } from './modules/select-cours/select-cours.component';
+import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
 
 import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
-import { SelectCoursTypeComponent } from './select-cours-type/select-cours-type.component';
+import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
 
 @NgModule({
   declarations: [

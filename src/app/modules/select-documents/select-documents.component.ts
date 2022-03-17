@@ -8,7 +8,7 @@ import firebase from 'firebase/compat/app';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
 import { getDownloadURL, getStorage, list, ref } from 'firebase/storage';
-import { fileToZip } from '../models/listFileToZip';
+import { fileToZip } from '../../models/listFileToZip';
 import * as JSZip from 'jszip';
 import { FormGroup } from '@angular/forms';
 import * as FileSaver from 'file-saver';
