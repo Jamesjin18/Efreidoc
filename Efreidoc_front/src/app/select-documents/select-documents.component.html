@@ -19,7 +19,7 @@
             : {}
         "
       >
-        Upload button
+        Folder upload button
       </label>
       <input
         id="input1"
@@ -31,11 +31,35 @@
         (change)="uploading($event)"
       />
     </p>
+  </div>
+  <div class="row">
+    <p style="padding-left: 0px">
+      <label
+        for="file"
+        class="btn btn-primary"
+        [ngStyle]="
+          description.length === 0
+            ? { backgroundColor: 'grey', 'border-color': 'grey' }
+            : {}
+        "
+      >
+        File upload button
+      </label>
+      <input
+        id="file"
+        [attr.disabled]="description.length === 0 ? '' : null"
+        type="file" 
+        id="file" 
+        style="display: none"
+        (change)="handleFileInput($event)" 
+        multiple
+      />
+    </p>
     <p style="padding-left: 0px">Description de l'upload</p>
+  </div>
+  <div class="row">
     <textarea [(ngModel)]="description"></textarea>
   </div>
-  <label for="file">Ajouter des photos</label>
-  <input type="file" id="file" (change)="handleFileInput($event)" multiple />
 </div>
 <div class="container" *ngIf="load === 'download'">
   <div class="row">
