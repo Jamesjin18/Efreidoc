@@ -6,6 +6,7 @@
 }
 
 .rectanglarondi {
+    transition: 0.5s;
     text-align: center;
     border: 5px solid rgb(2, 62, 138, 0.75);
     background-color: #CAF0F8;
@@ -17,6 +18,7 @@
 }
 
 .rectanglarondi p {
+    transition: 0.5s;
     position: absolute;
     top: 50%;
     left: 1px;
@@ -28,6 +30,7 @@
 }
 
 .rectanglarondi .lignegauche{
+    transition: 0.5s;
     left: 1em;
     padding: 0px;
     width: 10em;
@@ -36,6 +39,7 @@
 }
 
 .rectanglarondi .lignedroite{
+    transition: 0.5s;
     left: 16.5em;
     padding: 0px;
     width: 10em;
@@ -111,6 +115,7 @@
 }
 
 .rectanglarondiinverse:hover {
+    transition: 0.5s;
     text-align: center;
     border: 5px solid rgb(2, 62, 138, 0.75);
     background-color: #CAF0F8;
@@ -123,6 +128,7 @@
 }
 
 .rectanglarondiinverse:hover p {
+    transition: 0.5s;
     position: absolute;
     top: 50%;
     left: 1px;
