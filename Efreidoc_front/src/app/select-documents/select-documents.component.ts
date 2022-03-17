@@ -54,7 +54,14 @@ export class SelectDocumentsComponent implements OnInit {
       .then((data) => (this.documentsSnap = data.docs));
     console.log(this.documentsSnap);
   }
-
+  displaySize(size: number) {
+    if(size>=1000000) {
+      return size/1000000.0+" Go"
+    }else if(size>=1000) {
+      return size/1000.0+" Mo"
+    }
+    return size+" Ko"
+  }
   uploading(event: any) {
     console.log(event);
     var allFile = event.target.files;
