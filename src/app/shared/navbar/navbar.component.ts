@@ -30,8 +30,7 @@ export class NavbarComponent {
     const querySnapshot = await getDocs(collection(db, 'efrei'));
     querySnapshot.forEach(async (doc) => {
       if (
-        doc.id.toLowerCase().includes(recherche) ||
-        recherche.includes(doc.id.toLowerCase())
+        doc.id.toLowerCase().includes(recherche) 
       ) {
         this.resultResearch.push(doc.id);
       }
@@ -42,8 +41,7 @@ export class NavbarComponent {
 
       querySnapshot2.forEach(async (doc2) => {
         if (
-          doc2.id.toLowerCase().includes(recherche) ||
-          recherche.includes(doc2.id.toLowerCase())
+          doc2.id.toLowerCase().includes(recherche)
         ) {
           this.resultResearch.push(doc.id + '/' + doc2.id);
         }
@@ -54,8 +52,7 @@ export class NavbarComponent {
 
         querySnapshot3.forEach(async (doc3) => {
           if (
-            doc3.id.toLowerCase().includes(recherche) ||
-            recherche.includes(doc3.id.toLowerCase())
+            doc3.id.toLowerCase().includes(recherche)
           ) {
             this.resultResearch.push(doc.id + '/' + doc2.id + '/' + doc3.id);
           }
@@ -75,8 +72,7 @@ export class NavbarComponent {
 
           querySnapshot4.forEach(async (doc4) => {
             if (
-              doc4.id.toLowerCase().includes(recherche) ||
-              recherche.includes(doc4.id.toLowerCase())
+              doc4.id.toLowerCase().includes(recherche)
             ) {
               console.log('ok' + doc4.id + ' ' + recherche);
               this.resultResearch.push(
@@ -98,13 +94,11 @@ export class NavbarComponent {
                 'documents'
               )
             );
-            querySnapshot5.forEach(async (doc4) => {
-              if (doc4.get('name') && doc4.get('username')) {
+            querySnapshot5.forEach(async (doc5) => {
+              if (doc5.get('name') && doc5.get('username')) {
                 if (
-                  doc4.get('name').toLowerCase().includes(recherche) ||
-                  recherche.includes(doc4.get('name').toLowerCase()) ||
-                  doc4.get('username').toLowerCase().includes(recherche) ||
-                  recherche.includes(doc4.get('username').toLowerCase())
+                  doc5.get('name').toLowerCase().includes(recherche) ||
+                  doc5.get('username').toLowerCase().includes(recherche)
                 ) {
                   this.resultResearch.push(
                     doc.id + '/' + doc2.id + '/' + doc3.id + '/' + doc4.id
