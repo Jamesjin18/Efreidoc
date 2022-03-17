@@ -50,7 +50,9 @@
                   {{ displaySize(i.get("size")) }}
                 </td>
                 <td>
-                  <button></button>
+                  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                  <button (click)="pageTokenExample(i.get('path'),i.get('path'))" *ngIf="i.get('type') === 'folder'" class="btn" class="btn"><i class="fa fa-download"></i></button>
+                  <button (click)="pageTokenExample(i.get('path'),i.get('path').slice(0,i.get('path').lastIndexOf('/')))" *ngIf="i.get('type') === 'file'" class="btn"><i class="fa fa-download"></i></button>
                 </td>
               </tr>
             </tbody>
