@@ -5,6 +5,8 @@ import {
 } from '@angular/fire/compat/firestore';
 import { ActivatedRoute } from '@angular/router';
 import firebase from 'firebase/compat/app';
+import Swal from 'sweetalert2';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-select-documents',
@@ -16,10 +18,11 @@ export class SelectDocumentsComponent implements OnInit {
   selectedClass!: string;
   selectedCours!: string;
   selectedCoursType!: string;
+  description: string = '';
 
   public progress = 0;
   public folderinit = '';
-
+  public folder: any = null;
   documentsSnap: any;
   constructor(private router: ActivatedRoute, private afs: AngularFirestore) {}
 
@@ -157,7 +160,7 @@ export class SelectDocumentsComponent implements OnInit {
                   path: this.folderinit + '/' + dateUpload.toString(),
                   name: file.webkitRelativePath.split('/')[0],
                   type: 'folder',
-                  description: '',
+                  description: this.description,
                 },
                 { merge: true }
               )
@@ -198,7 +201,6 @@ export class SelectDocumentsComponent implements OnInit {
               path: path,
               name: nameFolder,
               type: 'folder',
-              description: '',
               size: firebase.firestore.FieldValue.increment(0),
             },
             { merge: true }
@@ -210,7 +212,6 @@ export class SelectDocumentsComponent implements OnInit {
             path: path,
             name: nameFolder,
             type: 'file',
-            description: '',
             size: size,
           },
           { merge: true }

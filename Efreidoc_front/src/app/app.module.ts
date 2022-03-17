@@ -23,7 +23,7 @@ import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth.service';
 import { MajeurService } from './core/services/majeur.service';
 import { SelecClassComponent } from './selec-class/selec-class.component';
@@ -62,6 +62,7 @@ import { SelectCoursTypeComponent } from './select-cours-type/select-cours-type.
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   exports: [NavbarComponent],
   providers: [AuthService, MajeurService],
