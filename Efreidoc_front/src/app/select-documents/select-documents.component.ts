@@ -19,6 +19,7 @@ export class SelectDocumentsComponent implements OnInit {
   selectedCours!: string;
   selectedCoursType!: string;
   description: string = '';
+  load: string = "download";
 
   public progress = 0;
   public folderinit = '';
@@ -265,5 +266,13 @@ export class SelectDocumentsComponent implements OnInit {
       .update({
         size: firebase.firestore.FieldValue.increment(size),
       });
+  }
+
+  changeload(){
+    if(this.load === "download"){
+      this.load = "upload"
+    } else if (this.load === "upload") {
+      this.load = "download";
+    }
   }
 }

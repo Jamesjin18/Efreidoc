@@ -1,45 +1,59 @@
 <app-navbar></app-navbar>
-<p>
-  Directory:
-  <input
-    [attr.disabled]="description.length === 0 ? '' : null"
-    type="file"
-    webkitdirectory
-    mozdirectory
-    (change)="uploading($event)"
-  />
-</p>
-<p>Description de l'upload</p>
-<input [(ngModel)]="description" />
 <div class="container">
-  <table class="table table-bordered table-dark">
-    <thead>
-      <tr>
-        <td scope="col">name</td>
-        <td scope="col">type</td>
-        <td scope="col">description</td>
-        <td scope="col">size</td>
-        <td scope="col">download</td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let i of documentsSnap" style="text-align: center">
-        <td>
-          {{ i.get("name") }}
-        </td>
-        <td>
-          {{ i.get("type") }}
-        </td>
-        <td>
-          {{ i.get("description") }}
-        </td>
-        <td>
-          {{ displaySize(i.get("size")) }}
-        </td>
-        <td>
-          <button></button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+    <div class="row">
+        <button class="btn btn-primary mt-3 mb-3" (click)="changeload()"><p *ngIf="load === 'upload'">Download</p><p *ngIf="load === 'download'">Upload</p></button>
+    </div>
+</div>
+<div class="container" *ngIf="load === 'upload'">
+    <div class="row">
+        <p style="padding-left: 0px;">
+            <label for="input1" class="btn btn-primary" [ngStyle]="description.length === 0 ? {'backgroundColor': 'grey', 'border-color': 'grey'} : {}">
+                Upload button
+            </label>
+            <input
+              id="input1"
+              [attr.disabled]="description.length === 0 ? '' : null"
+              type="file"
+              webkitdirectory
+              mozdirectory
+              style="display: none;"
+              (change)="uploading($event)"
+            />
+        </p>
+        <p style="padding-left: 0px;">Description de l'upload</p>
+        <textarea [(ngModel)]="description"></textarea>
+    </div>
+</div><div class="container" *ngIf="load === 'download'">
+    <div class="row">
+        <table class="table table-bordered table-dark">
+            <thead>
+              <tr>
+                <td scope="col">name</td>
+                <td scope="col">type</td>
+                <td scope="col">description</td>
+                <td scope="col">size</td>
+                <td scope="col">download</td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let i of documentsSnap" style="text-align: center">
+                <td>
+                  {{ i.get("name") }}
+                </td>
+                <td>
+                  {{ i.get("type") }}
+                </td>
+                <td>
+                  {{ i.get("description") }}
+                </td>
+                <td>
+                  {{ displaySize(i.get("size")) }}
+                </td>
+                <td>
+                  <button></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
 </div>
