@@ -92,12 +92,15 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   displaySize(size: number) {
-    if(size>=1000000) {
-      return size/1000000.0+" Go"
+
+    if(size>=1000000000) {
+      return size/1000000000.0+" Go"
+    }else if(size>=1000000) {
+      return size/1000000.0+" Mo"
     }else if(size>=1000) {
-      return size/1000.0+" Mo"
+      return size/1000.0+" Ko"
     }
-    return size+" Ko"
+    return size+" o"
   }
 
   async pageTokenExample(folder: string, folderinit: string) {
