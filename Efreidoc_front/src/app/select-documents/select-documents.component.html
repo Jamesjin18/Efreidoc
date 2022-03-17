@@ -9,26 +9,30 @@
   />
 </p>
 <div class="container">
-  <table>
-    <tr>
-      <td>name</td>
-      <td>type</td>
-      <td>description</td>
-      <td>download</td>
-    </tr>
-    <tr *ngFor="let i of documentsSnap" style="text-align: center">
-      <td>
-        {{ i.get("name") }}
-      </td>
-      <td>
-        {{ i.get("type") }}
-      </td>
-      <td>
-        {{ i.get("description") }}
-      </td>
-      <td>
-        <button></button>
-      </td>
-    </tr>
+  <table class="table table-bordered table-dark">
+    <thead>
+      <tr>
+        <td scope="col">name</td>
+        <td scope="col">type</td>
+        <td scope="col">description</td>
+        <td scope="col">download</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of documentsSnap" style="text-align: center">
+        <td>
+          {{ i.get("name") }}
+        </td>
+        <td>
+          {{ i.get("type") }}
+        </td>
+        <td>
+          {{ i.get("description") }}
+        </td>
+        <td>
+          <button></button>
+        </td>
+      </tr>
+    </tbody>
   </table>
 </div>
