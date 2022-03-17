@@ -5,14 +5,14 @@ on:
     # but only for the main and develop branch
     push:
         branches:
-            - master
-            - Fyreti
+            - main
+            - develop
     # Replace pull_request with pull_request_target if you
     # plan to use this action with forks, see the Limitations section
     pull_request:
         branches:
-            - master
-            - Fyreti
+            - main
+            - develop
 
 jobs:
     run-linters:
