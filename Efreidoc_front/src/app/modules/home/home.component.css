@@ -8,11 +8,12 @@
 .rectanglarondi {
     transition: 0.5s;
     text-align: center;
-    border: 5px solid rgb(2, 62, 138, 0.75);
+    border: 2px solid rgb(2, 62, 138, 0.75);
     background-color: #CAF0F8;
     height: 70px;
     margin: 10px;
     font-size: 3em;
+    font-weight: 100;
     position: relative;
     /* box-shadow: 5px 5px 5px black; */
 }
@@ -117,7 +118,7 @@
 .rectanglarondiinverse:hover {
     transition: 0.5s;
     text-align: center;
-    border: 5px solid rgb(2, 62, 138, 0.75);
+    border: 2px solid rgb(2, 62, 138, 0.75);
     background-color: #CAF0F8;
     height: 70px;
     margin: 10px;
