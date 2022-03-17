@@ -9,7 +9,7 @@ import Swal from 'sweetalert2';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   signInForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: [
@@ -19,8 +19,6 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder, private auth: AuthService) {}
-
-  ngOnInit(): void {}
 
   onSubmit() {
     const email = this.signInForm.get('email')!.value;

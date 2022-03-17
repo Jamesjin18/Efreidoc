@@ -7,7 +7,7 @@ import { NavigationService } from 'src/app/core/services/navigation.service';
   styleUrls: ['./resourcespage.component.css'],
 })
 export class ResourcespageComponent implements OnInit {
-  ressourcetitle: string = '';
+  ressourcetitle = '';
 
   constructor(public navigationservice: NavigationService) {}
 

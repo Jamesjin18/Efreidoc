@@ -5,9 +5,9 @@ import { Injectable } from '@angular/core';
 })
 export class NavigationService {
   private annee: string | null = '';
-  private ressource: string = '';
-  private majeure: string = '';
-  private matiere: string = '';
+  private ressource = '';
+  private majeure = '';
+  private matiere = '';
 
   constructor() {
     this.annee = JSON.parse(localStorage.getItem('annee')!);

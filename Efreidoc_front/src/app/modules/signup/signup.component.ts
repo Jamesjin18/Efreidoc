@@ -8,7 +8,7 @@ import { getAuth, sendEmailVerification } from 'firebase/auth';
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css'],
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent {
   signUpForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: [
@@ -18,8 +18,6 @@ export class SignupComponent implements OnInit {
   });
 
   constructor(private formBuilder: FormBuilder, private auth: AuthService) {}
-
-  ngOnInit(): void {}
 
   onSubmit() {
     const email = this.signUpForm.get('email')!.value;

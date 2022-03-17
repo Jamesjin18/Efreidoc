@@ -5,8 +5,4 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './ajoutdoc.component.html',
   styleUrls: ['./ajoutdoc.component.css'],
 })
-export class AjoutdocComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
-}
+export class AjoutdocComponent {}

@@ -6,10 +6,8 @@ import { AuthService } from 'src/app/core/services/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css'],
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
   constructor(public authservice: AuthService) {}
-
-  ngOnInit(): void {}
 
   signout() {
     this.authservice.SignOut();

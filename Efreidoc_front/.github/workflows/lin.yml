@@ -1,0 +1,46 @@
+name: Lint
+
+on:
+    # Trigger the workflow on push or pull request,
+    # but only for the main and develop branch
+    push:
+        branches:
+            - master
+            - Fyreti
+    # Replace pull_request with pull_request_target if you
+    # plan to use this action with forks, see the Limitations section
+    pull_request:
+        branches:
+            - master
+            - Fyreti
+
+jobs:
+    run-linters:
+        name: Run linters
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Check out Git repository
+              uses: actions/checkout@v2
+              with:
+                  fetch-depth: 0
+
+            - name: Setup NodeJS 16.13.0
+              uses: actions/setup-node@v1
+              with:
+                  node-version: 16.13.0
+
+            # ESLint and Prettier must be in `package.json`
+            - name: Install Node.js dependencies
+              run: npm ci
+
+            # Install your linters here
+
+            # - name: Run linters
+            #   uses: wearerequired/lint-action@v1
+            #   with:
+            #       eslint: true
+            #       prettier: true
+
+            - name: verify lints
+              run: npm run lint

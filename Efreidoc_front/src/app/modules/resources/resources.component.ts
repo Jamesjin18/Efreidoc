@@ -8,13 +8,11 @@ import { NavigationService } from 'src/app/core/services/navigation.service';
   templateUrl: './resources.component.html',
   styleUrls: ['./resources.component.css'],
 })
-export class ResourcesComponent implements OnInit {
+export class ResourcesComponent {
   constructor(
     public router: Router,
     public navigationservice: NavigationService
   ) {}
-
-  ngOnInit(): void {}
 
   goToResourcespage(ressource: string) {
     console.log(ressource);
