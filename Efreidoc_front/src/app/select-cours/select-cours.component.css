@@ -6,6 +6,7 @@
 }
 
 .rectanglarondi {
+    transition: 0.5s;
     text-align: center;
     border: 2px solid rgb(2, 62, 138, 0.75);
     background-color: #CAF0F8;
@@ -17,6 +18,7 @@
 }
 
 .rectanglarondi p {
+    transition: 0.5s;
     position: absolute;
     top: 50%;
     left: 1px;
@@ -28,6 +30,7 @@
 }
 
 .rectanglarondiinverse {
+    transition: 0.5s;
     text-align: center;
     background-color: rgb(2, 62, 138, 0.75);
     height: 50px;
@@ -89,6 +92,7 @@
 }
 
 .rectanglarondiinverse:hover p {
+    transition: 0.5s;
     position: absolute;
     top: 50%;
     left: 1px;

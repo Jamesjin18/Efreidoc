@@ -6,17 +6,20 @@
 }
 
 .rectanglarondi {
+    transition: 0.5s;
     text-align: center;
-    border: 5px solid rgb(2, 62, 138, 0.75);
+    border: 2px solid rgb(2, 62, 138, 0.75);
     background-color: #CAF0F8;
-    height: 70px;
+    height: 110px;
     margin: 10px;
     font-size: 3em;
+    font-weight: 100;
     position: relative;
     /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondi p {
+    transition: 0.5s;
     position: absolute;
     top: 50%;
     left: 1px;
@@ -27,27 +30,11 @@
     resize: vertical;
 }
 
-.rectanglarondi .lignegauche{
-    left: 1em;
-    padding: 0px;
-    width: 10em;
-    height: 0px;
-    border: 0.3px solid rgb(2, 62, 138, 0.75);
-}
-
-.rectanglarondi .lignedroite{
-    left: 16.5em;
-    padding: 0px;
-    width: 10em;
-    height: 0px;
-    border: 0.3px solid rgb(2, 62, 138, 0.75);
-}
-
 .rectanglarondiinverse {
     transition: 0.5s;
     text-align: center;
     background-color: rgb(2, 62, 138, 0.75);
-    height: 70px;
+    height: 110px;
     margin: 10px;
     font-size: 3em;
     border: 5px solid rgb(2, 62, 138, 0);
@@ -72,7 +59,7 @@
     transition: 0.5s;
     text-align: center;
     background-color: rgb(2, 62, 138, 0.75);
-    height: 70px;
+    height: 110px;
     margin: 10px;
     font-size: 3em;
     border: 5px solid rgb(2, 62, 138, 0);
@@ -92,29 +79,12 @@
     resize: vertical;
 }
 
-.rectanglarondi:hover .lignegauche{
-    transition: 0.5s;
-    left: 1em;
-    padding: 0px;
-    width: 10em;
-    height: 0px;
-    border: 0.3px solid #CAF0F8;
-}
-
-.rectanglarondi:hover .lignedroite{
-    transition: 0.5s;
-    left: 16.5em;
-    padding: 0px;
-    width: 10em;
-    height: 0px;
-    border: 0.3px solid #CAF0F8;
-}
-
 .rectanglarondiinverse:hover {
+    transition: 0.5s;
     text-align: center;
-    border: 5px solid rgb(2, 62, 138, 0.75);
+    border: 2px solid rgb(2, 62, 138, 0.75);
     background-color: #CAF0F8;
-    height: 70px;
+    height: 110px;
     margin: 10px;
     font-size: 3em;
     position: relative;
@@ -123,6 +93,7 @@
 }
 
 .rectanglarondiinverse:hover p {
+    transition: 0.5s;
     position: absolute;
     top: 50%;
     left: 1px;
