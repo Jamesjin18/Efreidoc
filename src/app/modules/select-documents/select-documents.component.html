@@ -71,6 +71,7 @@
           <td scope="col">type</td>
           <td scope="col">description</td>
           <td scope="col">size</td>
+          <td scope="col">user</td>
           <td scope="col">download</td>
         </tr>
       </thead>
@@ -87,6 +88,9 @@
           </td>
           <td>
             {{ displaySize(i.get("size")) }}
+          </td>
+          <td>
+            {{ i.get("username") }}
           </td>
           <td>
             <link

@@ -1,105 +1,123 @@
 #titre {
-    margin-top: 1em;
-    text-align: center;
-    color: black;
-    font-size: 2em;
+  margin-top: 1em;
+  text-align: center;
+  color: black;
+  font-size: 2em;
 }
 
 .rectanglarondi {
-    transition: 0.5s;
-    text-align: center;
-    border: 2px solid rgb(2, 62, 138, 0.75);
-    background-color: #CAF0F8;
-    height: 110px;
-    margin: 10px;
-    font-size: 3em;
-    font-weight: 100;
-    position: relative;
-    /* box-shadow: 5px 5px 5px black; */
+  transition: 0.5s;
+  text-align: center;
+  border: 2px solid rgb(2, 62, 138, 0.75);
+  background-color: #caf0f8;
+  height: 110px;
+  margin: 10px;
+  font-size: 3em;
+  font-weight: 100;
+  position: relative;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondi p {
-    transition: 0.5s;
-    position: absolute;
-    top: 50%;
-    left: 1px;
-    right: 1px;
-    color: rgb(2, 62, 138, 0.75);
-    padding: 20px;
-    transform: translateY(-50%);
-    resize: vertical;
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: rgb(2, 62, 138, 0.75);
+  padding: 20px;
+  transform: translateY(-50%);
+  resize: vertical;
 }
 
 .rectanglarondiinverse {
-    transition: 0.5s;
-    text-align: center;
-    background-color: rgb(2, 62, 138, 0.75);
-    height: 110px;
-    margin: 10px;
-    font-size: 3em;
-    border: 5px solid rgb(2, 62, 138, 0);
-    position: relative;
-    cursor: pointer;
-    /* box-shadow: 5px 5px 5px black; */
+  transition: 0.5s;
+  text-align: center;
+  background-color: rgb(2, 62, 138, 0.75);
+  height: 110px;
+  margin: 10px;
+  font-size: 3em;
+  border: 5px solid rgb(2, 62, 138, 0);
+  position: relative;
+  cursor: pointer;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondiinverse p {
-    transition: 0.5s;
-    position: absolute;
-    top: 50%;
-    left: 1px;
-    right: 1px;
-    color: #CAF0F8;
-    padding: 20px;
-    transform: translateY(-50%);
-    resize: vertical;
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: #caf0f8;
+  padding: 20px;
+  transform: translateY(-50%);
+  resize: vertical;
 }
 
 .rectanglarondi:hover {
-    transition: 0.5s;
-    text-align: center;
-    background-color: rgb(2, 62, 138, 0.75);
-    height: 110px;
-    margin: 10px;
-    font-size: 3em;
-    border: 5px solid rgb(2, 62, 138, 0);
-    position: relative;
-    /* box-shadow: 5px 5px 5px black; */
+  transition: 0.5s;
+  text-align: center;
+  background-color: rgb(2, 62, 138, 0.75);
+  height: 110px;
+  margin: 10px;
+  font-size: 3em;
+  border: 5px solid rgb(2, 62, 138, 0);
+  position: relative;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondi:hover p {
-    transition: 0.5s;
-    position: absolute;
-    top: 50%;
-    left: 1px;
-    right: 1px;
-    color: #CAF0F8;
-    padding: 20px;
-    transform: translateY(-50%);
-    resize: vertical;
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: #caf0f8;
+  padding: 20px;
+  transform: translateY(-50%);
+  resize: vertical;
 }
 
 .rectanglarondiinverse:hover {
-    transition: 0.5s;
-    text-align: center;
-    border: 2px solid rgb(2, 62, 138, 0.75);
-    background-color: #CAF0F8;
-    height: 110px;
-    margin: 10px;
-    font-size: 3em;
-    position: relative;
-    cursor: pointer;
-    /* box-shadow: 5px 5px 5px black; */
+  transition: 0.5s;
+  text-align: center;
+  border: 2px solid rgb(2, 62, 138, 0.75);
+  background-color: #caf0f8;
+  height: 110px;
+  margin: 10px;
+  font-size: 3em;
+  position: relative;
+  cursor: pointer;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondiinverse:hover p {
-    transition: 0.5s;
-    position: absolute;
-    top: 50%;
-    left: 1px;
-    right: 1px;
-    color: rgb(2, 62, 138, 0.75);
-    padding: 20px;
-    transform: translateY(-50%);
-    resize: vertical;
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: rgb(2, 62, 138, 0.75);
+  padding: 20px;
+  transform: translateY(-50%);
+  resize: vertical;
+}
+
+.icon {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: gray;
+  transition: 0.2s;
+}
+
+.divicon {
+  position: relative;
+  display: inline-flex;
 }
