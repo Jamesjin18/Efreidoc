@@ -561,7 +561,7 @@ export class SelectDocumentsComponent implements OnInit {
                     type: 'file',
                     description: this.description,
                     size: file.size,
-                    unsername: this.appComponent.user!.email,
+                    username: this.appComponent.user!.email,
                     like: false,
                     disslike: false,
                     numberLike: 0,
