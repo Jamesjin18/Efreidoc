@@ -120,32 +120,8 @@ export class HomeComponent implements OnInit {
   async updatePromo(target: string, namePromo: string) {
     const db = getFirestore();
     const docRef = doc(db, 'efrei', target);
-    const docSnap = await getDoc(docRef);
-    var data = docSnap.data;
-
-    await this.deleteFiles(target);
-    await setDoc(doc(db, 'efrei', namePromo), data);
-
-    var docRefinit = this.afs.collection('efrei');
-  }
-
-  ah() {
-    var docRefinit = this.afs.collection('efrei');
-    this.funcUpdateCollection(docRefinit);
-  }
-
-  funcUpdateCollection(docRef: AngularFirestoreCollection<unknown>) {
-    docRef.ref.get().then((docs) => {
-      docs.forEach((doc) => {
-        console.log(doc.id);
-        this.funcUpdateDocument(docRef.doc(doc.id));
-      });
-    });
-  }
-
-  funcUpdateDocument(docRef: AngularFirestoreDocument<unknown>) {
-    docRef.ref.get().then((collections) => {
-      console.log(collections.metadata);
+    await updateDoc(docRef, {
+      name: namePromo,
     });
   }
 
