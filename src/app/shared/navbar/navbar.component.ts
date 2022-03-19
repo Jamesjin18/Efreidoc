@@ -6,6 +6,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -28,8 +30,7 @@ export class NavbarComponent {
     const querySnapshot = await getDocs(collection(db, 'efrei'));
     querySnapshot.forEach(async (doc) => {
       if (
-        doc.id.toLowerCase().includes(recherche) ||
-        recherche.includes(doc.id.toLowerCase())
+        doc.id.toLowerCase().includes(recherche) 
       ) {
         this.resultResearch.push(doc.id);
       }
@@ -40,8 +41,7 @@ export class NavbarComponent {
 
       querySnapshot2.forEach(async (doc2) => {
         if (
-          doc2.id.toLowerCase().includes(recherche) ||
-          recherche.includes(doc2.id.toLowerCase())
+          doc2.id.toLowerCase().includes(recherche)
         ) {
           this.resultResearch.push(doc.id + '/' + doc2.id);
         }
@@ -52,8 +52,7 @@ export class NavbarComponent {
 
         querySnapshot3.forEach(async (doc3) => {
           if (
-            doc3.id.toLowerCase().includes(recherche) ||
-            recherche.includes(doc3.id.toLowerCase())
+            doc3.id.toLowerCase().includes(recherche)
           ) {
             this.resultResearch.push(doc.id + '/' + doc2.id + '/' + doc3.id);
           }
@@ -73,8 +72,7 @@ export class NavbarComponent {
 
           querySnapshot4.forEach(async (doc4) => {
             if (
-              doc4.id.toLowerCase().includes(recherche) ||
-              recherche.includes(doc4.id.toLowerCase())
+              doc4.id.toLowerCase().includes(recherche)
             ) {
               console.log('ok' + doc4.id + ' ' + recherche);
               this.resultResearch.push(
@@ -96,24 +94,46 @@ export class NavbarComponent {
                 'documents'
               )
             );
-            querySnapshot5.forEach(async (doc4) => {
-              if (doc4.get('name') && doc4.get('username')) {
+            querySnapshot5.forEach(async (doc5) => {
+              if (doc5.get('name') && doc5.get('username')) {
                 if (
-                  doc4.get('name').toLowerCase().includes(recherche) ||
-                  recherche.includes(doc4.get('name').toLowerCase()) ||
-                  doc4.get('username').toLowerCase().includes(recherche) ||
-                  recherche.includes(doc4.get('username').toLowerCase())
+                  doc5.get('name').toLowerCase().includes(recherche) ||
+                  doc5.get('username').toLowerCase().includes(recherche)
                 ) {
                   this.resultResearch.push(
                     doc.id + '/' + doc2.id + '/' + doc3.id + '/' + doc4.id
                   );
                 }
-                console.log(this.resultResearch);
+                Swal.fire({
+                  title: 'Results',
+                  icon: 'info',
+                  showClass: {
+                    popup: 'animated fadeInDown faster',
+                    icon: 'animated heartBeat delay-1s'
+                  },
+                  hideClass: {
+                    popup: 'animated fadeOutUp faster',
+                  },
+                  html: this.arrayToListHtml(this.resultResearch)
+                })
+                
               }
             });
           });
         });
       });
     });
+  }
+
+  arrayToListHtml(array: Array<string>) {
+    if (array.length === 0) {
+      return '<p>resources not found.</p>';
+    }
+    let html = '<ul>';
+    for(var index in array) { 
+      html += '<li><a href="home/'+array[index]+'">'+array[index]+'</a></li>';
+    }
+    html += '</ul>';
+    return html;
   }
 }
