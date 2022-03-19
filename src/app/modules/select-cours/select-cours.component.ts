@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppComponent } from '../../app.component';
 
@@ -13,11 +13,15 @@ export class SelectCoursComponent implements OnInit {
   selectedPromo!: string;
   selectedClass!: string;
   coursSnap: any;
+  arrPath: string[];
   constructor(
     private router: ActivatedRoute,
     private afs: AngularFirestore,
-    public appComponent: AppComponent
-  ) {}
+    public appComponent: AppComponent,
+    private route: Router
+  ) {
+    this.arrPath = new Array<string>();
+  }
 
   ngOnInit(): void {
     this.router.params.subscribe((params) => {
@@ -34,6 +38,7 @@ export class SelectCoursComponent implements OnInit {
       )
       .ref.get()
       .then((data) => (this.coursSnap = data.docs));
+    this.arrPath = decodeURI(this.route.url.substring(1)).split('/');
   }
 
   openAddMatiere() {
