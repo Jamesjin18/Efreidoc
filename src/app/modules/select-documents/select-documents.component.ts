@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
@@ -58,14 +58,19 @@ export class SelectDocumentsComponent implements OnInit {
 
   public listFileToZip: fileToZip[] = [];
   public finish: number[] = [];
+  arrPath: string[];
 
   constructor(
     private router: ActivatedRoute,
     private afs: AngularFirestore,
+    private route:Router,
     public appComponent: AppComponent
-  ) {}
+  ) {
+    this.arrPath = new Array<string>();
+  }
 
   ngOnInit(): void {
+    this.arrPath = decodeURI(this.route.url.substring(1)).split('/');
     this.router.params.subscribe((params) => {
       this.selectedPromo = params['promo'];
       this.selectedClass = params['class'];

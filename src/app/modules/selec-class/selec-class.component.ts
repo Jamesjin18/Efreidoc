@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAction } from '@angular/fire/compat/database';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppComponent } from '../../app.component';
 
@@ -12,12 +12,17 @@ import { AppComponent } from '../../app.component';
 })
 export class SelecClassComponent implements OnInit {
   selectedPromo!: string;
+  public arrPath: Array<string>;
+
   classSnap: any;
   constructor(
     private router: ActivatedRoute,
+    private route: Router,
     private afs: AngularFirestore,
     public appComponent: AppComponent
-  ) {}
+  ) {
+    this.arrPath = new Array<string>();
+  }
 
   ngOnInit(): void {
     this.router.params.subscribe((params) => {
@@ -27,6 +32,8 @@ export class SelecClassComponent implements OnInit {
       .collection('efrei/' + this.selectedPromo + '/class')
       .ref.get()
       .then((data) => (this.classSnap = data.docs));
+    
+    this.arrPath = decodeURI(this.route.url.substring(1)).split('/');
   }
 
   openAddClasses() {
