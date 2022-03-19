@@ -21,7 +21,7 @@ export class SelecmatComponent implements OnInit {
   constructor(
     private afs: AngularFirestore,
     private majeurService: MajeurService,
-    private route:Router
+    private route: Router
   ) {
     this.arrPath = new Array<string>();
   }

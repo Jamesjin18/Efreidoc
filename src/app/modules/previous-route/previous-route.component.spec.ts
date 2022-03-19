@@ -8,9 +8,8 @@ describe('PreviousRouteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PreviousRouteComponent ]
-    })
-    .compileComponents();
+      declarations: [PreviousRouteComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

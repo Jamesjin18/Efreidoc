@@ -19,7 +19,7 @@ export class SelectCoursTypeComponent implements OnInit {
   constructor(
     private router: ActivatedRoute,
     private afs: AngularFirestore,
-    private route:Router,
+    private route: Router,
     public appComponent: AppComponent
   ) {
     this.arrPath = new Array<string>();

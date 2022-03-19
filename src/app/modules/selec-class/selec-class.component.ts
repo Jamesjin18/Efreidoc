@@ -32,7 +32,7 @@ export class SelecClassComponent implements OnInit {
       .collection('efrei/' + this.selectedPromo + '/class')
       .ref.get()
       .then((data) => (this.classSnap = data.docs));
-    
+
     this.arrPath = decodeURI(this.route.url.substring(1)).split('/');
   }
 

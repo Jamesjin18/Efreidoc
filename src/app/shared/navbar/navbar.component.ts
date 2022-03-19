@@ -29,9 +29,7 @@ export class NavbarComponent {
     const db = getFirestore();
     const querySnapshot = await getDocs(collection(db, 'efrei'));
     querySnapshot.forEach(async (doc) => {
-      if (
-        doc.id.toLowerCase().includes(recherche) 
-      ) {
+      if (doc.id.toLowerCase().includes(recherche)) {
         this.resultResearch.push(doc.id);
       }
 
@@ -40,9 +38,7 @@ export class NavbarComponent {
       );
 
       querySnapshot2.forEach(async (doc2) => {
-        if (
-          doc2.id.toLowerCase().includes(recherche)
-        ) {
+        if (doc2.id.toLowerCase().includes(recherche)) {
           this.resultResearch.push(doc.id + '/' + doc2.id);
         }
 
@@ -51,9 +47,7 @@ export class NavbarComponent {
         );
 
         querySnapshot3.forEach(async (doc3) => {
-          if (
-            doc3.id.toLowerCase().includes(recherche)
-          ) {
+          if (doc3.id.toLowerCase().includes(recherche)) {
             this.resultResearch.push(doc.id + '/' + doc2.id + '/' + doc3.id);
           }
           console.log('la3');
@@ -71,9 +65,7 @@ export class NavbarComponent {
           );
 
           querySnapshot4.forEach(async (doc4) => {
-            if (
-              doc4.id.toLowerCase().includes(recherche)
-            ) {
+            if (doc4.id.toLowerCase().includes(recherche)) {
               console.log('ok' + doc4.id + ' ' + recherche);
               this.resultResearch.push(
                 doc.id + '/' + doc2.id + '/' + doc3.id + '/' + doc4.id
@@ -109,14 +101,13 @@ export class NavbarComponent {
                   icon: 'info',
                   showClass: {
                     popup: 'animated fadeInDown faster',
-                    icon: 'animated heartBeat delay-1s'
+                    icon: 'animated heartBeat delay-1s',
                   },
                   hideClass: {
                     popup: 'animated fadeOutUp faster',
                   },
-                  html: this.arrayToListHtml(this.resultResearch)
-                })
-                
+                  html: this.arrayToListHtml(this.resultResearch),
+                });
               }
             });
           });
@@ -130,8 +121,9 @@ export class NavbarComponent {
       return '<p>resources not found.</p>';
     }
     let html = '<ul>';
-    for(var index in array) { 
-      html += '<li><a href="home/'+array[index]+'">'+array[index]+'</a></li>';
+    for (const index in array) {
+      html +=
+        '<li><a href="home/' + array[index] + '">' + array[index] + '</a></li>';
     }
     html += '</ul>';
     return html;
