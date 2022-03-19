@@ -21,6 +21,7 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./select-documents.component.css'],
 })
 export class SelectDocumentsComponent implements OnInit {
+  mouseOver = false;
   selectedPromo!: string;
   selectedClass!: string;
   selectedCours!: string;
@@ -586,4 +587,12 @@ export class SelectDocumentsComponent implements OnInit {
       });
     }
   }
+
+  popUpDescriptionSize(desc: string) {
+    Swal.fire({
+      title: 'Description',
+      text: desc,
+    });
+  }
 }
+
