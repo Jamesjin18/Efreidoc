@@ -14,8 +14,18 @@
           <p *ngIf="!i.get('name')">{{ i.id }}</p>
           <p *ngIf="i.get('name')">{{ i.get("name") }}</p>
         </a>
-        <i class="icon fas fa-trash fa-xl" (click)="delete(i.id)"></i>
-        <i class="icon fa-solid fa-pen fa-xl" (click)="modify(i.id)"></i>
+        <ng-container *ngIf="appComponent.user">
+          <i
+            *ngIf="appComponent.user.roles.admin === true"
+            class="icon fas fa-trash fa-xl"
+            (click)="delete(i.id)"
+          ></i>
+          <i
+            *ngIf="appComponent.user.roles.admin === true"
+            class="icon fa-solid fa-pen fa-xl"
+            (click)="modify(i.id)"
+          ></i>
+        </ng-container>
       </div>
     </ng-container>
 

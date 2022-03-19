@@ -1,6 +1,22 @@
 # EfreidocFront
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.4.
+This app is an app to share some file, project... with other student.
+
+## Git clone
+
+add your api key of firebase here : src\environments\environment.ts : export const environment = { production: false,
+firebaseConfig: {
+apiKey: '',
+authDomain: '',
+projectId: '',
+storageBucket: '',
+messagingSenderId: '',
+appId: '',
+measurementId: '',
+}, }
+
+Run `npm i` to install all dependencies
 
 ## Development server
 

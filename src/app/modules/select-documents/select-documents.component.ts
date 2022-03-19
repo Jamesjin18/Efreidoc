@@ -14,6 +14,7 @@ import { FormGroup } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AppComponent } from 'src/app/app.component';
+import { doc } from 'firebase/firestore';
 
 @Component({
   selector: 'app-select-documents',
@@ -101,6 +102,8 @@ export class SelectDocumentsComponent implements OnInit {
       .ref.get()
       .then((data) => (this.documentsSnap = data.docs));
     console.log(this.documentsSnap);
+    this.getLike();
+    this.getDisslike();
   }
 
   displaySize(size: number) {
@@ -348,6 +351,10 @@ export class SelectDocumentsComponent implements OnInit {
                       type: 'folder',
                       description: this.description,
                       username: this.appComponent.user!.email,
+                      like: false,
+                      disslike: false,
+                      numberLike: 0,
+                      numberDisslike: 0,
                     },
                     { merge: true }
                   )
@@ -361,6 +368,7 @@ export class SelectDocumentsComponent implements OnInit {
                           this.appComponent.user!.email,
                         metadata.size
                       );
+                      this.ngOnInit();
                     });
                   });
               });
@@ -554,6 +562,10 @@ export class SelectDocumentsComponent implements OnInit {
                     description: this.description,
                     size: file.size,
                     unsername: this.appComponent.user!.email,
+                    like: false,
+                    disslike: false,
+                    numberLike: 0,
+                    numberDisslike: 0,
                   },
                   { merge: true }
                 )
@@ -578,7 +590,10 @@ export class SelectDocumentsComponent implements OnInit {
                           username: this.appComponent.user!.email,
                         },
                         { merge: true }
-                      );
+                      )
+                      .then(() => {
+                        this.ngOnInit();
+                      });
                   });
                 });
             });
@@ -594,5 +609,177 @@ export class SelectDocumentsComponent implements OnInit {
       text: desc,
     });
   }
-}
 
+  like(docid: string) {
+    const ref = this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .collection('documents')
+      .doc(docid);
+
+    ref
+      .collection('like')
+      .doc(this.appComponent.user!.email)
+      .ref.get()
+      .then((docs) => {
+        if (!docs.exists) {
+          ref.collection('like').doc(this.appComponent.user!.email).set({});
+          ref
+            .update({
+              numberLike: firebase.firestore.FieldValue.increment(1),
+            })
+            .then(() => {
+              this.ngOnInit();
+            });
+          for (let docSnap of this.documentsSnap) {
+            if (docSnap.id === docid) {
+              docSnap.like = true;
+            }
+          }
+        } else {
+          ref.collection('like').doc(this.appComponent.user!.email).delete();
+          ref
+            .update({
+              numberLike: firebase.firestore.FieldValue.increment(-1),
+            })
+            .then(() => {
+              this.ngOnInit();
+            });
+          for (let docSnap of this.documentsSnap) {
+            if (docSnap.id === docid) {
+              docSnap.like = false;
+            }
+          }
+        }
+      });
+    this.ngOnInit();
+  }
+
+  disslike(docid: string) {
+    const ref = this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .collection('documents')
+      .doc(docid);
+    ref
+      .collection('disslike')
+      .doc(this.appComponent.user!.email)
+      .ref.get()
+      .then((docs) => {
+        if (!docs.exists) {
+          ref.collection('disslike').doc(this.appComponent.user!.email).set({});
+          ref
+            .update({
+              numberDisslike: firebase.firestore.FieldValue.increment(1),
+            })
+            .then(() => {
+              this.ngOnInit();
+            });
+          for (let docSnap of this.documentsSnap) {
+            if (docSnap.id === docid) {
+              docSnap.disslike = true;
+            }
+          }
+        } else {
+          ref
+            .collection('disslike')
+            .doc(this.appComponent.user!.email)
+            .delete();
+          ref
+            .update({
+              numberDisslike: firebase.firestore.FieldValue.increment(-1),
+            })
+            .then(() => {
+              this.ngOnInit();
+            });
+          for (let docSnap of this.documentsSnap) {
+            if (docSnap.id === docid) {
+              docSnap.disslike = false;
+            }
+          }
+        }
+      });
+  }
+
+  getLike() {
+    const ref = this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .collection('documents');
+
+    ref.ref.get().then((docs) => {
+      docs.forEach((doc) => {
+        ref
+          .doc(doc.id)
+          .collection('like')
+          .ref.get()
+          .then((docs2) => {
+            docs2.forEach((doc2) => {
+              console.log(doc2.id);
+              if (doc2.id === this.appComponent.user!.email) {
+                for (let docSnap of this.documentsSnap) {
+                  console.log(doc.id);
+                  if (docSnap.id === doc.id) {
+                    docSnap.like = true;
+                  }
+                }
+              }
+            });
+          });
+      });
+    });
+  }
+
+  getDisslike() {
+    const ref = this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .collection('documents');
+
+    ref.ref.get().then((docs) => {
+      docs.forEach((doc) => {
+        ref
+          .doc(doc.id)
+          .collection('disslike')
+          .ref.get()
+          .then((docs2) => {
+            docs2.forEach((doc2) => {
+              console.log(doc2.id);
+              if (doc2.id === this.appComponent.user!.email) {
+                for (let docSnap of this.documentsSnap) {
+                  console.log(doc.id);
+                  if (docSnap.id === doc.id) {
+                    docSnap.disslike = true;
+                  }
+                }
+              }
+            });
+          });
+      });
+    });
+  }
+}

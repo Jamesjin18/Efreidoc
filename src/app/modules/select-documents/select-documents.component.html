@@ -49,10 +49,10 @@
       <input
         id="file"
         [attr.disabled]="description.length === 0 ? '' : null"
-        type="file" 
-        id="file" 
+        type="file"
+        id="file"
         style="display: none"
-        (change)="handleFileInput($event)" 
+        (change)="handleFileInput($event)"
         multiple
       />
     </p>
@@ -75,6 +75,7 @@
               <th class="cell100 column4">Size</th>
               <th class="cell100 column5">User</th>
               <th class="cell100 column6">Download</th>
+              <th class="cell100 column7">Like Disslike</th>
             </tr>
           </thead>
         </table>
@@ -86,7 +87,13 @@
             <tr *ngFor="let i of documentsSnap" class="row100 body">
               <td class="cell100 column1">{{ i.get("name") }}</td>
               <td class="cell100 column2">{{ i.get("type") }}</td>
-              <td class="cell100 column3" (click)="popUpDescriptionSize(i.get('description'))"><i class="gg-add" style="cursor: pointer;"></i>{{ i.get("description") }}</td>
+              <td
+                class="cell100 column3"
+                (click)="popUpDescriptionSize(i.get('description'))"
+              >
+                <i class="gg-add" style="cursor: pointer"></i
+                >{{ i.get("description") }}
+              </td>
               <td class="cell100 column4">{{ displaySize(i.get("size")) }}</td>
               <td class="cell100 column5">{{ i.get("username") }}</td>
               <td class="cell100 column6">
@@ -100,6 +107,26 @@
                 >
                   <i class="fa fa-download"></i>
                 </button>
+              </td>
+              <td class="cell100 column7">
+                <i
+                  class="like fa-solid fa-thumbs-up fa-xl"
+                  [ngClass]="{
+                    likeSelect: i.like,
+                    likeUnselect: !i.like
+                  }"
+                  (click)="like(i.id)"
+                ></i>
+                <p>{{ i.get("numberLike") }}</p>
+                <i
+                  class="disslike fa-solid fa-thumbs-down fa-xl"
+                  [ngClass]="{
+                    disslikeSelect: i.disslike,
+                    disslikeUnselect: !i.disslike
+                  }"
+                  (click)="disslike(i.id)"
+                ></i>
+                <p>{{ i.get("numberDisslike") }}</p>
               </td>
             </tr>
           </tbody>

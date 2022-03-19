@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppComponent } from '../../app.component';
-
+import { deleteDoc, doc, getFirestore, updateDoc } from 'firebase/firestore';
 @Component({
   selector: 'app-select-cours-type',
   templateUrl: './select-cours-type.component.html',
@@ -77,5 +77,79 @@ export class SelectCoursTypeComponent implements OnInit {
       .collection('coursType')
       .doc(nameCoursType)
       .set({}, { merge: true });
+  }
+  modify(target: string) {
+    Swal.fire({
+      title: 'Renommer ' + target + ' ',
+      input: 'text',
+      inputAttributes: {
+        autocapitalize: 'off',
+      },
+      showCancelButton: true,
+      confirmButtonText: 'Finish',
+      showLoaderOnConfirm: true,
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        if (result.value) {
+          await this.updatePromo(target, result.value);
+          this.ngOnInit();
+        }
+      }
+    });
+  }
+  delete(target: string) {
+    Swal.fire({
+      title: 'Êtes vous sûr de vouloir supprimer ' + target + '?',
+      text: 'Vous ne pourrez plus revenir en arrière',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Non, annuler',
+      confirmButtonText: 'Oui, supprimer!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.deleteFiles(target);
+        Swal.fire('Supprimer!', 'Tout a été supprimé.', 'success');
+        this.ngOnInit();
+      }
+    });
+  }
+
+  async deleteFiles(target: string) {
+    const db = getFirestore();
+    // Remove the 'capital' field from the document
+    await deleteDoc(
+      doc(
+        db,
+        'efrei',
+        this.selectedPromo,
+        'class',
+        this.selectedPromo,
+        'cours',
+        this.selectedCours,
+        'coursType',
+        target
+      )
+    );
+  }
+
+  async updatePromo(target: string, namePromo: string) {
+    const db = getFirestore();
+    const docRef = doc(
+      db,
+      'efrei',
+      this.selectedPromo,
+      'class',
+      this.selectedPromo,
+      'cours',
+      this.selectedCours,
+      'coursType',
+      target
+    );
+    await updateDoc(docRef, {
+      name: namePromo,
+    });
   }
 }

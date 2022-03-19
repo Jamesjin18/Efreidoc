@@ -2,27 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import Swal from 'sweetalert2';
 
-import {
-  AngularFirestore,
-  AngularFirestoreCollection,
-  AngularFirestoreDocument,
-  QueryDocumentSnapshot,
-  QuerySnapshot,
-} from '@angular/fire/compat/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
-import { AuthService } from 'src/app/core/services/auth.service';
-import {
-  collection,
-  deleteDoc,
-  deleteField,
-  doc,
-  getDoc,
-  getDocs,
-  getFirestore,
-  setDoc,
-  updateDoc,
-} from 'firebase/firestore';
+import { deleteDoc, doc, getFirestore, updateDoc } from 'firebase/firestore';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -49,25 +32,6 @@ export class HomeComponent implements OnInit {
       .then((data) => {
         this.promoSnap = data.docs;
       });
-  }
-
-  delete(target: string) {
-    Swal.fire({
-      title: 'Êtes vous sûr de vouloir supprimer ' + target + '?',
-      text: 'Vous ne pourrez plus revenir en arrière',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      cancelButtonText: 'Non, annuler',
-      confirmButtonText: 'Oui, supprimer!',
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        await this.deleteFiles(target);
-        Swal.fire('Supprimer!', 'Tout a été supprimé.', 'success');
-        this.ngOnInit();
-      }
-    });
   }
 
   modify(target: string) {
@@ -107,6 +71,25 @@ export class HomeComponent implements OnInit {
           this.addPromo(result.value);
           this.ngOnInit();
         }
+      }
+    });
+  }
+
+  delete(target: string) {
+    Swal.fire({
+      title: 'Êtes vous sûr de vouloir supprimer ' + target + '?',
+      text: 'Vous ne pourrez plus revenir en arrière',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Non, annuler',
+      confirmButtonText: 'Oui, supprimer!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.deleteFiles(target);
+        Swal.fire('Supprimer!', 'Tout a été supprimé.', 'success');
+        this.ngOnInit();
       }
     });
   }
