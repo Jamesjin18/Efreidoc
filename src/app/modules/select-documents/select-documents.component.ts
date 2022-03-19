@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
@@ -12,8 +12,6 @@ import { fileToZip } from '../../models/listFileToZip';
 import * as JSZip from 'jszip';
 import { FormGroup } from '@angular/forms';
 import * as FileSaver from 'file-saver';
-import { AngularFireAuth } from '@angular/fire/compat/auth';
-import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-select-documents',
@@ -58,19 +56,10 @@ export class SelectDocumentsComponent implements OnInit {
 
   public listFileToZip: fileToZip[] = [];
   public finish: number[] = [];
-  arrPath: string[];
 
-  constructor(
-    private router: ActivatedRoute,
-    private afs: AngularFirestore,
-    private route:Router,
-    public appComponent: AppComponent
-  ) {
-    this.arrPath = new Array<string>();
-  }
+  constructor(private router: ActivatedRoute, private afs: AngularFirestore) {}
 
   ngOnInit(): void {
-    this.arrPath = decodeURI(this.route.url.substring(1)).split('/');
     this.router.params.subscribe((params) => {
       this.selectedPromo = params['promo'];
       this.selectedClass = params['class'];
@@ -243,129 +232,112 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   submiteUploadFormPictures(allFile: Array<any>): void {
-    if (this.appComponent.user) {
-      console.log(allFile);
-      const date = new Date();
-      const dateUpload = date.getTime();
-      let index = -1;
-      for (const file of allFile) {
-        index++;
-        // Create a root reference
-        const storageRef = firebase.storage().ref();
+    console.log(allFile);
+    const date = new Date();
+    const dateUpload = date.getTime();
+    let index = -1;
+    for (const file of allFile) {
+      index++;
+      // Create a root reference
+      const storageRef = firebase.storage().ref();
 
-        // Create the file metadata
-        const metadata = {
-          contentType: 'image/jpeg/gif/png/txt',
-        };
+      // Create the file metadata
+      const metadata = {
+        contentType: 'image/jpeg/gif/png/txt',
+      };
 
-        // Upload file and metadata to the object 'images/mountains.jpg'
-        let filePath = '';
-        if (file.webkitRelativePath) {
-          filePath = file.webkitRelativePath.slice(
-            0,
-            file.webkitRelativePath.lastIndexOf('/')
-          );
-        }
-        //var filePath = allFile[0].webkitRelativePath.slice(0,allFile[0].webkitRelativePath.lastIndexOf('/'))
-        console.log(index);
-        console.log(file.webkitRelativePath);
-        console.log(filePath);
-        const uploadTask = storageRef
-          .child(
-            this.folderinit +
-              '/' +
-              dateUpload +
-              '' +
-              this.appComponent.user.email +
-              '/' +
-              filePath +
-              '/' +
-              file.name
-          )
-          .put(file, metadata);
-
-        // Listen for state changes, errors, and completion of the upload.
-        uploadTask.on(
-          firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-          (snapshot: any) => {
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            this.progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + this.progress + '% done');
-            switch (snapshot.state) {
-              case firebase.storage.TaskState.PAUSED: // or 'paused'
-                console.log('Upload is paused');
-                break;
-              case firebase.storage.TaskState.RUNNING: // or 'running'
-                console.log('Upload is running');
-                break;
-            }
-          },
-          (error: any) => {
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
-            switch (error.code) {
-              case 'storage/unauthorized':
-                // User doesn't have permission to access the object
-                break;
-              case 'storage/canceled':
-                // User canceled the upload
-                break;
-
-              // ...
-
-              case 'storage/unknown':
-                // Unknown error occurred, inspect error.serverResponse
-                break;
-            }
-          },
-          () => {
-            // Upload completed successfully, now we can get the download URL
-            uploadTask.snapshot.ref
-              .getDownloadURL()
-              .then((downloadURL: any) => {
-                console.log('File available at', downloadURL);
-                const ref = this.afs
-                  .collection('efrei')
-                  .doc(this.selectedPromo)
-                  .collection('class')
-                  .doc(this.selectedClass)
-                  .collection('cours')
-                  .doc(this.selectedCours)
-                  .collection('coursType')
-                  .doc(this.selectedCoursType)
-                  .collection('documents')
-                  .doc(
-                    dateUpload.toString() + '' + this.appComponent.user!.email
-                  );
-
-                ref
-                  .set(
-                    {
-                      path: this.folderinit + '/' + dateUpload.toString(),
-                      name: file.webkitRelativePath.split('/')[0],
-                      type: 'folder',
-                      description: this.description,
-                      username: this.appComponent.user!.email,
-                    },
-                    { merge: true }
-                  )
-                  .then(() => {
-                    uploadTask.snapshot.ref.getMetadata().then((metadata) => {
-                      this.setUploadName(
-                        ref,
-                        file.webkitRelativePath,
-                        dateUpload.toString() +
-                          '' +
-                          this.appComponent.user!.email,
-                        metadata.size
-                      );
-                    });
-                  });
-              });
-          }
+      // Upload file and metadata to the object 'images/mountains.jpg'
+      let filePath = '';
+      if (file.webkitRelativePath) {
+        filePath = file.webkitRelativePath.slice(
+          0,
+          file.webkitRelativePath.lastIndexOf('/')
         );
       }
+      //var filePath = allFile[0].webkitRelativePath.slice(0,allFile[0].webkitRelativePath.lastIndexOf('/'))
+      console.log(index);
+      console.log(file.webkitRelativePath);
+      console.log(filePath);
+      const uploadTask = storageRef
+        .child(
+          this.folderinit + '/' + dateUpload + '/' + filePath + '/' + file.name
+        )
+        .put(file, metadata);
+
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(
+        firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        (snapshot: any) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          this.progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + this.progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+              console.log('Upload is running');
+              break;
+          }
+        },
+        (error: any) => {
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              break;
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+
+            // ...
+
+            case 'storage/unknown':
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL: any) => {
+            console.log('File available at', downloadURL);
+            const ref = this.afs
+              .collection('efrei')
+              .doc(this.selectedPromo)
+              .collection('class')
+              .doc(this.selectedClass)
+              .collection('cours')
+              .doc(this.selectedCours)
+              .collection('coursType')
+              .doc(this.selectedCoursType)
+              .collection('documents')
+              .doc(dateUpload.toString());
+
+            ref
+              .set(
+                {
+                  path: this.folderinit + '/' + dateUpload.toString(),
+                  name: file.webkitRelativePath.split('/')[0],
+                  type: 'folder',
+                  description: this.description,
+                },
+                { merge: true }
+              )
+              .then(() => {
+                uploadTask.snapshot.ref.getMetadata().then((metadata) => {
+                  this.setUploadName(
+                    ref,
+                    file.webkitRelativePath,
+                    dateUpload.toString(),
+                    metadata.size
+                  );
+                });
+              });
+          });
+        }
+      );
     }
   }
 
@@ -391,7 +363,6 @@ export class SelectDocumentsComponent implements OnInit {
               name: nameFolder,
               type: 'folder',
               size: firebase.firestore.FieldValue.increment(0),
-              username: this.appComponent.user!.email,
             },
             { merge: true }
           );
@@ -403,7 +374,6 @@ export class SelectDocumentsComponent implements OnInit {
             name: nameFolder,
             type: 'file',
             size: size,
-            username: this.appComponent.user!.email,
           },
           { merge: true }
         );
@@ -465,125 +435,109 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   submiteUploadForm(allFile: Array<any>): void {
-    if (this.appComponent.user) {
+    const date = new Date();
+    const dateUpload = date.getTime();
+    allFile.forEach((file) => {
+      // Create a root reference
+      const storageRef = firebase.storage().ref();
+
+      // Create the file metadata
+      const metadata = {
+        contentType: 'image/jpeg/gif/png/txt',
+      };
       const date = new Date();
-      const dateUpload = date.getTime();
-      allFile.forEach((file) => {
-        // Create a root reference
-        const storageRef = firebase.storage().ref();
+      // Upload file and metadata to the object 'images/mountains.jpg'
+      const uploadTask = storageRef
+        .child(this.folderinit + '/' + dateUpload + '/' + file.name)
+        .put(file, metadata);
 
-        // Create the file metadata
-        const metadata = {
-          contentType: 'image/jpeg/gif/png/txt',
-        };
-        const date = new Date();
-        // Upload file and metadata to the object 'images/mountains.jpg'
-        const uploadTask = storageRef
-          .child(
-            this.folderinit +
-              '/' +
-              dateUpload +
-              '' +
-              this.appComponent.user!.email +
-              '/' +
-              file.name
-          )
-          .put(file, metadata);
-
-        // Listen for state changes, errors, and completion of the upload.
-        uploadTask.on(
-          firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-          (snapshot) => {
-            // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            this.progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + this.progress + '% done');
-            switch (snapshot.state) {
-              case firebase.storage.TaskState.PAUSED: // or 'paused'
-                console.log('Upload is paused');
-                break;
-              case firebase.storage.TaskState.RUNNING: // or 'running'
-                console.log('Upload is running');
-                break;
-            }
-          },
-          (error) => {
-            console.log(error);
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
-            switch (error.code) {
-              case 'storage/unauthorized':
-                // User doesn't have permission to access the object
-                break;
-              case 'storage/canceled':
-                // User canceled the upload
-                break;
-
-              // ...
-
-              case 'storage/unknown':
-                // Unknown error occurred, inspect error.serverResponse
-                break;
-            }
-          },
-          () => {
-            // Upload completed successfully, now we can get the download URL
-            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-              console.log('File available at', downloadURL);
-              const ref = this.afs
-                .collection('efrei')
-                .doc(this.selectedPromo)
-                .collection('class')
-                .doc(this.selectedClass)
-                .collection('cours')
-                .doc(this.selectedCours)
-                .collection('coursType')
-                .doc(this.selectedCoursType)
-                .collection('documents')
-                .doc(
-                  dateUpload.toString() + '' + this.appComponent.user!.email
-                );
-
-              ref
-                .set(
-                  {
-                    path: this.folderinit + '/' + dateUpload.toString(),
-                    name: file.name,
-                    type: 'file',
-                    description: this.description,
-                    size: file.size,
-                    unsername: this.appComponent.user!.email,
-                  },
-                  { merge: true }
-                )
-                .then(() => {
-                  uploadTask.snapshot.ref.getMetadata().then((metadata) => {
-                    ref
-                      .collection('file')
-                      .doc(file.name)
-                      .set(
-                        {
-                          path:
-                            this.folderinit +
-                            '/' +
-                            dateUpload.toString() +
-                            '' +
-                            this.appComponent.user!.email +
-                            '/' +
-                            file.name,
-                          name: file.name,
-                          type: 'file',
-                          size: file.size,
-                          username: this.appComponent.user!.email,
-                        },
-                        { merge: true }
-                      );
-                  });
-                });
-            });
+      // Listen for state changes, errors, and completion of the upload.
+      uploadTask.on(
+        firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        (snapshot) => {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          this.progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + this.progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+              console.log('Upload is running');
+              break;
           }
-        );
-      });
-    }
+        },
+        (error) => {
+          console.log(error);
+          // A full list of error codes is available at
+          // https://firebase.google.com/docs/storage/web/handle-errors
+          switch (error.code) {
+            case 'storage/unauthorized':
+              // User doesn't have permission to access the object
+              break;
+            case 'storage/canceled':
+              // User canceled the upload
+              break;
+
+            // ...
+
+            case 'storage/unknown':
+              // Unknown error occurred, inspect error.serverResponse
+              break;
+          }
+        },
+        () => {
+          // Upload completed successfully, now we can get the download URL
+          uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+            console.log('File available at', downloadURL);
+            const ref = this.afs
+              .collection('efrei')
+              .doc(this.selectedPromo)
+              .collection('class')
+              .doc(this.selectedClass)
+              .collection('cours')
+              .doc(this.selectedCours)
+              .collection('coursType')
+              .doc(this.selectedCoursType)
+              .collection('documents')
+              .doc(dateUpload.toString());
+
+            ref
+              .set(
+                {
+                  path: this.folderinit + '/' + dateUpload.toString(),
+                  name: file.name,
+                  type: 'file',
+                  description: this.description,
+                  size: file.size,
+                },
+                { merge: true }
+              )
+              .then(() => {
+                uploadTask.snapshot.ref.getMetadata().then((metadata) => {
+                  ref
+                    .collection('file')
+                    .doc(file.name)
+                    .set(
+                      {
+                        path:
+                          this.folderinit +
+                          '/' +
+                          dateUpload.toString() +
+                          '/' +
+                          file.name,
+                        name: file.name,
+                        type: 'file',
+                        size: file.size,
+                      },
+                      { merge: true }
+                    );
+                });
+              });
+          });
+        }
+      );
+    });
   }
 }

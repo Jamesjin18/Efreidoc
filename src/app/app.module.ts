@@ -32,7 +32,6 @@ import { SelectDocumentsComponent } from './modules/select-documents/select-docu
 
 import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
-import { PreviousRouteComponent } from './modules/previous-route/previous-route.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +48,6 @@ import { PreviousRouteComponent } from './modules/previous-route/previous-route.
     SelectCoursComponent,
     SelectDocumentsComponent,
     SelectCoursTypeComponent,
-    PreviousRouteComponent,
   ],
   imports: [
     BrowserModule,
