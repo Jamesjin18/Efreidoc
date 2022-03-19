@@ -1,0 +1,3 @@
+<div class="display_route">
+    <a *ngFor="let path of mapPath | keyvalue: unsorted" routerLink="{{path.value}}">/{{path.key}}</a>
+  </div>
