@@ -12,6 +12,7 @@ import { SelecClassComponent } from './modules/selec-class/selec-class.component
 import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
 import { SelectCoursComponent } from './modules/select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
+import { CompteComponent } from './modules/compte/compte.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -42,6 +43,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     path: 'resources',
     component: ResourcesComponent,
+  },
+  {
+    canActivate: [AuthGuard],
+    path: 'compte',
+    component: CompteComponent,
   },
   {
     canActivate: [AuthGuard],

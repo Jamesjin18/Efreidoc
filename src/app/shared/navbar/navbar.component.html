@@ -4,13 +4,15 @@
   class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav"
 >
   <div class="nav-content d-flex order-2 col-2">
-    <img
-      src="../../../assets/images/efrei_paris.png"
-      alt="efrei_paris"
-      width="150vw"
-      height="50vh"
-      class="d-inline-block align-text-top"
-    />
+    <a href="/home">
+      <img
+        src="../../../assets/images/efrei_paris.png"
+        alt="efrei_paris"
+        width="150vw"
+        height="50vh"
+        class="d-inline-block align-text-top"
+      />
+    </a>
   </div>
   <div
     class="nav navbar-nav text-nowrap justify-content-center order-1 order-md-2 col-8"
@@ -42,10 +44,10 @@
       class="nav navbar-nav text-nowrap flex-row mx-md-auto order-1 order-md-2"
     >
       <li class="m-1">
-        <a routerLink="/home" class="aRouter">Home</a>
+        <a routerLink="/home" class="aRouter">Accueil</a>
       </li>
       <li class="m-1">
-        <a routerLink="/compte" class="aRouter">Compte</a>
+        <a routerLink="/compte" class="aRouter">Profil</a>
       </li>
       <li class="m-1">
         <a routerLink="/login" class="aRouter" (click)="signout()"
