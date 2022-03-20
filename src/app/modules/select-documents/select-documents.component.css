@@ -355,3 +355,38 @@ td {
   color: gray !important;
   transition: 0.2s;
 }
+
+.arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.plus {
+  display:inline-block;
+  width: 20px;
+  height:20px;
+  
+  background:
+    linear-gradient(#fff 0 0),
+    linear-gradient(#fff 0 0),
+    rgb(97, 92, 92);
+  background-position:center;
+  background-size: 50% 2px,2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-repeat:no-repeat;
+}
+
+.radius {
+  border-radius:50%;
+}
