@@ -30,6 +30,10 @@ export class SelectDocumentsComponent implements OnInit {
   description = '';
   load = 'download';
 
+  triName!: string;
+  triType!: string;
+  triLike!: string;
+
   public progress = 0;
   public folderinit = '';
   public folder: any = null;
@@ -104,6 +108,9 @@ export class SelectDocumentsComponent implements OnInit {
     console.log(this.documentsSnap);
     this.getLike();
     this.getDisslike();
+    this.triName = "asc";
+    this.triType = "asc";
+    this.triLike = "asc";
   }
 
   displaySize(size: number) {
@@ -781,5 +788,121 @@ export class SelectDocumentsComponent implements OnInit {
           });
       });
     });
+  }
+
+  sortByType(){
+    if (this.triType === "asc"){
+      this.documentsSnap = null;
+      this.afs
+      .collection(
+        'efrei/' +
+          this.selectedPromo +
+          '/class/' +
+          this.selectedClass +
+          '/cours/' +
+          this.selectedCours +
+          '/coursType/' +
+          this.selectedCoursType +
+          '/documents'
+      )
+      .ref.orderBy("type", "asc").get()
+      .then((data) => (this.documentsSnap = data.docs));
+      this.triType = "desc";
+    } else if (this.triType === "desc"){
+      this.documentsSnap = null;
+      this.afs
+      .collection(
+        'efrei/' +
+          this.selectedPromo +
+          '/class/' +
+          this.selectedClass +
+          '/cours/' +
+          this.selectedCours +
+          '/coursType/' +
+          this.selectedCoursType +
+          '/documents'
+      )
+      .ref.orderBy("type", "desc").get()
+      .then((data) => (this.documentsSnap = data.docs));
+      this.triType = "asc";
+    }
+  }
+
+  sortByName(){
+    if (this.triName === "asc"){
+      this.documentsSnap = null;
+      this.afs
+      .collection(
+        'efrei/' +
+          this.selectedPromo +
+          '/class/' +
+          this.selectedClass +
+          '/cours/' +
+          this.selectedCours +
+          '/coursType/' +
+          this.selectedCoursType +
+          '/documents'
+      )
+      .ref.orderBy("name", "asc").get()
+      .then((data) => (this.documentsSnap = data.docs));
+      this.triName = "desc";
+    } else if (this.triName === "desc"){
+      this.documentsSnap = null;
+      this.afs
+      .collection(
+        'efrei/' +
+          this.selectedPromo +
+          '/class/' +
+          this.selectedClass +
+          '/cours/' +
+          this.selectedCours +
+          '/coursType/' +
+          this.selectedCoursType +
+          '/documents'
+      )
+      .ref.orderBy("name", "desc").get()
+      .then((data) => (this.documentsSnap = data.docs));
+      this.triName = "asc";
+    }
+  }
+
+  sortByLike(){
+    if (this.triLike === "asc"){
+      this.documentsSnap = null;
+      this.afs
+      .collection(
+        'efrei/' +
+          this.selectedPromo +
+          '/class/' +
+          this.selectedClass +
+          '/cours/' +
+          this.selectedCours +
+          '/coursType/' +
+          this.selectedCoursType +
+          '/documents'
+      )
+      .ref.orderBy('numberLike', "asc")
+      .get()
+      .then((data) => (this.documentsSnap = data.docs));
+      this.triLike = "desc";
+    } else if (this.triLike === "desc"){
+      this.documentsSnap = null;
+      this.afs
+      .collection(
+        'efrei/' +
+          this.selectedPromo +
+          '/class/' +
+          this.selectedClass +
+          '/cours/' +
+          this.selectedCours +
+          '/coursType/' +
+          this.selectedCoursType +
+          '/documents'
+      )
+      .ref.orderBy('numberLike', "desc")
+      .get()
+      .then((data) => (this.documentsSnap = data.docs));
+      this.triLike = "asc";
+    }
   }
 }

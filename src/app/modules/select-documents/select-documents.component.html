@@ -69,13 +69,13 @@
         <table>
           <thead>
             <tr class="row100 head">
-              <th class="cell100 column1">Name</th>
-              <th class="cell100 column2">Type</th>
+              <th class="cell100 column1">Name &nbsp; <i *ngIf="this.triName === 'asc'" class="arrow up" (click)="sortByName()" style="cursor: pointer"></i><i *ngIf="this.triName === 'desc'" class="arrow down" (click)="sortByName()" style="cursor: pointer"></i></th>
+              <th class="cell100 column2">Type &nbsp; <i *ngIf="this.triType === 'asc'" class="arrow up" (click)="sortByType()" style="cursor: pointer"></i><i *ngIf="this.triType === 'desc'" class="arrow down" (click)="sortByType()" style="cursor: pointer"></i></th>
               <th class="cell100 column3">Description</th>
               <th class="cell100 column4">Size</th>
               <th class="cell100 column5">User</th>
               <th class="cell100 column6">Download</th>
-              <th class="cell100 column7">Like Disslike</th>
+              <th class="cell100 column7">Like &nbsp; <i *ngIf="this.triLike === 'asc'" class="arrow up" (click)="sortByLike()" style="cursor: pointer"></i><i *ngIf="this.triLike === 'desc'" class="arrow down" (click)="sortByLike()" style="cursor: pointer"></i></th>
             </tr>
           </thead>
         </table>
