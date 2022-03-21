@@ -25,7 +25,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth.service';
-import { MajeurService } from './core/services/majeur.service';
 import { SelecClassComponent } from './modules/selec-class/selec-class.component';
 import { SelectCoursComponent } from './modules/select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
@@ -33,6 +32,7 @@ import { SelectDocumentsComponent } from './modules/select-documents/select-docu
 import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
 import { PreviousRouteComponent } from './modules/previous-route/previous-route.component';
+import { CompteComponent } from './modules/compte/compte.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +50,7 @@ import { PreviousRouteComponent } from './modules/previous-route/previous-route.
     SelectDocumentsComponent,
     SelectCoursTypeComponent,
     PreviousRouteComponent,
+    CompteComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +68,7 @@ import { PreviousRouteComponent } from './modules/previous-route/previous-route.
     FormsModule,
   ],
   exports: [NavbarComponent],
-  providers: [AuthService, MajeurService],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

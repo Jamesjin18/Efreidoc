@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<div class="container" *ngIf="appComponent.user!">
+    <div class="compte-info card">
+        <div class="card-body">
+            <h3 class="card-title">Profile</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">UID: {{appComponent.user!.uid}}</li>
+                <li class="list-group-item">Mail: {{appComponent.user!.email}}</li>
+                <li class="list-group-item"><button class="btn btn-primary" (click)="updateUserPassword()">Modifier mon mot de passe</button></li>
+            </ul>
+            <h3 class="card-title">Mes Documents</h3>
+            <div class="table100-body js-pscroll">
+                <table class="table table-bordered table-dark">
+                  <thead>
+                    <tr class="row100 head">
+                      <th class="cell100 column1">Name </th>
+                      <th class="cell100 column2">Type </th>
+                      <th class="cell100 column3">Description</th>
+                      <th class="cell100 column4">Size</th>
+                      <th class="cell100 column5">User</th>
+                      <th class="cell100 column6">Download</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let i of documentsSnap" style="text-align: center">
+                      <td>
+                        {{ i.get("name") }}
+                      </td>
+                      <td>
+                        {{ i.get("type") }}
+                      </td>
+                      <td (click)="popUpDescriptionSize(i.get('description'))">
+                          <i class="gg-add" style="cursor: pointer"></i>
+                          {{ i.get("description") }}
+                      </td>
+                      <td>
+                          {{ i.get("size") }}
+                      </td>
+                      <td>
+                          {{ i.get("username") }}
+                      </td>
+                      <td class="cell100 column6">
+                        <link
+                          rel="stylesheet"
+                          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                        />
+                        <button
+                          (click)="pageTokenExample(i.get('path'), i.get('path'))"
+                          class="btn"
+                        >
+                          <i class="fa fa-download"></i>
+                        </button>
+                      </td>
+                      
+                    </tr>
+                  </tbody>
+                </table>
+                
+        </div>
+    </div>
+</div>

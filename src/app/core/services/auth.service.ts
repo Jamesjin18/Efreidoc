@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import * as auth from 'firebase/auth';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
-import { empty, Observable, switchMap } from 'rxjs';
 import { User } from 'src/app/models/user';
 import Swal from 'sweetalert2';
 
@@ -18,7 +16,9 @@ export class AuthService {
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router
-  ) {}
+  ) {
+    this.userData = afAuth.authState;
+  }
 
   private updateUserData(user: firebase.default.User) {
     // Sets user data to firestore on login
