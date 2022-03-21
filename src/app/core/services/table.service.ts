@@ -16,8 +16,6 @@ export class TableService {
   public listFileToZip: fileToZip[] = [];
   public finish: number[] = [];
 
-  constructor() { }
-
   public displaySize(size: number) {
     if (size >= 1000000000) {
       return size / 1000000000.0 + ' Go';
