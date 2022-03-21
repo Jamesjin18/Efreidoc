@@ -6,7 +6,7 @@
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">UID: {{appComponent.user!.uid}}</li>
                 <li class="list-group-item">Mail: {{appComponent.user!.email}}</li>
-                <li class="list-group-item"><button class="btn btn-primary">Modifier mon mot de passe</button></li>
+                <li class="list-group-item"><button class="btn btn-primary" (click)="updateUserPassword()">Modifier mon mot de passe</button></li>
             </ul>
             <h3 class="card-title">Mes Documents</h3>
             <div class="table100-body js-pscroll">

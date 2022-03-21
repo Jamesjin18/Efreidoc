@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { User } from 'firebase/auth';
 import { AppComponent } from 'src/app/app.component';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { TableService } from 'src/app/core/services/table.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-compte',
@@ -11,7 +14,7 @@ import { TableService } from 'src/app/core/services/table.service';
 })
 export class CompteComponent implements OnInit {
   documentsSnap: any;
-  constructor(private afs:AngularFirestore, private afAuth:AngularFireAuth,private tableService:TableService,public appComponent:AppComponent ) {
+  constructor(private afs:AngularFirestore, private afAuth:AngularFireAuth,private tableService:TableService,private authService:AuthService,public appComponent:AppComponent ) {
     
   }
 
@@ -26,6 +29,12 @@ export class CompteComponent implements OnInit {
   
   async pageTokenExample(folder: string, folderinit: string) {
     this.tableService.pageTokenExample(folder,folderinit)
+  }
+
+  updateUserPassword() {
+    this.afAuth.authState.subscribe((user:any) => {
+      this.authService.ForgotPassword(user.email);
+    })
   }
 
   popUpDescriptionSize(desc: string) {
