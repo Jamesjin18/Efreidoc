@@ -15,6 +15,7 @@ import * as FileSaver from 'file-saver';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AppComponent } from 'src/app/app.component';
 import { doc } from 'firebase/firestore';
+import { TableService } from 'src/app/core/services/table.service';
 
 @Component({
   selector: 'app-select-documents',
@@ -22,11 +23,13 @@ import { doc } from 'firebase/firestore';
   styleUrls: ['./select-documents.component.css'],
 })
 export class SelectDocumentsComponent implements OnInit {
-  mouseOver = false;
   selectedPromo!: string;
   selectedClass!: string;
   selectedCours!: string;
   selectedCoursType!: string;
+  arrPath: string[];
+  documentsSnap: any;
+
   description = '';
   load = 'download';
 
@@ -36,40 +39,13 @@ export class SelectDocumentsComponent implements OnInit {
 
   public progress = 0;
   public folderinit = '';
-  public folder: any = null;
-  documentsSnap: any;
-  jsonHeader = 'application/json; odata=verbose';
-  headersOld = new Headers({
-    'Content-Type': this.jsonHeader,
-    Accept: this.jsonHeader,
-  });
-  headers = { 'Content-Type': this.jsonHeader, Accept: this.jsonHeader };
-  title = 'uploadtest';
-  public progressFile = 0;
-  public numberFiles = 0;
-  public downloadProgress = 0;
-
-  errorMessage = '';
-  signInForm!: FormGroup;
-  authStatus: boolean | undefined;
-  public hovered = false;
-
-  public isAuth = false;
-
-  public url = '';
-
-  public filesArray = [];
-
-  public links: string[] = [];
-
-  public listFileToZip: fileToZip[] = [];
-  public finish: number[] = [];
-  arrPath: string[];
 
   constructor(
     private router: ActivatedRoute,
     private afs: AngularFirestore,
     private route: Router,
+    private afAuth: AngularFireAuth,
+    private tableService: TableService,
     public appComponent: AppComponent
   ) {
     this.arrPath = new Array<string>();
@@ -113,7 +89,7 @@ export class SelectDocumentsComponent implements OnInit {
     this.triLike = "asc";
   }
 
-  displaySize(size: number) {
+  public displaySize(size: number) {
     if (size >= 1000000000) {
       return size / 1000000000.0 + ' Go';
     } else if (size >= 1000000) {
@@ -125,126 +101,7 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   async pageTokenExample(folder: string, folderinit: string) {
-    console.log(folder);
-    console.log(folderinit);
-    this.finish.push(0);
-    const storage = getStorage();
-    const listRef = ref(storage, folder);
-
-    const firstPage = await list(listRef, { maxResults: 100 });
-    console.log(firstPage);
-    for (const folders of firstPage.prefixes) {
-      this.pageTokenExample(folders.fullPath, folderinit);
-    }
-    for (const file of firstPage.items) {
-      this.listFileToZip.push({
-        path: file.fullPath,
-        name: file.name,
-      });
-    }
-    this.finish.pop();
-    if (this.finish.length === 0) {
-      console.log('fini');
-      console.log(this.listFileToZip);
-      if (this.listFileToZip.length === 0) {
-        this.downloadBlobFile(
-          folder,
-          folderinit[folderinit.length - 1] === '/'
-            ? folderinit
-            : folderinit + '/'
-        );
-      } else {
-        this.downloadBlob(
-          folderinit[folderinit.length - 1] === '/'
-            ? folderinit
-            : folderinit + '/'
-        );
-      }
-    }
-  }
-
-  downloadBlobFile(folder: string, folderinit: string) {
-    const storage = getStorage();
-    const zip = new JSZip();
-    const docRef = ref(storage, folder);
-    getDownloadURL(docRef)
-      .then((url) => {
-        const xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = (event) => {
-          const blob = xhr.response;
-          console.log(blob);
-          const file = folder.replace(folderinit, '');
-          console.log(file);
-          zip.file(file, blob);
-          console.log('in');
-          zip
-            .generateAsync({ type: 'blob' }, (metadata) => {
-              console.log(metadata.percent);
-              this.downloadProgress = metadata.percent;
-            })
-            .then((content: any) => {
-              console.log('fini');
-              FileSaver.saveAs(content, 'file.zip');
-              this.listFileToZip = [];
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        };
-        xhr.open('GET', url);
-        xhr.send();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  downloadBlob(folderinit: string) {
-    const storage = getStorage();
-    const zip = new JSZip();
-    let index = 0;
-
-    for (const doc of this.listFileToZip) {
-      console.log('ici');
-      console.log(doc);
-      const docRef = ref(storage, doc.path);
-      getDownloadURL(docRef)
-        .then((url) => {
-          const xhr = new XMLHttpRequest();
-          xhr.responseType = 'blob';
-          xhr.onload = (event) => {
-            const blob = xhr.response;
-            console.log(blob);
-            const folder = doc.path.replace(folderinit, '');
-            console.log(folder);
-            zip.file(folder, blob);
-            index++;
-            console.log(index, this.listFileToZip.length);
-            if (index === this.listFileToZip.length) {
-              console.log('in');
-              zip
-                .generateAsync({ type: 'blob' }, (metadata) => {
-                  console.log(metadata.percent);
-                  this.downloadProgress = metadata.percent;
-                })
-                .then((content: any) => {
-                  console.log('fini');
-                  FileSaver.saveAs(content, 'file.zip');
-                  this.listFileToZip = [];
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }
-          };
-          xhr.open('GET', url);
-          xhr.send();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    this.tableService.pageTokenExample(folder,folderinit)
   }
 
   uploading(event: any) {
@@ -353,7 +210,7 @@ export class SelectDocumentsComponent implements OnInit {
                 ref
                   .set(
                     {
-                      path: this.folderinit + '/' + dateUpload.toString(),
+                      path: this.folderinit + '/' + dateUpload.toString()+ '' + this.appComponent.user!.email,
                       name: file.webkitRelativePath.split('/')[0],
                       type: 'folder',
                       description: this.description,
@@ -378,6 +235,22 @@ export class SelectDocumentsComponent implements OnInit {
                       this.ngOnInit();
                     });
                   });
+                this.afAuth.currentUser.then((user) => {
+                  const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(dateUpload.toString() + '' + this.appComponent.user!.email).set(
+                    {
+                      path: this.folderinit + '/' + dateUpload.toString()+ '' + this.appComponent.user!.email,
+                      name: file.webkitRelativePath.split('/')[0],
+                      type: 'folder',
+                      description: this.description,
+                      username: this.appComponent.user!.email,
+                      like: false,
+                      disslike: false,
+                      numberLike: 0,
+                      numberDisslike: 0,
+                    },
+                    { merge: true }
+                  )
+                });
               });
           }
         );
@@ -563,7 +436,7 @@ export class SelectDocumentsComponent implements OnInit {
               ref
                 .set(
                   {
-                    path: this.folderinit + '/' + dateUpload.toString(),
+                    path: this.folderinit + '/' + dateUpload.toString()+ '' + this.appComponent.user!.email,
                     name: file.name,
                     type: 'file',
                     description: this.description,
@@ -603,6 +476,23 @@ export class SelectDocumentsComponent implements OnInit {
                       });
                   });
                 });
+              this.afAuth.currentUser.then((user) => {
+                const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(dateUpload.toString() + '' + this.appComponent.user!.email).set(
+                  {
+                    path: this.folderinit + '/' + dateUpload.toString()+ '' + this.appComponent.user!.email,
+                    name: file.name,
+                    type: 'file',
+                    description: this.description,
+                    size: file.size,
+                    username: this.appComponent.user!.email,
+                    like: false,
+                    disslike: false,
+                    numberLike: 0,
+                    numberDisslike: 0,
+                  },
+                  { merge: true }
+                )
+              });
             });
           }
         );
@@ -611,10 +501,7 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   popUpDescriptionSize(desc: string) {
-    Swal.fire({
-      title: 'Description',
-      text: desc,
-    });
+    this.tableService.popUpDescriptionSize(desc);
   }
 
   like(docid: string) {
@@ -649,6 +536,12 @@ export class SelectDocumentsComponent implements OnInit {
               docSnap.like = true;
             }
           }
+          this.afAuth.currentUser.then((user) => {
+            const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(docid).update({
+              numberLike: firebase.firestore.FieldValue.increment(1),
+            })
+          });
+          
         } else {
           ref.collection('like').doc(this.appComponent.user!.email).delete();
           ref
@@ -663,6 +556,11 @@ export class SelectDocumentsComponent implements OnInit {
               docSnap.like = false;
             }
           }
+          this.afAuth.currentUser.then((user) => {
+            const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(docid).update({
+              numberLike: firebase.firestore.FieldValue.increment(-1),
+            })
+          });
         }
       });
     this.ngOnInit();
@@ -699,6 +597,11 @@ export class SelectDocumentsComponent implements OnInit {
               docSnap.disslike = true;
             }
           }
+          this.afAuth.currentUser.then((user) => {
+            const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(docid).update({
+              numberDisslike: firebase.firestore.FieldValue.increment(1),
+            })
+          });
         } else {
           ref
             .collection('disslike')
@@ -716,6 +619,11 @@ export class SelectDocumentsComponent implements OnInit {
               docSnap.disslike = false;
             }
           }
+          this.afAuth.currentUser.then((user) => {
+            const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(docid).update({
+              numberDisslike: firebase.firestore.FieldValue.increment(-1),
+            })
+          });
         }
       });
   }
