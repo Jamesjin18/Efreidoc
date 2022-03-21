@@ -7,7 +7,6 @@ import {
 } from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { MajeurService } from 'src/app/core/services/majeur.service';
 import { Majeur } from 'src/app/models/majeur';
 @Component({
   selector: 'app-selecmat',
@@ -20,7 +19,6 @@ export class SelecmatComponent implements OnInit {
 
   constructor(
     private afs: AngularFirestore,
-    private majeurService: MajeurService,
     private route: Router
   ) {
     this.arrPath = new Array<string>();

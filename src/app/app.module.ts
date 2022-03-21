@@ -25,7 +25,6 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth.service';
-import { MajeurService } from './core/services/majeur.service';
 import { SelecClassComponent } from './modules/selec-class/selec-class.component';
 import { SelectCoursComponent } from './modules/select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
@@ -69,7 +68,7 @@ import { CompteComponent } from './modules/compte/compte.component';
     FormsModule,
   ],
   exports: [NavbarComponent],
-  providers: [AuthService, MajeurService],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
