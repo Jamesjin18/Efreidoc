@@ -1,3 +1,11 @@
-<div class="display_route">
-    <a *ngFor="let path of mapPath | keyvalue: unsorted" routerLink="{{path.value}}">/{{path.key}}</a>
-  </div>
+<div class="breadcrumb_card">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li *ngFor="let path of mapPath | keyvalue: unsorted last as isLast" class="breadcrumb-item" [ngClass]="{'active': isLast}"> 
+        <a *ngIf="isLast" aria-current="page">{{path.key}}</a>
+        <a *ngIf="!isLast" routerLink="{{path.value}}">{{path.key}}</a>
+      </li>
+    </ol>
+  </nav>
+</div>
+

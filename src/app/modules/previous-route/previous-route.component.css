@@ -1,0 +1,10 @@
+.breadcrumb_card {
+    margin-top: 10px;
+    background-color: #9dd0da;
+    border-radius: 5px;
+    padding-left: 5px;
+}
+
+.breadcrumb_card nav ol li a{
+    text-decoration: none;
+}

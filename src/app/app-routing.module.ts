@@ -55,8 +55,8 @@ const routes: Routes = [
     component: ResourcespageComponent,
   },
   { canActivate: [AuthGuard], path: 'ajoutdoc', component: AjoutdocComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({
