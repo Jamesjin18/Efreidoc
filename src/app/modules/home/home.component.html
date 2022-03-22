@@ -1,7 +1,40 @@
 <app-navbar></app-navbar>
 <div class="container">
+  <div id="research_content">
+    <img id="efrei_icon" src="https://img.gothru.org/283/14221439525749084961/overlay/assets/20201112080228.UyutUY.png?save=optimize" alt="Efrei Paris icon">
+    <div class="row">
+      <div class="col-12">
+        <input
+          id="search-input"
+          [(ngModel)]="researchService.recherche"
+          class="form-control"
+          type="search"
+          placeholder="Rechercher"
+          aria-label="Rechercher"
+        />
+      </div>
+      <div class="col-3">
+
+      </div>
+      <div class="col-6">
+        <button
+          id="search-button"
+          class="btn btn-outline-success"
+          type="submit"
+          (click)="researchService.search()"
+          [disabled]="researchService.recherche.length === 0 ? 'disabled' : null"
+        >
+          Rechercher
+        </button>
+      </div>
+      <div class="col-3">
+
+      </div>
+    </div>
+  </div>
+
   <div class="row">
-    <p id="titre">Année des ressources</p>
+    <p id="titre">Niveau d'étude</p>
   </div>
   <div class="row">
     <ng-container *ngFor="let i of promoSnap">

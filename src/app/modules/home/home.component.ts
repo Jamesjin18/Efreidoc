@@ -6,6 +6,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { deleteDoc, doc, getFirestore, updateDoc } from 'firebase/firestore';
+import { ResearchService } from 'src/app/core/services/research.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -19,7 +20,8 @@ export class HomeComponent implements OnInit {
     private router: ActivatedRoute,
     private _route: Router,
     public afAuth: AngularFireAuth,
-    public appComponent: AppComponent
+    public appComponent: AppComponent,
+    public researchService:ResearchService
   ) {}
 
   ngOnInit(): void {

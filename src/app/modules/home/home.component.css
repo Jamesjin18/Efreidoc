@@ -10,10 +10,9 @@
   text-align: center;
   border: 2px solid rgb(2, 62, 138, 0.75);
   background-color: #caf0f8;
-  height: 110px;
-  margin: 10px;
-  font-size: 3em;
-  font-weight: 100;
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
   position: relative;
   /* box-shadow: 5px 5px 5px black; */
 }
@@ -25,19 +24,19 @@
   left: 1px;
   right: 1px;
   color: rgb(2, 62, 138, 0.75);
-  padding: 20px;
   transform: translateY(-50%);
   resize: vertical;
+  font-size: 20px;
 }
 
 .rectanglarondiinverse {
   transition: 0.5s;
   text-align: center;
   background-color: rgb(2, 62, 138, 0.75);
-  height: 110px;
-  margin: 10px;
-  font-size: 3em;
-  border: 5px solid rgb(2, 62, 138, 0);
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
+  border: 1px solid rgb(2, 62, 138, 0);
   position: relative;
   cursor: pointer;
   /* box-shadow: 5px 5px 5px black; */
@@ -59,10 +58,10 @@
   transition: 0.5s;
   text-align: center;
   background-color: rgb(2, 62, 138, 0.75);
-  height: 110px;
-  margin: 10px;
-  font-size: 3em;
-  border: 5px solid rgb(2, 62, 138, 0);
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
+  border: 1px solid rgb(2, 62, 138, 0);
   position: relative;
   /* box-shadow: 5px 5px 5px black; */
 }
@@ -74,9 +73,9 @@
   left: 1px;
   right: 1px;
   color: #caf0f8;
-  padding: 20px;
   transform: translateY(-50%);
   resize: vertical;
+  font-size: 20px;
 }
 
 .rectanglarondiinverse:hover {
@@ -84,9 +83,9 @@
   text-align: center;
   border: 2px solid rgb(2, 62, 138, 0.75);
   background-color: #caf0f8;
-  height: 110px;
-  margin: 10px;
-  font-size: 3em;
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
   position: relative;
   cursor: pointer;
   /* box-shadow: 5px 5px 5px black; */
@@ -120,4 +119,17 @@
 .divicon {
   position: relative;
   display: inline-flex;
+}
+
+#efrei_icon {
+  width: 50%;
+  height: 50%;
+}
+
+#research_content {
+  text-align: center;
+}
+
+#search-button {
+  margin-top: 10px;
 }

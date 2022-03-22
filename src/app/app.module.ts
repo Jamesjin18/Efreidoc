@@ -33,6 +33,7 @@ import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
 import { PreviousRouteComponent } from './modules/previous-route/previous-route.component';
 import { CompteComponent } from './modules/compte/compte.component';
+import { ResearchBarComponent } from './modules/research-bar/research-bar.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { CompteComponent } from './modules/compte/compte.component';
     SelectCoursTypeComponent,
     PreviousRouteComponent,
     CompteComponent,
+    ResearchBarComponent,
   ],
   imports: [
     BrowserModule,
