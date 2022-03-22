@@ -20,8 +20,9 @@ export class AuthService {
     this.userData = afAuth.authState;
   }
 
-  private updateUserData(user: firebase.default.User) {
+  private updateUserData(user: firebase.default.User, promotion: string) {
     // Sets user data to firestore on login
+    const date = new Date();
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -30,6 +31,11 @@ export class AuthService {
       email: user.email!,
       roles: {
         subscriber: true,
+      },
+      promotion: {
+        promotion: promotion,
+        date: date,
+        change: 1,
       },
     };
     return userRef.set(data, { merge: true });
@@ -72,19 +78,25 @@ export class AuthService {
   // }
 
   // Sign up with email/password
-  SignUp(email: string, password: string) {
+  SignUp(email: string, password: string, promotion: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
         /* Call the SendVerificaitonMail() function when new user sign 
           up and returns promise */
         // this.SendVerificationMail();
-        this.updateUserData(result.user!);
+        this.updateUserData(result.user!, promotion);
         this.router.navigate(['/', 'login']);
       })
       .catch((error) => {
+        console.log(error.code);
+        let errors = '';
+        if (error.code === 'auth/email-already-in-use') {
+          errors = "l'email est déjà utilisé";
+        }
         Swal.fire({
           title: 'Sign in error',
+          text: errors,
           input: error,
           inputAttributes: {
             autocapitalize: 'off',

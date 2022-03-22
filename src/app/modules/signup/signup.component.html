@@ -39,6 +39,15 @@
             formControlName="password"
           />
         </div>
+        <div>
+          <label for="promo">Choisir une promotion:</label>
+          <select formControlName="promotion" name="promo" id="promo" required>
+            <option value="">None</option>
+            <ng-container *ngFor="let promo of promos">
+              <option value="{{ promo }}">{{ promo }}</option>
+            </ng-container>
+          </select>
+        </div>
         <div class="text-center">
           <button
             type="submit"

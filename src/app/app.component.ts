@@ -43,6 +43,7 @@ export class AppComponent implements OnInit {
                       editor: data.get('roles.editor'),
                     },
                     uid: data.get('uid'),
+                    promotion: data.get('promotion'),
                   };
                   console.log(this.user);
                   console.log('2');
