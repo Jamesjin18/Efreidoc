@@ -213,6 +213,10 @@ td {
   padding-bottom: 8px;
 }
 
+.table100-head {
+  width: 1320px;
+}
+
 .table100-body {
   width: 1320px;
 }
@@ -226,7 +230,6 @@ td {
 
 .table100-head {
   position: absolute;
-  width: 100%;
   top: 0;
   left: 0;
 }
@@ -273,7 +276,7 @@ td {
 
 .table100.ver1 {
   border-radius: 10px;
-  overflow: hidden;
+  overflow: auto;
   box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
   -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
