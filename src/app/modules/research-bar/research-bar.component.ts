@@ -6,12 +6,9 @@ import { ResearchService } from 'src/app/core/services/research.service';
   templateUrl: './research-bar.component.html',
   styleUrls: ['./research-bar.component.css']
 })
-export class ResearchBarComponent implements OnInit {
+export class ResearchBarComponent{
 
   constructor(public researchService:ResearchService) { }
-
-  ngOnInit(): void {
-  }
 
   async search() {
     this.researchService.search()
