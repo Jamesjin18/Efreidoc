@@ -13,10 +13,11 @@ import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cou
 import { SelectCoursComponent } from './modules/select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
 import { CompteComponent } from './modules/compte/compte.component';
+import { LoginGuard } from './core/services/AuthGard/login-guard.service';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
+  { canActivate: [LoginGuard], path: 'login', component: LoginComponent },
+  { canActivate: [LoginGuard], path: 'signup', component: SignupComponent },
   { canActivate: [AuthGuard], path: 'home', component: HomeComponent },
   {
     canActivate: [AuthGuard],
@@ -62,6 +63,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard],
+  providers: [AuthGuard, LoginGuard],
 })
 export class AppRoutingModule {}
