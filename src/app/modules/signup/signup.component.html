@@ -15,12 +15,12 @@
   <div class="row">
     <div class="col-3"></div>
     <div id="login_form" class="col-6">
-      <h1 id="connexion">Connexion</h1>
+      <h1 id="connexion">S'inscrire</h1>
       <span id="compteefrei">Veuillez utilisez votre compte Efrei Paris</span>
       <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="m-4">
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label formfield"
-            >email</label
+            >Email</label
           >
           <input
             type="email"
@@ -40,21 +40,22 @@
           />
         </div>
         <div>
-          <label for="promo">Choisir une promotion:</label>
+          <label for="promo">Choisir une promotion :</label>&nbsp;
           <select formControlName="promotion" name="promo" id="promo" required>
-            <option value="">None</option>
+            <option value="">Aucune</option>
             <ng-container *ngFor="let promo of promos">
               <option value="{{ promo }}">{{ promo }}</option>
             </ng-container>
           </select>
         </div>
         <div class="text-center">
+          <br>
           <button
             type="submit"
             id="connexionbouton"
             [disabled]="!signUpForm.valid"
           >
-            Connexion
+            S'inscrire
           </button>
         </div>
       </form>
