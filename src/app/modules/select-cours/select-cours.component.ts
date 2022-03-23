@@ -56,24 +56,27 @@ export class SelectCoursComponent implements OnInit {
       if (result.isConfirmed) {
         if (result.value) {
           this.addMatiere(result.value);
+          this.ngOnInit();
         }
       }
     });
   }
 
   addMatiere(nameMatiere: string) {
+    const date = new Date();
+    const dateUpload = date.getTime();
     this.afs
       .collection('efrei')
       .doc(this.selectedPromo)
       .collection('class')
       .doc(this.selectedClass)
       .collection('cours')
-      .doc(nameMatiere)
-      .set({}, { merge: true });
+      .doc(dateUpload.toString())
+      .set({ name: nameMatiere }, { merge: true });
   }
-  modify(target: string) {
+  modify(target: string, name: string) {
     Swal.fire({
-      title: 'Renommer ' + target + ' ',
+      title: 'Renommer ' + name + ' ',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
@@ -91,9 +94,9 @@ export class SelectCoursComponent implements OnInit {
       }
     });
   }
-  delete(target: string) {
+  delete(target: string, name: string) {
     Swal.fire({
-      title: 'Êtes vous sûr de vouloir supprimer ' + target + '?',
+      title: 'Êtes vous sûr de vouloir supprimer ' + name + '?',
       text: 'Vous ne pourrez plus revenir en arrière',
       icon: 'warning',
       showCancelButton: true,

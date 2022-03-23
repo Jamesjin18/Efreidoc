@@ -12,19 +12,18 @@
           style="text-align: center"
           [routerLink]="[i.id]"
         >
-          <p *ngIf="!i.get('name')">{{ i.id }}</p>
-          <p *ngIf="i.get('name')">{{ i.get("name") }}</p>
+          <p>{{ i.get("name") }}</p>
         </a>
         <ng-container *ngIf="appComponent.user">
           <i
             *ngIf="appComponent.user.roles.admin === true"
             class="icon fas fa-trash fa-xl"
-            (click)="delete(i.id)"
+            (click)="delete(i.id, i.get('name'))"
           ></i>
           <i
             *ngIf="appComponent.user.roles.admin === true"
             class="icon fa-solid fa-pen fa-xl"
-            (click)="modify(i.id)"
+            (click)="modify(i.id, i.get('name'))"
           ></i>
         </ng-container>
       </div>

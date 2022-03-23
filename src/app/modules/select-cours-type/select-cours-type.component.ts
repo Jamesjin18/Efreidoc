@@ -61,12 +61,16 @@ export class SelectCoursTypeComponent implements OnInit {
       if (result.isConfirmed) {
         if (result.value) {
           this.addCoursType(result.value);
+          this.ngOnInit();
         }
       }
     });
   }
 
   addCoursType(nameCoursType: string) {
+    const date = new Date();
+    const dateUpload = date.getTime();
+
     this.afs
       .collection('efrei')
       .doc(this.selectedPromo)
@@ -75,12 +79,12 @@ export class SelectCoursTypeComponent implements OnInit {
       .collection('cours')
       .doc(this.selectedCours)
       .collection('coursType')
-      .doc(nameCoursType)
-      .set({}, { merge: true });
+      .doc(dateUpload.toString())
+      .set({ name: nameCoursType }, { merge: true });
   }
-  modify(target: string) {
+  modify(target: string, name: string) {
     Swal.fire({
-      title: 'Renommer ' + target + ' ',
+      title: 'Renommer ' + name + ' ',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
@@ -98,9 +102,9 @@ export class SelectCoursTypeComponent implements OnInit {
       }
     });
   }
-  delete(target: string) {
+  delete(target: string, name: string) {
     Swal.fire({
-      title: 'Êtes vous sûr de vouloir supprimer ' + target + '?',
+      title: 'Êtes vous sûr de vouloir supprimer ' + name + '?',
       text: 'Vous ne pourrez plus revenir en arrière',
       icon: 'warning',
       showCancelButton: true,

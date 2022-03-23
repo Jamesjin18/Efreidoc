@@ -16,7 +16,7 @@
         class="btn btn-primary"
         [ngStyle]="
           description.length === 0 ||
-          appComponent.user!.promotion.promotion !== selectedPromo
+          appComponent.user!.promotion.promotion !== promoName
             ? { backgroundColor: 'grey', 'border-color': 'grey' }
             : {}
         "
@@ -27,7 +27,7 @@
         id="input1"
         [attr.disabled]="
           description.length === 0 ||
-          appComponent.user!.promotion.promotion !== selectedPromo
+          appComponent.user!.promotion.promotion !== promoName
             ? ''
             : null
         "
@@ -46,7 +46,7 @@
         class="btn btn-primary"
         [ngStyle]="
           description.length === 0 ||
-          appComponent.user!.promotion.promotion !== selectedPromo
+          appComponent.user!.promotion.promotion !== promoName
             ? { backgroundColor: 'grey', 'border-color': 'grey' }
             : {}
         "
@@ -57,7 +57,7 @@
         id="file"
         [attr.disabled]="
           description.length === 0 ||
-          appComponent.user!.promotion.promotion !== selectedPromo
+          appComponent.user!.promotion.promotion !== promoName
             ? ''
             : null
         "
@@ -138,75 +138,85 @@
       <div class="table100-body js-pscroll">
         <table>
           <tbody>
-            <tr *ngFor="let i of documentsSnap" class="row100 body">
-              <td class="cell100 column1">{{ i.get("name") }}</td>
-              <td class="cell100 column2">{{ i.get("type") }}</td>
-              <td
-                class="cell100 column3"
-                (click)="popUpDescriptionSize(i.get('description'))"
+            <ng-container *ngFor="let i of documentsSnap">
+              <tr
+                class="row100 body"
+                *ngIf="
+                  i.get('numberLike') / i.get('numberDisslike') > 0.5 ||
+                  i.get('numberDisslike') < 10
+                "
               >
-                <i class="plus radius" style="cursor: pointer"></i> &nbsp;{{
-                  i.get("description")
-                }}
-              </td>
-              <td class="cell100 column4">{{ displaySize(i.get("size")) }}</td>
-              <td class="cell100 column5">{{ i.get("username") }}</td>
-              <td class="cell100 column6">
-                <link
-                  rel="stylesheet"
-                  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-                />
-                <button
-                  (click)="pageTokenExample(i.get('path'), i.get('path'))"
-                  class="btn"
+                <td class="cell100 column1">{{ i.get("name") }}</td>
+                <td class="cell100 column2">{{ i.get("type") }}</td>
+                <td
+                  class="cell100 column3"
+                  (click)="popUpDescriptionSize(i.get('description'))"
                 >
-                  <i class="fa fa-download"></i>
-                </button>
-              </td>
-              <td class="cell100 column7">
-                <div>
-                  {{ i.get("numberLike") }}
-                  <i
-                    *ngIf="
-                      appComponent.user!.promotion.promotion === selectedPromo
-                    "
-                    class="like fa-solid fa-thumbs-up fa-xl"
-                    [ngClass]="{
-                      likeSelect: i.like,
-                      likeUnselect: !i.like
-                    }"
-                    (click)="like(i.id)"
-                  ></i>
-                  <i
-                    *ngIf="
-                      appComponent.user!.promotion.promotion !== selectedPromo
-                    "
-                    class="like fa-solid fa-thumbs-up fa-xl"
-                  ></i>
-                </div>
-                <br />
-                <div>
-                  {{ i.get("numberDisslike") }}
-                  <i
-                    *ngIf="
-                      appComponent.user!.promotion.promotion === selectedPromo
-                    "
-                    class="disslike fa-solid fa-thumbs-down fa-xl"
-                    [ngClass]="{
-                      disslikeSelect: i.disslike,
-                      disslikeUnselect: !i.disslike
-                    }"
-                    (click)="disslike(i.id)"
-                  ></i>
-                  <i
-                    *ngIf="
-                      appComponent.user!.promotion.promotion !== selectedPromo
-                    "
-                    class="disslike fa-solid fa-thumbs-down fa-xl"
-                  ></i>
-                </div>
-              </td>
-            </tr>
+                  <i class="plus radius" style="cursor: pointer"></i> &nbsp;{{
+                    i.get("description")
+                  }}
+                </td>
+                <td class="cell100 column4">
+                  {{ displaySize(i.get("size")) }}
+                </td>
+                <td class="cell100 column5">{{ i.get("username") }}</td>
+                <td class="cell100 column6">
+                  <link
+                    rel="stylesheet"
+                    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+                  />
+                  <button
+                    (click)="pageTokenExample(i.get('path'), i.get('path'))"
+                    class="btn"
+                  >
+                    <i class="fa fa-download"></i>
+                  </button>
+                </td>
+                <td class="cell100 column7">
+                  <div>
+                    {{ i.get("numberLike") }}
+                    <i
+                      *ngIf="
+                        appComponent.user!.promotion.promotion === promoName
+                      "
+                      class="like fa-solid fa-thumbs-up fa-xl"
+                      [ngClass]="{
+                        likeSelect: i.like,
+                        likeUnselect: !i.like
+                      }"
+                      (click)="like(i.id)"
+                    ></i>
+                    <i
+                      *ngIf="
+                        appComponent.user!.promotion.promotion !== promoName
+                      "
+                      class="like fa-solid fa-thumbs-up fa-xl"
+                    ></i>
+                  </div>
+                  <br />
+                  <div>
+                    {{ i.get("numberDisslike") }}
+                    <i
+                      *ngIf="
+                        appComponent.user!.promotion.promotion === promoName
+                      "
+                      class="disslike fa-solid fa-thumbs-down fa-xl"
+                      [ngClass]="{
+                        disslikeSelect: i.disslike,
+                        disslikeUnselect: !i.disslike
+                      }"
+                      (click)="disslike(i.id)"
+                    ></i>
+                    <i
+                      *ngIf="
+                        appComponent.user!.promotion.promotion !== promoName
+                      "
+                      class="disslike fa-solid fa-thumbs-down fa-xl"
+                    ></i>
+                  </div>
+                </td>
+              </tr>
+            </ng-container>
           </tbody>
         </table>
       </div>

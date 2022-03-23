@@ -23,6 +23,7 @@ export class AuthService {
   private updateUserData(user: firebase.default.User, promotion: string) {
     // Sets user data to firestore on login
     const date = new Date();
+    const dateSignup = date.getTime();
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(
       `users/${user.uid}`
     );
@@ -34,7 +35,7 @@ export class AuthService {
       },
       promotion: {
         promotion: promotion,
-        date: date,
+        date: dateSignup,
         change: 1,
       },
     };

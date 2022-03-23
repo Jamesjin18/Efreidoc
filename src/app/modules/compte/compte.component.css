@@ -1,12 +1,32 @@
 .btn {
-    background-color: DodgerBlue;
-    border: none;
-    color: white;
-    padding: 12px 30px;
-    cursor: pointer;
-    font-size: 20px;
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
 }
 
 .btn:hover {
-    background-color: RoyalBlue;
+  background-color: RoyalBlue;
+}
+.like {
+  color: rgb(67, 206, 109);
+  margin-left: 20%;
+}
+.disslike {
+  color: rgb(226, 76, 76);
+  margin-left: 20%;
+}
+.icon {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: gray;
+  transition: 0.2s;
 }

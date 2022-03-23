@@ -320,6 +320,11 @@ td {
   margin-left: 20%;
 }
 
+.disslike {
+  color: gray;
+  margin-left: 20%;
+}
+
 .likeSelect {
   color: rgb(67, 206, 109);
   margin-left: 20%;

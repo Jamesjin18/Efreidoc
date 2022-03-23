@@ -27,6 +27,12 @@ export class SelectDocumentsComponent implements OnInit {
   selectedClass!: string;
   selectedCours!: string;
   selectedCoursType!: string;
+
+  promoName: string = '';
+  className: string = '';
+  coursName: string = '';
+  coursTypeName: string = '';
+
   arrPath: string[];
   documentsSnap: any;
 
@@ -84,9 +90,53 @@ export class SelectDocumentsComponent implements OnInit {
     console.log(this.documentsSnap);
     this.getLike();
     this.getDisslike();
+    this.getRouteName();
     this.triName = 'asc';
     this.triType = 'asc';
     this.triLike = 'asc';
+  }
+
+  public getRouteName() {
+    this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .ref.get()
+      .then((promo) => {
+        this.promoName = promo.get('name');
+      });
+    this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .ref.get()
+      .then((promo) => {
+        this.className = promo.get('name');
+      });
+    this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .ref.get()
+      .then((promo) => {
+        this.coursName = promo.get('name');
+      });
+    this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .ref.get()
+      .then((promo) => {
+        this.coursTypeName = promo.get('name');
+      });
   }
 
   public displaySize(size: number) {

@@ -6,7 +6,7 @@ export interface Roles {
 
 export interface Promotion {
   promotion: string;
-  date: Date;
+  date: number;
   change: number;
 }
 

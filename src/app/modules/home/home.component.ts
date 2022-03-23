@@ -36,9 +36,9 @@ export class HomeComponent implements OnInit {
       });
   }
 
-  modify(target: string) {
+  modify(target: string, name: string) {
     Swal.fire({
-      title: 'Renommer ' + target + ' ',
+      title: 'Renommer ' + name + ' ',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
@@ -77,9 +77,9 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  delete(target: string) {
+  delete(target: string, name: string) {
     Swal.fire({
-      title: 'Êtes vous sûr de vouloir supprimer ' + target + '?',
+      title: 'Êtes vous sûr de vouloir supprimer ' + name + '?',
       text: 'Vous ne pourrez plus revenir en arrière',
       icon: 'warning',
       showCancelButton: true,
@@ -111,6 +111,11 @@ export class HomeComponent implements OnInit {
   }
 
   addPromo(namePromo: string) {
-    this.afs.collection('efrei').doc(namePromo).set({}, { merge: true });
+    const date = new Date();
+    const dateUpload = date.getTime();
+    this.afs
+      .collection('efrei')
+      .doc(dateUpload.toString())
+      .set({ name: namePromo }, { merge: true });
   }
 }

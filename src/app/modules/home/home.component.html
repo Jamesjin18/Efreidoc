@@ -1,7 +1,11 @@
 <app-navbar></app-navbar>
 <div class="container">
   <div id="research_content">
-    <img id="efrei_icon" src="https://img.gothru.org/283/14221439525749084961/overlay/assets/20201112080228.UyutUY.png?save=optimize" alt="Efrei Paris icon">
+    <img
+      id="efrei_icon"
+      src="https://img.gothru.org/283/14221439525749084961/overlay/assets/20201112080228.UyutUY.png?save=optimize"
+      alt="Efrei Paris icon"
+    />
     <div class="row">
       <div class="col-12">
         <input
@@ -13,23 +17,21 @@
           aria-label="Rechercher"
         />
       </div>
-      <div class="col-3">
-
-      </div>
+      <div class="col-3"></div>
       <div class="col-6">
         <button
           id="search-button"
           class="btn btn-outline-primary"
           type="submit"
           (click)="researchService.search()"
-          [disabled]="researchService.recherche.length === 0 ? 'disabled' : null"
+          [disabled]="
+            researchService.recherche.length === 0 ? 'disabled' : null
+          "
         >
           Rechercher
         </button>
       </div>
-      <div class="col-3">
-
-      </div>
+      <div class="col-3"></div>
     </div>
   </div>
 
@@ -44,19 +46,18 @@
           style="text-align: center"
           [routerLink]="[i.id]"
         >
-          <p *ngIf="!i.get('name')">{{ i.id }}</p>
-          <p *ngIf="i.get('name')">{{ i.get("name") }}</p>
+          <p>{{ i.get("name") }}</p>
         </a>
         <ng-container *ngIf="appComponent.user">
           <i
             *ngIf="appComponent.user.roles.admin === true"
             class="icon fas fa-trash fa-xl"
-            (click)="delete(i.id)"
+            (click)="delete(i.id, i.get('name'))"
           ></i>
           <i
             *ngIf="appComponent.user.roles.admin === true"
             class="icon fa-solid fa-pen fa-xl"
-            (click)="modify(i.id)"
+            (click)="modify(i.id, i.get('name'))"
           ></i>
         </ng-container>
       </div>
