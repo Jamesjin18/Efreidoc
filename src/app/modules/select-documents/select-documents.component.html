@@ -15,7 +15,8 @@
         for="input1"
         class="btn btn-primary"
         [ngStyle]="
-          description.length === 0
+          description.length === 0 ||
+          appComponent.user!.promotion.promotion !== selectedPromo
             ? { backgroundColor: 'grey', 'border-color': 'grey' }
             : {}
         "
@@ -24,7 +25,12 @@
       </label>
       <input
         id="input1"
-        [attr.disabled]="description.length === 0 ? '' : null"
+        [attr.disabled]="
+          description.length === 0 ||
+          appComponent.user!.promotion.promotion !== selectedPromo
+            ? ''
+            : null
+        "
         type="file"
         webkitdirectory
         mozdirectory
@@ -39,7 +45,8 @@
         for="file"
         class="btn btn-primary"
         [ngStyle]="
-          description.length === 0
+          description.length === 0 ||
+          appComponent.user!.promotion.promotion !== selectedPromo
             ? { backgroundColor: 'grey', 'border-color': 'grey' }
             : {}
         "
@@ -48,7 +55,12 @@
       </label>
       <input
         id="file"
-        [attr.disabled]="description.length === 0 ? '' : null"
+        [attr.disabled]="
+          description.length === 0 ||
+          appComponent.user!.promotion.promotion !== selectedPromo
+            ? ''
+            : null
+        "
         type="file"
         id="file"
         style="display: none"
@@ -69,13 +81,55 @@
         <table>
           <thead>
             <tr class="row100 head">
-              <th class="cell100 column1">Name &nbsp; <i *ngIf="this.triName === 'asc'" class="arrow up" (click)="sortByName()" style="cursor: pointer"></i><i *ngIf="this.triName === 'desc'" class="arrow down" (click)="sortByName()" style="cursor: pointer"></i></th>
-              <th class="cell100 column2">Type &nbsp; <i *ngIf="this.triType === 'asc'" class="arrow up" (click)="sortByType()" style="cursor: pointer"></i><i *ngIf="this.triType === 'desc'" class="arrow down" (click)="sortByType()" style="cursor: pointer"></i></th>
+              <th class="cell100 column1">
+                Name &nbsp;
+                <i
+                  *ngIf="this.triName === 'asc'"
+                  class="arrow up"
+                  (click)="sortByName()"
+                  style="cursor: pointer"
+                ></i
+                ><i
+                  *ngIf="this.triName === 'desc'"
+                  class="arrow down"
+                  (click)="sortByName()"
+                  style="cursor: pointer"
+                ></i>
+              </th>
+              <th class="cell100 column2">
+                Type &nbsp;
+                <i
+                  *ngIf="this.triType === 'asc'"
+                  class="arrow up"
+                  (click)="sortByType()"
+                  style="cursor: pointer"
+                ></i
+                ><i
+                  *ngIf="this.triType === 'desc'"
+                  class="arrow down"
+                  (click)="sortByType()"
+                  style="cursor: pointer"
+                ></i>
+              </th>
               <th class="cell100 column3">Description</th>
               <th class="cell100 column4">Size</th>
               <th class="cell100 column5">User</th>
               <th class="cell100 column6">Download</th>
-              <th class="cell100 column7">Like &nbsp; <i *ngIf="this.triLike === 'asc'" class="arrow up" (click)="sortByLike()" style="cursor: pointer"></i><i *ngIf="this.triLike === 'desc'" class="arrow down" (click)="sortByLike()" style="cursor: pointer"></i></th>
+              <th class="cell100 column7">
+                Like &nbsp;
+                <i
+                  *ngIf="this.triLike === 'asc'"
+                  class="arrow up"
+                  (click)="sortByLike()"
+                  style="cursor: pointer"
+                ></i
+                ><i
+                  *ngIf="this.triLike === 'desc'"
+                  class="arrow down"
+                  (click)="sortByLike()"
+                  style="cursor: pointer"
+                ></i>
+              </th>
             </tr>
           </thead>
         </table>
@@ -91,8 +145,9 @@
                 class="cell100 column3"
                 (click)="popUpDescriptionSize(i.get('description'))"
               >
-                <i class="plus radius" style="cursor: pointer"></i
-                > &nbsp;{{ i.get("description") }}
+                <i class="plus radius" style="cursor: pointer"></i> &nbsp;{{
+                  i.get("description")
+                }}
               </td>
               <td class="cell100 column4">{{ displaySize(i.get("size")) }}</td>
               <td class="cell100 column5">{{ i.get("username") }}</td>
@@ -109,8 +164,12 @@
                 </button>
               </td>
               <td class="cell100 column7">
-                <div>{{ i.get("numberLike") }}
+                <div>
+                  {{ i.get("numberLike") }}
                   <i
+                    *ngIf="
+                      appComponent.user!.promotion.promotion === selectedPromo
+                    "
                     class="like fa-solid fa-thumbs-up fa-xl"
                     [ngClass]="{
                       likeSelect: i.like,
@@ -118,18 +177,33 @@
                     }"
                     (click)="like(i.id)"
                   ></i>
+                  <i
+                    *ngIf="
+                      appComponent.user!.promotion.promotion !== selectedPromo
+                    "
+                    class="like fa-solid fa-thumbs-up fa-xl"
+                  ></i>
                 </div>
-                <br>
+                <br />
                 <div>
                   {{ i.get("numberDisslike") }}
-                <i
-                  class="disslike fa-solid fa-thumbs-down fa-xl"
-                  [ngClass]="{
-                    disslikeSelect: i.disslike,
-                    disslikeUnselect: !i.disslike
-                  }"
-                  (click)="disslike(i.id)"
-                ></i>
+                  <i
+                    *ngIf="
+                      appComponent.user!.promotion.promotion === selectedPromo
+                    "
+                    class="disslike fa-solid fa-thumbs-down fa-xl"
+                    [ngClass]="{
+                      disslikeSelect: i.disslike,
+                      disslikeUnselect: !i.disslike
+                    }"
+                    (click)="disslike(i.id)"
+                  ></i>
+                  <i
+                    *ngIf="
+                      appComponent.user!.promotion.promotion !== selectedPromo
+                    "
+                    class="disslike fa-solid fa-thumbs-down fa-xl"
+                  ></i>
                 </div>
               </td>
             </tr>

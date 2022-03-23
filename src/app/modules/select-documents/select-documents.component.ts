@@ -84,9 +84,9 @@ export class SelectDocumentsComponent implements OnInit {
     console.log(this.documentsSnap);
     this.getLike();
     this.getDisslike();
-    this.triName = "asc";
-    this.triType = "asc";
-    this.triLike = "asc";
+    this.triName = 'asc';
+    this.triType = 'asc';
+    this.triLike = 'asc';
   }
 
   public displaySize(size: number) {
@@ -101,7 +101,7 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   async pageTokenExample(folder: string, folderinit: string) {
-    this.tableService.pageTokenExample(folder,folderinit)
+    this.tableService.pageTokenExample(folder, folderinit);
   }
 
   uploading(event: any) {
@@ -210,7 +210,12 @@ export class SelectDocumentsComponent implements OnInit {
                 ref
                   .set(
                     {
-                      path: this.folderinit + '/' + dateUpload.toString()+ '' + this.appComponent.user!.email,
+                      path:
+                        this.folderinit +
+                        '/' +
+                        dateUpload.toString() +
+                        '' +
+                        this.appComponent.user!.email,
                       name: file.webkitRelativePath.split('/')[0],
                       type: 'folder',
                       description: this.description,
@@ -236,20 +241,32 @@ export class SelectDocumentsComponent implements OnInit {
                     });
                   });
                 this.afAuth.currentUser.then((user) => {
-                  const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(dateUpload.toString() + '' + this.appComponent.user!.email).set(
-                    {
-                      path: this.folderinit + '/' + dateUpload.toString()+ '' + this.appComponent.user!.email,
-                      name: file.webkitRelativePath.split('/')[0],
-                      type: 'folder',
-                      description: this.description,
-                      username: this.appComponent.user!.email,
-                      like: false,
-                      disslike: false,
-                      numberLike: 0,
-                      numberDisslike: 0,
-                    },
-                    { merge: true }
-                  )
+                  const ref2 = this.afs
+                    .collection('users')
+                    .doc(user!.uid)
+                    .collection('upload')
+                    .doc(
+                      dateUpload.toString() + '' + this.appComponent.user!.email
+                    )
+                    .set(
+                      {
+                        path:
+                          this.folderinit +
+                          '/' +
+                          dateUpload.toString() +
+                          '' +
+                          this.appComponent.user!.email,
+                        name: file.webkitRelativePath.split('/')[0],
+                        type: 'folder',
+                        description: this.description,
+                        username: this.appComponent.user!.email,
+                        like: false,
+                        disslike: false,
+                        numberLike: 0,
+                        numberDisslike: 0,
+                      },
+                      { merge: true }
+                    );
                 });
               });
           }
@@ -436,7 +453,12 @@ export class SelectDocumentsComponent implements OnInit {
               ref
                 .set(
                   {
-                    path: this.folderinit + '/' + dateUpload.toString()+ '' + this.appComponent.user!.email,
+                    path:
+                      this.folderinit +
+                      '/' +
+                      dateUpload.toString() +
+                      '' +
+                      this.appComponent.user!.email,
                     name: file.name,
                     type: 'file',
                     description: this.description,
@@ -477,21 +499,33 @@ export class SelectDocumentsComponent implements OnInit {
                   });
                 });
               this.afAuth.currentUser.then((user) => {
-                const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(dateUpload.toString() + '' + this.appComponent.user!.email).set(
-                  {
-                    path: this.folderinit + '/' + dateUpload.toString()+ '' + this.appComponent.user!.email,
-                    name: file.name,
-                    type: 'file',
-                    description: this.description,
-                    size: file.size,
-                    username: this.appComponent.user!.email,
-                    like: false,
-                    disslike: false,
-                    numberLike: 0,
-                    numberDisslike: 0,
-                  },
-                  { merge: true }
-                )
+                const ref2 = this.afs
+                  .collection('users')
+                  .doc(user!.uid)
+                  .collection('upload')
+                  .doc(
+                    dateUpload.toString() + '' + this.appComponent.user!.email
+                  )
+                  .set(
+                    {
+                      path:
+                        this.folderinit +
+                        '/' +
+                        dateUpload.toString() +
+                        '' +
+                        this.appComponent.user!.email,
+                      name: file.name,
+                      type: 'file',
+                      description: this.description,
+                      size: file.size,
+                      username: this.appComponent.user!.email,
+                      like: false,
+                      disslike: false,
+                      numberLike: 0,
+                      numberDisslike: 0,
+                    },
+                    { merge: true }
+                  );
               });
             });
           }
@@ -523,6 +557,7 @@ export class SelectDocumentsComponent implements OnInit {
       .ref.get()
       .then((docs) => {
         if (!docs.exists) {
+          ('doc exist');
           ref.collection('like').doc(this.appComponent.user!.email).set({});
           ref
             .update({
@@ -537,11 +572,15 @@ export class SelectDocumentsComponent implements OnInit {
             }
           }
           this.afAuth.currentUser.then((user) => {
-            const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(docid).update({
-              numberLike: firebase.firestore.FieldValue.increment(1),
-            })
+            const ref2 = this.afs
+              .collection('users')
+              .doc(user!.uid)
+              .collection('upload')
+              .doc(docid)
+              .update({
+                numberLike: firebase.firestore.FieldValue.increment(1),
+              });
           });
-          
         } else {
           ref.collection('like').doc(this.appComponent.user!.email).delete();
           ref
@@ -557,9 +596,14 @@ export class SelectDocumentsComponent implements OnInit {
             }
           }
           this.afAuth.currentUser.then((user) => {
-            const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(docid).update({
-              numberLike: firebase.firestore.FieldValue.increment(-1),
-            })
+            const ref2 = this.afs
+              .collection('users')
+              .doc(user!.uid)
+              .collection('upload')
+              .doc(docid)
+              .update({
+                numberLike: firebase.firestore.FieldValue.increment(-1),
+              });
           });
         }
       });
@@ -598,9 +642,14 @@ export class SelectDocumentsComponent implements OnInit {
             }
           }
           this.afAuth.currentUser.then((user) => {
-            const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(docid).update({
-              numberDisslike: firebase.firestore.FieldValue.increment(1),
-            })
+            const ref2 = this.afs
+              .collection('users')
+              .doc(user!.uid)
+              .collection('upload')
+              .doc(docid)
+              .update({
+                numberDisslike: firebase.firestore.FieldValue.increment(1),
+              });
           });
         } else {
           ref
@@ -620,9 +669,14 @@ export class SelectDocumentsComponent implements OnInit {
             }
           }
           this.afAuth.currentUser.then((user) => {
-            const ref2 = this.afs.collection('users').doc(user!.uid).collection('upload').doc(docid).update({
-              numberDisslike: firebase.firestore.FieldValue.increment(-1),
-            })
+            const ref2 = this.afs
+              .collection('users')
+              .doc(user!.uid)
+              .collection('upload')
+              .doc(docid)
+              .update({
+                numberDisslike: firebase.firestore.FieldValue.increment(-1),
+              });
           });
         }
       });
@@ -698,119 +752,123 @@ export class SelectDocumentsComponent implements OnInit {
     });
   }
 
-  sortByType(){
-    if (this.triType === "asc"){
+  sortByType() {
+    if (this.triType === 'asc') {
       this.documentsSnap = null;
       this.afs
-      .collection(
-        'efrei/' +
-          this.selectedPromo +
-          '/class/' +
-          this.selectedClass +
-          '/cours/' +
-          this.selectedCours +
-          '/coursType/' +
-          this.selectedCoursType +
-          '/documents'
-      )
-      .ref.orderBy("type", "asc").get()
-      .then((data) => (this.documentsSnap = data.docs));
-      this.triType = "desc";
-    } else if (this.triType === "desc"){
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('type', 'asc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triType = 'desc';
+    } else if (this.triType === 'desc') {
       this.documentsSnap = null;
       this.afs
-      .collection(
-        'efrei/' +
-          this.selectedPromo +
-          '/class/' +
-          this.selectedClass +
-          '/cours/' +
-          this.selectedCours +
-          '/coursType/' +
-          this.selectedCoursType +
-          '/documents'
-      )
-      .ref.orderBy("type", "desc").get()
-      .then((data) => (this.documentsSnap = data.docs));
-      this.triType = "asc";
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('type', 'desc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triType = 'asc';
     }
   }
 
-  sortByName(){
-    if (this.triName === "asc"){
+  sortByName() {
+    if (this.triName === 'asc') {
       this.documentsSnap = null;
       this.afs
-      .collection(
-        'efrei/' +
-          this.selectedPromo +
-          '/class/' +
-          this.selectedClass +
-          '/cours/' +
-          this.selectedCours +
-          '/coursType/' +
-          this.selectedCoursType +
-          '/documents'
-      )
-      .ref.orderBy("name", "asc").get()
-      .then((data) => (this.documentsSnap = data.docs));
-      this.triName = "desc";
-    } else if (this.triName === "desc"){
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('name', 'asc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triName = 'desc';
+    } else if (this.triName === 'desc') {
       this.documentsSnap = null;
       this.afs
-      .collection(
-        'efrei/' +
-          this.selectedPromo +
-          '/class/' +
-          this.selectedClass +
-          '/cours/' +
-          this.selectedCours +
-          '/coursType/' +
-          this.selectedCoursType +
-          '/documents'
-      )
-      .ref.orderBy("name", "desc").get()
-      .then((data) => (this.documentsSnap = data.docs));
-      this.triName = "asc";
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('name', 'desc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triName = 'asc';
     }
   }
 
-  sortByLike(){
-    if (this.triLike === "asc"){
+  sortByLike() {
+    if (this.triLike === 'asc') {
       this.documentsSnap = null;
       this.afs
-      .collection(
-        'efrei/' +
-          this.selectedPromo +
-          '/class/' +
-          this.selectedClass +
-          '/cours/' +
-          this.selectedCours +
-          '/coursType/' +
-          this.selectedCoursType +
-          '/documents'
-      )
-      .ref.orderBy('numberLike', "asc")
-      .get()
-      .then((data) => (this.documentsSnap = data.docs));
-      this.triLike = "desc";
-    } else if (this.triLike === "desc"){
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('numberLike', 'asc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triLike = 'desc';
+    } else if (this.triLike === 'desc') {
       this.documentsSnap = null;
       this.afs
-      .collection(
-        'efrei/' +
-          this.selectedPromo +
-          '/class/' +
-          this.selectedClass +
-          '/cours/' +
-          this.selectedCours +
-          '/coursType/' +
-          this.selectedCoursType +
-          '/documents'
-      )
-      .ref.orderBy('numberLike', "desc")
-      .get()
-      .then((data) => (this.documentsSnap = data.docs));
-      this.triLike = "asc";
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('numberLike', 'desc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triLike = 'asc';
     }
   }
 }
