@@ -11,7 +11,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { HomeComponent } from './modules/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SelecmatComponent } from './modules/selecmat/selecmat.component';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 
 import { environment } from 'src/environments/environment';
@@ -40,7 +39,6 @@ import { ResearchBarComponent } from './modules/research-bar/research-bar.compon
     SignupComponent,
     HomeComponent,
     NavbarComponent,
-    SelecmatComponent,
     AjoutdocComponent,
     SelecClassComponent,
     SelectCoursComponent,
