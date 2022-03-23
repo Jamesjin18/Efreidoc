@@ -6,10 +6,9 @@ import * as FileSaver from 'file-saver';
 import Swal from 'sweetalert2';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class TableService {
-
   public downloadProgress = 0;
   public filesArray = [];
   public links: string[] = [];
@@ -35,14 +34,14 @@ export class TableService {
   }
 
   async pageTokenExample(folder: string, folderinit: string) {
-    console.log('folder: '+folder);
-    console.log('folder init: '+folderinit);
+    console.log('folder: ' + folder);
+    console.log('folder init: ' + folderinit);
     this.finish.push(0);
     const storage = getStorage();
     const listRef = ref(storage, folder);
 
     const firstPage = await list(listRef, { maxResults: 100 });
-    console.log('first page: '+firstPage);
+    console.log('first page: ' + firstPage);
     for (const folders of firstPage.prefixes) {
       this.pageTokenExample(folders.fullPath, folderinit);
     }
@@ -55,7 +54,7 @@ export class TableService {
     this.finish.pop();
     if (this.finish.length === 0) {
       console.log('fini');
-      console.log('file to zip: '+this.listFileToZip);
+      console.log('file to zip: ' + this.listFileToZip);
       if (this.listFileToZip.length === 0) {
         this.downloadBlobFile(
           folder,
@@ -83,14 +82,14 @@ export class TableService {
         xhr.responseType = 'blob';
         xhr.onload = (event) => {
           const blob = xhr.response;
-          console.log('blob: '+blob);
+          console.log('blob: ' + blob);
           const file = folder.replace(folderinit, '');
-          console.log('file:'+file);
+          console.log('file:' + file);
           zip.file(file, blob);
           console.log('in');
           zip
             .generateAsync({ type: 'blob' }, (metadata) => {
-              console.log('meta: '+metadata.percent);
+              console.log('meta: ' + metadata.percent);
               this.downloadProgress = metadata.percent;
             })
             .then((content: any) => {
@@ -117,7 +116,7 @@ export class TableService {
 
     for (const doc of this.listFileToZip) {
       console.log('ici');
-      console.log('doc: '+doc);
+      console.log('doc: ' + doc);
       const docRef = ref(storage, doc.path);
       getDownloadURL(docRef)
         .then((url) => {
@@ -125,9 +124,9 @@ export class TableService {
           xhr.responseType = 'blob';
           xhr.onload = (event) => {
             const blob = xhr.response;
-            console.log('blob: '+blob);
+            console.log('blob: ' + blob);
             const folder = doc.path.replace(folderinit, '');
-            console.log('folder: '+folder);
+            console.log('folder: ' + folder);
             zip.file(folder, blob);
             index++;
             console.log(index, this.listFileToZip.length);
@@ -135,7 +134,7 @@ export class TableService {
               console.log('in');
               zip
                 .generateAsync({ type: 'blob' }, (metadata) => {
-                  console.log('meta: '+metadata.percent);
+                  console.log('meta: ' + metadata.percent);
                   this.downloadProgress = metadata.percent;
                 })
                 .then((content: any) => {
@@ -156,5 +155,4 @@ export class TableService {
         });
     }
   }
-
 }

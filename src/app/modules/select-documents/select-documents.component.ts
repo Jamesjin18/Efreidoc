@@ -566,7 +566,7 @@ export class SelectDocumentsComponent implements OnInit {
             .then(() => {
               this.ngOnInit();
             });
-          for (let docSnap of this.documentsSnap) {
+          for (const docSnap of this.documentsSnap) {
             if (docSnap.id === docid) {
               docSnap.like = true;
             }
@@ -590,7 +590,7 @@ export class SelectDocumentsComponent implements OnInit {
             .then(() => {
               this.ngOnInit();
             });
-          for (let docSnap of this.documentsSnap) {
+          for (const docSnap of this.documentsSnap) {
             if (docSnap.id === docid) {
               docSnap.like = false;
             }
@@ -636,7 +636,7 @@ export class SelectDocumentsComponent implements OnInit {
             .then(() => {
               this.ngOnInit();
             });
-          for (let docSnap of this.documentsSnap) {
+          for (const docSnap of this.documentsSnap) {
             if (docSnap.id === docid) {
               docSnap.disslike = true;
             }
@@ -663,7 +663,7 @@ export class SelectDocumentsComponent implements OnInit {
             .then(() => {
               this.ngOnInit();
             });
-          for (let docSnap of this.documentsSnap) {
+          for (const docSnap of this.documentsSnap) {
             if (docSnap.id === docid) {
               docSnap.disslike = false;
             }
@@ -704,7 +704,7 @@ export class SelectDocumentsComponent implements OnInit {
             docs2.forEach((doc2) => {
               console.log(doc2.id);
               if (doc2.id === this.appComponent.user!.email) {
-                for (let docSnap of this.documentsSnap) {
+                for (const docSnap of this.documentsSnap) {
                   console.log(doc.id);
                   if (docSnap.id === doc.id) {
                     docSnap.like = true;
@@ -739,7 +739,7 @@ export class SelectDocumentsComponent implements OnInit {
             docs2.forEach((doc2) => {
               console.log(doc2.id);
               if (doc2.id === this.appComponent.user!.email) {
-                for (let docSnap of this.documentsSnap) {
+                for (const docSnap of this.documentsSnap) {
                   console.log(doc.id);
                   if (docSnap.id === doc.id) {
                     docSnap.disslike = true;

@@ -26,7 +26,6 @@ import { SelecClassComponent } from './modules/selec-class/selec-class.component
 import { SelectCoursComponent } from './modules/select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
 
-import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
 import { PreviousRouteComponent } from './modules/previous-route/previous-route.component';
 import { CompteComponent } from './modules/compte/compte.component';

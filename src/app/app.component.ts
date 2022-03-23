@@ -1,13 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-
-import * as firebase from '@angular/fire/firestore';
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from 'firebase/analytics';
 import { User } from './models/user';
 import { AuthService } from './core/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { doc, getDoc } from 'firebase/firestore';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

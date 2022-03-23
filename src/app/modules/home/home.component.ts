@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     private _route: Router,
     public afAuth: AngularFireAuth,
     public appComponent: AppComponent,
-    public researchService:ResearchService
+    public researchService: ResearchService
   ) {}
 
   ngOnInit(): void {
