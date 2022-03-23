@@ -12,8 +12,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { HomeComponent } from './modules/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SelecmatComponent } from './modules/selecmat/selecmat.component';
-import { ResourcesComponent } from './modules/resources/resources.component';
-import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 
 import { environment } from 'src/environments/environment';
@@ -43,8 +41,6 @@ import { ResearchBarComponent } from './modules/research-bar/research-bar.compon
     HomeComponent,
     NavbarComponent,
     SelecmatComponent,
-    ResourcesComponent,
-    ResourcespageComponent,
     AjoutdocComponent,
     SelecClassComponent,
     SelectCoursComponent,
