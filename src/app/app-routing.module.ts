@@ -4,7 +4,6 @@ import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/login.component';
-import { SelecmatComponent } from './modules/selecmat/selecmat.component';
 import { SignupComponent } from './modules/signup/signup.component';
 import { SelecClassComponent } from './modules/selec-class/selec-class.component';
 import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
@@ -37,7 +36,6 @@ const routes: Routes = [
     path: 'home/:promo/:class/:cours/:coursType',
     component: SelectDocumentsComponent,
   },
-  { canActivate: [AuthGuard], path: 'selecmat', component: SelecmatComponent },
   {
     canActivate: [AuthGuard],
     path: 'compte',
