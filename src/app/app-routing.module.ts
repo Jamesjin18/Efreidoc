@@ -4,8 +4,6 @@ import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/login.component';
-import { ResourcesComponent } from './modules/resources/resources.component';
-import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
 import { SelecmatComponent } from './modules/selecmat/selecmat.component';
 import { SignupComponent } from './modules/signup/signup.component';
 import { SelecClassComponent } from './modules/selec-class/selec-class.component';
@@ -42,18 +40,8 @@ const routes: Routes = [
   { canActivate: [AuthGuard], path: 'selecmat', component: SelecmatComponent },
   {
     canActivate: [AuthGuard],
-    path: 'resources',
-    component: ResourcesComponent,
-  },
-  {
-    canActivate: [AuthGuard],
     path: 'compte',
     component: CompteComponent,
-  },
-  {
-    canActivate: [AuthGuard],
-    path: 'resourcespage',
-    component: ResourcespageComponent,
   },
   { canActivate: [AuthGuard], path: 'ajoutdoc', component: AjoutdocComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
