@@ -31,9 +31,7 @@ export class LoginComponent {
         if (emailVerified === false) {
           this.auth.SignOut();
           this.popUpEmailNotVerified();
-          console.log('Email non vérifié');
         } else {
-          console.log('login avec succès');
         }
       }
     });

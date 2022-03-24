@@ -12,13 +12,10 @@ export class LoginGuard implements CanActivate {
     return new Promise((resolve, reject) => {
       this.afAuth.onAuthStateChanged((user) => {
         if (!user) {
-          console.log('no user logged');
           resolve(true);
         } else if (!user.emailVerified) {
-          console.log('email not verify');
           resolve(true);
         } else if (user) {
-          console.log('user already logged');
           this.router.navigate(['/home']);
           reject(false);
         }

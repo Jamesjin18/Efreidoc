@@ -26,9 +26,6 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.afAuth.currentUser.then((e) => {
-      console.log(e?.metadata);
-    });
     this.afs
       .collection('efrei')
       .ref.get()

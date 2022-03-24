@@ -34,14 +34,11 @@ export class TableService {
   }
 
   async pageTokenExample(folder: string, folderinit: string) {
-    console.log('folder: ' + folder);
-    console.log('folder init: ' + folderinit);
     this.finish.push(0);
     const storage = getStorage();
     const listRef = ref(storage, folder);
 
     const firstPage = await list(listRef, { maxResults: 100 });
-    console.log('first page: ' + firstPage);
     for (const folders of firstPage.prefixes) {
       this.pageTokenExample(folders.fullPath, folderinit);
     }
@@ -53,8 +50,6 @@ export class TableService {
     }
     this.finish.pop();
     if (this.finish.length === 0) {
-      console.log('fini');
-      console.log('file to zip: ' + this.listFileToZip);
       if (this.listFileToZip.length === 0) {
         this.downloadBlobFile(
           folder,
@@ -82,18 +77,13 @@ export class TableService {
         xhr.responseType = 'blob';
         xhr.onload = (event) => {
           const blob = xhr.response;
-          console.log('blob: ' + blob);
           const file = folder.replace(folderinit, '');
-          console.log('file:' + file);
           zip.file(file, blob);
-          console.log('in');
           zip
             .generateAsync({ type: 'blob' }, (metadata) => {
-              console.log('meta: ' + metadata.percent);
               this.downloadProgress = metadata.percent;
             })
             .then((content: any) => {
-              console.log('fini');
               FileSaver.saveAs(content, 'file.zip');
               this.listFileToZip = [];
             })
@@ -115,8 +105,6 @@ export class TableService {
     let index = 0;
 
     for (const doc of this.listFileToZip) {
-      console.log('ici');
-      console.log('doc: ' + doc);
       const docRef = ref(storage, doc.path);
       getDownloadURL(docRef)
         .then((url) => {
@@ -124,21 +112,15 @@ export class TableService {
           xhr.responseType = 'blob';
           xhr.onload = (event) => {
             const blob = xhr.response;
-            console.log('blob: ' + blob);
             const folder = doc.path.replace(folderinit, '');
-            console.log('folder: ' + folder);
             zip.file(folder, blob);
             index++;
-            console.log(index, this.listFileToZip.length);
             if (index === this.listFileToZip.length) {
-              console.log('in');
               zip
                 .generateAsync({ type: 'blob' }, (metadata) => {
-                  console.log('meta: ' + metadata.percent);
                   this.downloadProgress = metadata.percent;
                 })
                 .then((content: any) => {
-                  console.log('fini');
                   FileSaver.saveAs(content, 'file.zip');
                   this.listFileToZip = [];
                 })

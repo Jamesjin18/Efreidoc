@@ -46,7 +46,6 @@ export class SignupComponent implements OnInit {
     this.auth
       .SignUp(email, password, promotion)
       .then(() => {
-        console.log('signup success');
         const auth = getAuth();
         const currentUser = auth.currentUser;
         if (currentUser) {
@@ -62,11 +61,9 @@ export class SignupComponent implements OnInit {
             });
           });
         } else {
-          console.log('no current user');
         }
       })
       .catch(() => {
-        console.log('error signup');
       });
   }
 }

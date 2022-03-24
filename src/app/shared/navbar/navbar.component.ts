@@ -11,7 +11,6 @@ export class NavbarComponent {
   current_route = '';
   constructor(public authservice: AuthService, private router: Router) {
     this.current_route = this.router.url;
-    console.log(this.current_route);
   }
 
   signout() {

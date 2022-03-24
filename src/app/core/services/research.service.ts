@@ -14,7 +14,6 @@ export class ResearchService {
   async search() {
     this.resultResearch = [];
     const recherche = this.recherche.toLowerCase();
-    console.log('search');
     const db = getFirestore();
     const querySnapshot = await getDocs(collection(db, 'efrei'));
     querySnapshot.forEach(async (doc) => {
@@ -50,7 +49,6 @@ export class ResearchService {
               urlPath: doc.id + '/' + doc2.id + '/' + doc3.id,
             });
           }
-          console.log('la3');
           const querySnapshot4 = await getDocs(
             collection(
               db,
@@ -66,7 +64,6 @@ export class ResearchService {
 
           querySnapshot4.forEach(async (doc4) => {
             if (doc4.id.toLowerCase().includes(recherche)) {
-              console.log('ok' + doc4.id + ' ' + recherche);
               this.resultResearch.push({
                 displayUrlname:
                   doc.get('name') +

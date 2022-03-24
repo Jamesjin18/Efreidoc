@@ -87,7 +87,6 @@ export class SelectDocumentsComponent implements OnInit {
       )
       .ref.get()
       .then((data) => (this.documentsSnap = data.docs));
-    console.log(this.documentsSnap);
     this.getLike();
     this.getDisslike();
     this.getRouteName();
@@ -155,28 +154,21 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   uploading(event: any) {
-    console.log(event);
     const allFile = event.target.files;
     this.submiteUploadFormPictures(allFile);
   }
 
   submiteUploadFormPictures(allFile: Array<any>): void {
     if (this.appComponent.user) {
-      console.log(allFile);
       const date = new Date();
       const dateUpload = date.getTime();
       let index = -1;
       for (const file of allFile) {
         index++;
-        // Create a root reference
         const storageRef = firebase.storage().ref();
-
-        // Create the file metadata
         const metadata = {
           contentType: 'image/jpeg/gif/png/txt',
         };
-
-        // Upload file and metadata to the object 'images/mountains.jpg'
         let filePath = '';
         if (file.webkitRelativePath) {
           filePath = file.webkitRelativePath.slice(
@@ -184,10 +176,6 @@ export class SelectDocumentsComponent implements OnInit {
             file.webkitRelativePath.lastIndexOf('/')
           );
         }
-        //var filePath = allFile[0].webkitRelativePath.slice(0,allFile[0].webkitRelativePath.lastIndexOf('/'))
-        console.log(index);
-        console.log(file.webkitRelativePath);
-        console.log(filePath);
         const uploadTask = storageRef
           .child(
             this.folderinit +
@@ -209,13 +197,10 @@ export class SelectDocumentsComponent implements OnInit {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             this.progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + this.progress + '% done');
             switch (snapshot.state) {
-              case firebase.storage.TaskState.PAUSED: // or 'paused'
-                console.log('Upload is paused');
+              case firebase.storage.TaskState.PAUSED:
                 break;
-              case firebase.storage.TaskState.RUNNING: // or 'running'
-                console.log('Upload is running');
+              case firebase.storage.TaskState.RUNNING:
                 break;
             }
           },
@@ -242,7 +227,6 @@ export class SelectDocumentsComponent implements OnInit {
             uploadTask.snapshot.ref
               .getDownloadURL()
               .then((downloadURL: any) => {
-                console.log('File available at', downloadURL);
                 const ref = this.afs
                   .collection('efrei')
                   .doc(this.selectedPromo)
@@ -373,9 +357,6 @@ export class SelectDocumentsComponent implements OnInit {
     for (const nameFolder of allNameFolder) {
       path2 = path2 + '/' + nameFolder;
       if (index2 < allNameFolder.length - 1) {
-        console.log('update');
-        console.log(nameFolder);
-        console.log(size);
         refUpdate2
           .collection('folder')
           .doc(nameFolder)
@@ -453,20 +434,15 @@ export class SelectDocumentsComponent implements OnInit {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             this.progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + this.progress + '% done');
             switch (snapshot.state) {
-              case firebase.storage.TaskState.PAUSED: // or 'paused'
-                console.log('Upload is paused');
+              case firebase.storage.TaskState.PAUSED:
                 break;
-              case firebase.storage.TaskState.RUNNING: // or 'running'
-                console.log('Upload is running');
+              case firebase.storage.TaskState.RUNNING:
                 break;
             }
           },
           (error) => {
             console.log(error);
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
             switch (error.code) {
               case 'storage/unauthorized':
                 // User doesn't have permission to access the object
@@ -474,9 +450,6 @@ export class SelectDocumentsComponent implements OnInit {
               case 'storage/canceled':
                 // User canceled the upload
                 break;
-
-              // ...
-
               case 'storage/unknown':
                 // Unknown error occurred, inspect error.serverResponse
                 break;
@@ -485,7 +458,6 @@ export class SelectDocumentsComponent implements OnInit {
           () => {
             // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-              console.log('File available at', downloadURL);
               const ref = this.afs
                 .collection('efrei')
                 .doc(this.selectedPromo)
@@ -752,10 +724,8 @@ export class SelectDocumentsComponent implements OnInit {
           .ref.get()
           .then((docs2) => {
             docs2.forEach((doc2) => {
-              console.log(doc2.id);
               if (doc2.id === this.appComponent.user!.email) {
                 for (const docSnap of this.documentsSnap) {
-                  console.log(doc.id);
                   if (docSnap.id === doc.id) {
                     docSnap.like = true;
                   }
@@ -787,10 +757,8 @@ export class SelectDocumentsComponent implements OnInit {
           .ref.get()
           .then((docs2) => {
             docs2.forEach((doc2) => {
-              console.log(doc2.id);
               if (doc2.id === this.appComponent.user!.email) {
                 for (const docSnap of this.documentsSnap) {
-                  console.log(doc.id);
                   if (docSnap.id === doc.id) {
                     docSnap.disslike = true;
                   }

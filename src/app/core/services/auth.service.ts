@@ -67,30 +67,14 @@ export class AuthService {
       });
   }
 
-  // SignIn(email: string, password: string) {
-  //   this.afAuth.onAuthStateChanged(user => {
-  //     if (user && user.emailVerified) {
-  //       this.router.navigateByUrl('home');
-  //     } else {
-  //       console.log("email pas verifié")
-  //       this.router.navigateByUrl('login');
-  //     }
-  //   });
-  // }
-
-  // Sign up with email/password
   SignUp(email: string, password: string, promotion: string) {
     return this.afAuth
       .createUserWithEmailAndPassword(email, password)
       .then((result) => {
-        /* Call the SendVerificaitonMail() function when new user sign 
-          up and returns promise */
-        // this.SendVerificationMail();
         this.updateUserData(result.user!, promotion);
         this.router.navigate(['/', 'login']);
       })
       .catch((error) => {
-        console.log(error.code);
         let errors = '';
         if (error.code === 'auth/email-already-in-use') {
           errors = "L'email est déjà utilisé";

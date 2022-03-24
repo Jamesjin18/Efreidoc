@@ -26,7 +26,6 @@ export class PreviousRouteComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.mapPath = await this.getPreviousPath(this.arrPath);
-    console.log(this.mapPath);
   }
 
   unsorted(a: any, b: any) {
@@ -37,7 +36,6 @@ export class PreviousRouteComponent implements OnInit {
     let currPath = '';
     const arr = new Map<string, string>();
     for (let i = 0; i < href.length; i++) {
-      console.log(href[i]);
       if (i === 1) {
         this.selectedPromo = href[i];
         await this.getPromoName();
@@ -49,11 +47,10 @@ export class PreviousRouteComponent implements OnInit {
         await this.getCoursName();
       } else if (i === 4) {
         this.selectedCoursType = href[i];
-        await this.getCoursType;
+        await this.getCoursType();
       }
     }
     for (let i = 0; i < href.length; i++) {
-      console.log(href[i]);
       if (i === 0) {
         currPath += '/' + href[i];
         arr.set(href[i], currPath);

@@ -153,9 +153,7 @@ export class CompteComponent implements OnInit {
 
   async deleteFiles(path: string) {
     const db = getFirestore();
-    console.log(path);
     let tabPath = path.split('/');
-    // Remove the 'capital' field from the document
     await deleteDoc(
       doc(
         db,

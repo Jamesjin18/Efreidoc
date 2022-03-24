@@ -22,37 +22,29 @@ export class AppComponent implements OnInit {
     this.afAuth.onAuthStateChanged((user) => {
       if (user) {
         if (user.emailVerified) {
-          console.log('email verified');
-          console.log(
-            this.afs
-              .collection('users')
-              .doc(user.uid)
-              .ref.get()
-              .then((data) => {
-                if (data.exists) {
-                  console.log('1');
-                  this.user = {
-                    email: data.get('email'),
-                    roles: {
-                      subscriber: data.get('roles.subscriber'),
-                      admin: data.get('roles.admin'),
-                      editor: data.get('roles.editor'),
-                    },
-                    uid: data.get('uid'),
-                    promotion: data.get('promotion'),
-                  };
-                  console.log(this.user);
-                  console.log('2');
-                }
-              })
-          );
+          this.afs
+            .collection('users')
+            .doc(user.uid)
+            .ref.get()
+            .then((data) => {
+              if (data.exists) {
+                this.user = {
+                  email: data.get('email'),
+                  roles: {
+                    subscriber: data.get('roles.subscriber'),
+                    admin: data.get('roles.admin'),
+                    editor: data.get('roles.editor'),
+                  },
+                  uid: data.get('uid'),
+                  promotion: data.get('promotion'),
+                };
+              }
+            })
         } else {
           this.user = undefined;
-          console.log('email not verified');
         }
       } else {
         this.user = undefined;
-        console.log('no user user null');
       }
     });
   }
