@@ -7,13 +7,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponent } from 'src/app/app.component';
 import { deleteDoc, doc, getFirestore, updateDoc } from 'firebase/firestore';
 import { ResearchService } from 'src/app/core/services/research.service';
+import firebase from 'firebase/compat/app';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-  promoSnap: any;
+  promoSnap: firebase.firestore.QueryDocumentSnapshot<unknown>[] = [];
 
   constructor(
     private afs: AngularFirestore,
@@ -33,7 +34,18 @@ export class HomeComponent implements OnInit {
       .ref.get()
       .then((data) => {
         this.promoSnap = data.docs;
+        this.promoSnap.sort((a, b) => this.compare(a, b));
       });
+  }
+
+  compare(a: any, b: any) {
+    if (a.get('name') < b.get('name')) {
+      return -1;
+    }
+    if (a.get('name') > b.get('name')) {
+      return 1;
+    }
+    return 0;
   }
 
   modify(target: string, name: string) {

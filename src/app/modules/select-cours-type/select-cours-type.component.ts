@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppComponent } from '../../app.component';
 import { deleteDoc, doc, getFirestore, updateDoc } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
 @Component({
   selector: 'app-select-cours-type',
   templateUrl: './select-cours-type.component.html',
@@ -14,7 +15,7 @@ export class SelectCoursTypeComponent implements OnInit {
   selectedClass!: string;
   selectedCours!: string;
 
-  coursTypeSnap: any;
+  coursTypeSnap: firebase.firestore.QueryDocumentSnapshot<unknown>[] = [];
   arrPath: string[];
   constructor(
     private router: ActivatedRoute,
@@ -42,8 +43,21 @@ export class SelectCoursTypeComponent implements OnInit {
           '/coursType'
       )
       .ref.get()
-      .then((data) => (this.coursTypeSnap = data.docs));
+      .then((data) => {
+        this.coursTypeSnap = data.docs;
+        this.coursTypeSnap.sort((a, b) => this.compare(a, b));
+      });
     this.arrPath = decodeURI(this.route.url.substring(1)).split('/');
+  }
+
+  compare(a: any, b: any) {
+    if (a.get('name') < b.get('name')) {
+      return -1;
+    }
+    if (a.get('name') > b.get('name')) {
+      return 1;
+    }
+    return 0;
   }
 
   openAddCoursType() {

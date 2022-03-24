@@ -15,7 +15,8 @@ import firebase from 'firebase/compat/app';
   styleUrls: ['./compte.component.css'],
 })
 export class CompteComponent implements OnInit {
-  documentsSnap: any;
+  documentsSnap: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>[] =
+    [];
   promos: string[] = [];
   selectedPromo = '';
   constructor(
@@ -33,8 +34,12 @@ export class CompteComponent implements OnInit {
         .doc(user!.uid)
         .collection('upload')
         .ref.get()
-        .then((data) => (this.documentsSnap = data.docs));
+        .then((data) => {
+          this.documentsSnap = data.docs;
+          this.documentsSnap.sort((doc) => doc.get('name'));
+        });
     });
+
     this.afs
       .collection('efrei')
       .ref.get()

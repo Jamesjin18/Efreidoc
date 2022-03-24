@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { AppComponent } from '../../app.component';
 import { deleteDoc, doc, getFirestore, updateDoc } from 'firebase/firestore';
+import firebase from 'firebase/compat/app';
 @Component({
   selector: 'app-selec-class',
   templateUrl: './selec-class.component.html',
@@ -14,7 +15,7 @@ export class SelecClassComponent implements OnInit {
   selectedPromo!: string;
   public arrPath: Array<string>;
 
-  classSnap: any;
+  classSnap: firebase.firestore.QueryDocumentSnapshot<unknown>[] = [];
   constructor(
     private router: ActivatedRoute,
     private route: Router,
@@ -31,9 +32,22 @@ export class SelecClassComponent implements OnInit {
     this.afs
       .collection('efrei/' + this.selectedPromo + '/class')
       .ref.get()
-      .then((data) => (this.classSnap = data.docs));
+      .then((data) => {
+        this.classSnap = data.docs;
+        this.classSnap.sort((a, b) => this.compare(a, b));
+      });
 
     this.arrPath = decodeURI(this.route.url.substring(1)).split('/');
+  }
+
+  compare(a: any, b: any) {
+    if (a.get('name') < b.get('name')) {
+      return -1;
+    }
+    if (a.get('name') > b.get('name')) {
+      return 1;
+    }
+    return 0;
   }
 
   openAddClasses() {
