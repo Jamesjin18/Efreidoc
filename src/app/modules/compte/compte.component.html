@@ -6,14 +6,15 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item">Mail: {{ appComponent.user!.email }}</li>
 
-        <li class="list-group-item">
-          <select [(ngModel)]="selectedPromo" name="promo" id="promo" required>
+        <li class="list-group-item" style="display: flex;">
+          <select class="form-select" [(ngModel)]="selectedPromo" name="promo" id="promo" required>
             <ng-container *ngFor="let promo of promos">
               <option value="{{ promo }}">
                 {{ promo }}
               </option>
-            </ng-container></select
-          ><i class="icon fa-solid fa-pen fa-xl" (click)="modify()"></i>
+            </ng-container>
+          </select>
+          <i class="icon fa-solid fa-pen fa-xl" (click)="modify()"></i>
         </li>
         <li class="list-group-item">
           <button class="btn btn-primary" (click)="updateUserPassword()">

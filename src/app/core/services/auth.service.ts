@@ -51,12 +51,12 @@ export class AuthService {
       })
       .catch((error) => {
         Swal.fire({
-          title: 'Sign in error',
+          title: 'Erreur de login',
           input: error,
           inputAttributes: {
             autocapitalize: 'off',
           },
-          confirmButtonText: 'Close',
+          confirmButtonText: 'Fermer',
           showLoaderOnConfirm: true,
           allowOutsideClick: () => !Swal.isLoading(),
         }).then((result) => {
@@ -93,10 +93,10 @@ export class AuthService {
         console.log(error.code);
         let errors = '';
         if (error.code === 'auth/email-already-in-use') {
-          errors = "l'email est déjà utilisé";
+          errors = "L'email est déjà utilisé";
         }
         Swal.fire({
-          title: 'Sign in error',
+          title: 'Erreur E-mail',
           text: errors,
           input: error,
           inputAttributes: {

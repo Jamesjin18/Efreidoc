@@ -80,7 +80,7 @@ export class CompteComponent implements OnInit {
             ' fois.',
 
           showCancelButton: true,
-          confirmButtonText: 'Finish',
+          confirmButtonText: 'Valider',
           showLoaderOnConfirm: true,
           allowOutsideClick: () => !Swal.isLoading(),
         }).then(async (result) => {
