@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
       [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)],
     ],
     promotion: ['', [Validators.required]],
-    cgu: ['', [Validators.required]]
+    cgu: ['', [Validators.required, Validators.requiredTrue]]
   });
   promos: string[] = [];
 
