@@ -153,7 +153,7 @@ export class CompteComponent implements OnInit {
 
   async deleteFiles(path: string) {
     const db = getFirestore();
-    let tabPath = path.split('/');
+    const tabPath = path.split('/');
     await deleteDoc(
       doc(
         db,

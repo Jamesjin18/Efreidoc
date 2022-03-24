@@ -39,7 +39,7 @@ export class AppComponent implements OnInit {
                   promotion: data.get('promotion'),
                 };
               }
-            })
+            });
         } else {
           this.user = undefined;
         }

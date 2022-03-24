@@ -28,10 +28,10 @@ export class SelectDocumentsComponent implements OnInit {
   selectedCours!: string;
   selectedCoursType!: string;
 
-  promoName: string = '';
-  className: string = '';
-  coursName: string = '';
-  coursTypeName: string = '';
+  promoName = '';
+  className = '';
+  coursName = '';
+  coursTypeName = '';
 
   arrPath: string[];
   documentsSnap: any;

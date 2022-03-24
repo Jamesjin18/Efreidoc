@@ -10,15 +10,15 @@ import { arrayRemove } from 'firebase/firestore';
 export class PreviousRouteComponent implements OnInit {
   @Input() arrPath: Array<string>;
   public mapPath: Map<string, string>;
-  promoName: string = '';
-  className: string = '';
-  coursName: string = '';
-  coursTypeName: string = '';
+  promoName = '';
+  className = '';
+  coursName = '';
+  coursTypeName = '';
 
-  selectedPromo: string = '';
-  selectedClass: string = '';
-  selectedCours: string = '';
-  selectedCoursType: string = '';
+  selectedPromo = '';
+  selectedClass = '';
+  selectedCours = '';
+  selectedCoursType = '';
   constructor(private afs: AngularFirestore) {
     this.arrPath = new Array<string>();
     this.mapPath = new Map<string, string>();
@@ -72,7 +72,7 @@ export class PreviousRouteComponent implements OnInit {
   }
 
   public async getCoursType() {
-    let coursType = await this.afs
+    const coursType = await this.afs
       .collection('efrei')
       .doc(this.selectedPromo)
       .collection('class')
@@ -86,7 +86,7 @@ export class PreviousRouteComponent implements OnInit {
   }
 
   public async getPromoName() {
-    let promo = await this.afs
+    const promo = await this.afs
       .collection('efrei')
       .doc(this.selectedPromo)
       .ref.get();
@@ -94,7 +94,7 @@ export class PreviousRouteComponent implements OnInit {
   }
 
   public async getClassName() {
-    let classe = await this.afs
+    const classe = await this.afs
       .collection('efrei')
       .doc(this.selectedPromo)
       .collection('class')
@@ -104,7 +104,7 @@ export class PreviousRouteComponent implements OnInit {
   }
 
   public async getCoursName() {
-    let cours = await this.afs
+    const cours = await this.afs
       .collection('efrei')
       .doc(this.selectedPromo)
       .collection('class')

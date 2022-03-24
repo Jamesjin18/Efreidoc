@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
       [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)],
     ],
     promotion: ['', [Validators.required]],
-    cgu: ['', [Validators.required]]
+    cgu: ['', [Validators.required]],
   });
   promos: string[] = [];
 
@@ -43,27 +43,23 @@ export class SignupComponent implements OnInit {
     const email = this.signUpForm.get('email')!.value;
     const password = this.signUpForm.get('password')!.value;
     const promotion = this.signUpForm.get('promotion')!.value;
-    this.auth
-      .SignUp(email, password, promotion)
-      .then(() => {
-        const auth = getAuth();
-        const currentUser = auth.currentUser;
-        if (currentUser) {
-          sendEmailVerification(currentUser).then(() => {
-            Swal.fire({
-              title: 'Confirmez votre email afin de pouvoir accéder aux ressources',
-              confirmButtonText: 'Fermer',
-              allowOutsideClick: () => !Swal.isLoading(),
-            }).then((result) => {
-              if (result.isConfirmed) {
-                Swal.close();
-              }
-            });
+    this.auth.SignUp(email, password, promotion).then(() => {
+      const auth = getAuth();
+      const currentUser = auth.currentUser;
+      if (currentUser) {
+        sendEmailVerification(currentUser).then(() => {
+          Swal.fire({
+            title:
+              'Confirmez votre email afin de pouvoir accéder aux ressources',
+            confirmButtonText: 'Fermer',
+            allowOutsideClick: () => !Swal.isLoading(),
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.close();
+            }
           });
-        } else {
-        }
-      })
-      .catch(() => {
-      });
+        });
+      }
+    });
   }
 }

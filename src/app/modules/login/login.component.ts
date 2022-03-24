@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from '../../core/services/auth.service';
 import { getAuth } from 'firebase/auth';
 import Swal from 'sweetalert2';
@@ -31,7 +31,6 @@ export class LoginComponent {
         if (emailVerified === false) {
           this.auth.SignOut();
           this.popUpEmailNotVerified();
-        } else {
         }
       }
     });
