@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+
+<div>
+    <table id="top_tab">
+        <thead>
+            <tr>
+                <th>
+                    Rang
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+                    Score
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of array | keyvalue: unsorted; let index = index">
+                <td>
+                    {{index+1}}
+                </td>
+                <td>
+                    {{user.key}}
+                </td>
+                <td>
+                    {{user.value}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

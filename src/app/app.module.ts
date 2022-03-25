@@ -30,6 +30,7 @@ import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cou
 import { PreviousRouteComponent } from './modules/previous-route/previous-route.component';
 import { CompteComponent } from './modules/compte/compte.component';
 import { ResearchBarComponent } from './modules/research-bar/research-bar.component';
+import { ClassementComponent } from './modules/classement/classement.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { ResearchBarComponent } from './modules/research-bar/research-bar.compon
     PreviousRouteComponent,
     CompteComponent,
     ResearchBarComponent,
+    ClassementComponent,
   ],
   imports: [
     BrowserModule,
