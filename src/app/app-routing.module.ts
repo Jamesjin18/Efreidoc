@@ -11,11 +11,17 @@ import { SelectCoursComponent } from './modules/select-cours/select-cours.compon
 import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
 import { CompteComponent } from './modules/compte/compte.component';
 import { LoginGuard } from './core/services/AuthGard/login-guard.service';
+import { ClassementComponent } from './modules/classement/classement.component';
 
 const routes: Routes = [
   { canActivate: [LoginGuard], path: 'login', component: LoginComponent },
   { canActivate: [LoginGuard], path: 'signup', component: SignupComponent },
   { canActivate: [AuthGuard], path: 'home', component: HomeComponent },
+  {
+    canActivate: [AuthGuard],
+    path: 'classement',
+    component: ClassementComponent,
+  },
   {
     canActivate: [AuthGuard],
     path: 'home/:promo',
