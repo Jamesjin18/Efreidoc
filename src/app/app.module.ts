@@ -31,6 +31,7 @@ import { PreviousRouteComponent } from './modules/previous-route/previous-route.
 import { CompteComponent } from './modules/compte/compte.component';
 import { ResearchBarComponent } from './modules/research-bar/research-bar.component';
 import { ClassementComponent } from './modules/classement/classement.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,28 @@ import { ClassementComponent } from './modules/classement/classement.component';
     AngularFireDatabaseModule,
     ReactiveFormsModule,
     FormsModule,
+    NgCircleProgressModule.forRoot({
+      backgroundOpacity: 0.9,
+      backgroundPadding: 4,
+      radius: 60,
+      space: -10,
+      maxPercent: 100,
+      outerStrokeGradient: true,
+      outerStrokeWidth: 10,
+      outerStrokeColor: '#4882c2',
+      outerStrokeGradientStopColor: '#53a9ff',
+      innerStrokeColor: '#e7e8ea',
+      innerStrokeWidth: 10,
+      title: 'UI',
+      imageHeight: 147,
+      imageWidth: 151,
+      animateTitle: false,
+      animationDuration: 1000,
+      showUnits: false,
+      showBackground: false,
+      startFromZero: false,
+      lazy: true,
+    }),
   ],
   exports: [NavbarComponent],
   providers: [AuthService],

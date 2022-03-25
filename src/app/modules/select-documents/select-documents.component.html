@@ -1,4 +1,26 @@
 <app-navbar></app-navbar>
+<circle-progress
+  *ngIf="percentDownload !== 0"
+  [percent]="percentDownload"
+  [radius]="100"
+  [outerStrokeWidth]="16"
+  [innerStrokeWidth]="8"
+  [outerStrokeColor]="'#78C000'"
+  [innerStrokeColor]="'#C7E596'"
+  [animation]="true"
+  [animationDuration]="300"
+></circle-progress>
+<circle-progress
+  *ngIf="progress !== 0"
+  [percent]="progress"
+  [radius]="100"
+  [outerStrokeWidth]="16"
+  [innerStrokeWidth]="8"
+  [outerStrokeColor]="'#78C000'"
+  [innerStrokeColor]="'#C7E596'"
+  [animation]="true"
+  [animationDuration]="300"
+></circle-progress>
 <div class="container">
   <app-previous-route [arrPath]="arrPath"></app-previous-route>
   <div class="row">

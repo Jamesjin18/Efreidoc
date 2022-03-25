@@ -46,6 +46,10 @@ export class SelectDocumentsComponent implements OnInit {
   public progress = 0;
   public folderinit = '';
 
+  public percentDownload: number = 0;
+
+  public indexUpload = 0;
+
   constructor(
     private router: ActivatedRoute,
     private afs: AngularFirestore,
@@ -55,6 +59,9 @@ export class SelectDocumentsComponent implements OnInit {
     public appComponent: AppComponent
   ) {
     this.arrPath = new Array<string>();
+    tableService.percentChange.subscribe((value) => {
+      this.percentDownload = value;
+    });
   }
 
   ngOnInit(): void {
@@ -93,6 +100,15 @@ export class SelectDocumentsComponent implements OnInit {
     this.triName = 'asc';
     this.triType = 'asc';
     this.triLike = 'asc';
+  }
+
+  public toBig(size: number) {
+    let displaySize = this.displaySize(size);
+    Swal.fire({
+      icon: 'error',
+      title: 'Taille trop grande',
+      text: 'La taille fait ' + displaySize + ', le maximum est de 100 MO',
+    });
   }
 
   public getRouteName() {
@@ -140,22 +156,34 @@ export class SelectDocumentsComponent implements OnInit {
 
   public displaySize(size: number) {
     if (size >= 1000000000) {
-      return size / 1000000000.0 + ' Go';
+      return Math.round(size / 1000000000.0) + ' Go';
     } else if (size >= 1000000) {
-      return size / 1000000.0 + ' Mo';
+      return Math.round(size / 1000000.0) + ' Mo';
     } else if (size >= 1000) {
-      return size / 1000.0 + ' Ko';
+      return Math.round(size / 1000.0) + ' Ko';
     }
     return size + ' o';
   }
 
   async pageTokenExample(folder: string, folderinit: string) {
     this.tableService.pageTokenExample(folder, folderinit);
+    console.log(this.tableService.downloadProgress);
   }
 
   uploading(event: any) {
     const allFile = event.target.files;
-    this.submiteUploadFormPictures(allFile);
+    console.log(allFile);
+    let size = 0;
+    for (let i = 0; i < allFile.length; i++) {
+      size += allFile[i].size;
+    }
+    if (size < 100000000) {
+      // < 100 MO
+      console.log('size' + size);
+      this.submiteUploadFormPictures(allFile);
+    } else {
+      this.toBig(size);
+    }
   }
 
   submiteUploadFormPictures(allFile: Array<any>): void {
@@ -165,6 +193,7 @@ export class SelectDocumentsComponent implements OnInit {
       let index = -1;
       for (const file of allFile) {
         index++;
+
         const storageRef = firebase.storage().ref();
         const metadata = {
           contentType: 'image/jpeg/gif/png/txt',
@@ -195,8 +224,8 @@ export class SelectDocumentsComponent implements OnInit {
           firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
           (snapshot: any) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            this.progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+
+            console.log(this.progress);
             switch (snapshot.state) {
               case firebase.storage.TaskState.PAUSED:
                 break;
@@ -224,6 +253,9 @@ export class SelectDocumentsComponent implements OnInit {
           },
           () => {
             // Upload completed successfully, now we can get the download URL
+            this.indexUpload++;
+            this.progress = (this.indexUpload / allFile.length) * 100;
+            this.progress === 100 ? (this.progress = 0) : '';
             uploadTask.snapshot.ref
               .getDownloadURL()
               .then((downloadURL: any) => {
@@ -271,7 +303,6 @@ export class SelectDocumentsComponent implements OnInit {
                           this.appComponent.user!.email,
                         metadata.size
                       );
-                      this.ngOnInit();
                     });
                   });
                 this.afAuth.currentUser.then((user) => {
@@ -397,8 +428,18 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   handleFileInput(event: any): void {
-    const allFile = Array.from(event.target.files);
-    this.submiteUploadForm(allFile);
+    const allFile: any = Array.from(event.target.files);
+    let size = 0;
+    for (let i = 0; i < allFile.length; i++) {
+      size += allFile[i].size;
+    }
+    if (size < 100000000) {
+      // < 100 MO
+      console.log('size' + size);
+      this.submiteUploadForm(allFile);
+    } else {
+      this.toBig(size);
+    }
   }
 
   submiteUploadForm(allFile: Array<any>): void {
@@ -434,6 +475,7 @@ export class SelectDocumentsComponent implements OnInit {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             this.progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            this.progress === 100 ? (this.progress = 0) : '';
             switch (snapshot.state) {
               case firebase.storage.TaskState.PAUSED:
                 break;
@@ -514,10 +556,7 @@ export class SelectDocumentsComponent implements OnInit {
                           username: this.appComponent.user!.email,
                         },
                         { merge: true }
-                      )
-                      .then(() => {
-                        this.ngOnInit();
-                      });
+                      );
                   });
                 });
               this.afAuth.currentUser.then((user) => {

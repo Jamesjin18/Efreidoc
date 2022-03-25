@@ -4,16 +4,25 @@ import { fileToZip } from '../../models/listFileToZip';
 import * as JSZip from 'jszip';
 import * as FileSaver from 'file-saver';
 import Swal from 'sweetalert2';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TableService {
-  public downloadProgress = 0;
+  public downloadProgress: number = 0;
   public filesArray = [];
   public links: string[] = [];
   public listFileToZip: fileToZip[] = [];
   public finish: number[] = [];
+
+  percentChange: Subject<number> = new Subject<number>();
+
+  constructor() {
+    this.percentChange.subscribe((value) => {
+      this.downloadProgress = value;
+    });
+  }
 
   public displaySize(size: number) {
     if (size >= 1000000000) {
@@ -81,7 +90,9 @@ export class TableService {
           zip.file(file, blob);
           zip
             .generateAsync({ type: 'blob' }, (metadata) => {
-              this.downloadProgress = metadata.percent;
+              this.percentChange.next(metadata.percent);
+              metadata.percent === 100 ? this.percentChange.next(0) : '';
+              console.log(this.downloadProgress);
             })
             .then((content: any) => {
               FileSaver.saveAs(content, 'file.zip');
@@ -118,7 +129,9 @@ export class TableService {
             if (index === this.listFileToZip.length) {
               zip
                 .generateAsync({ type: 'blob' }, (metadata) => {
-                  this.downloadProgress = metadata.percent;
+                  this.percentChange.next(metadata.percent);
+                  metadata.percent === 100 ? this.percentChange.next(0) : '';
+                  console.log(this.downloadProgress);
                 })
                 .then((content: any) => {
                   FileSaver.saveAs(content, 'file.zip');

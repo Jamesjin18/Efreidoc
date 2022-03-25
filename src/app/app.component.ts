@@ -11,6 +11,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class AppComponent implements OnInit {
   public user: User | undefined;
+  public percent: number = 0;
 
   constructor(
     private auth: AuthService,
