@@ -2,3 +2,170 @@
     margin-left: auto;
     margin-right: auto;
 }
+
+/*//////////////////////////////////////////////////////////////////
+[ Scroll bar ]*/
+.js-pscroll {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .table100 .ps__rail-y {
+    width: 9px;
+    background-color: transparent;
+    opacity: 1 !important;
+    right: 5px;
+  }
+  
+  .table100 .ps__rail-y::before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #ebebeb;
+    border-radius: 5px;
+    width: 100%;
+    height: calc(100% - 30px);
+    left: 0;
+    top: 15px;
+  }
+  
+  .table100 .ps__rail-y .ps__thumb-y {
+    width: 100%;
+    right: 0;
+    background-color: transparent;
+    opacity: 1 !important;
+  }
+  
+  .table100 .ps__rail-y .ps__thumb-y::before {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: #cccccc;
+    border-radius: 5px;
+    width: 100%;
+    height: calc(100% - 30px);
+    left: 0;
+    top: 15px;
+  }
+  
+  /*//////////////////////////////////////////////////////////////////
+  [ Table ]*/
+  .table100 {
+    background-color: #fff;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  th,
+  td {
+    font-weight: unset;
+  }
+  
+  .column1 {
+    width: 30%;
+    padding-left: 10px;
+  }
+  
+  .column2 {
+    width: 40%;
+  }
+  
+  .column3 {
+    width: 30%;
+  }
+  
+  .table100-head th {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  
+  .table100-body td {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  
+  .table100-head {
+    width: 720px;
+  }
+  
+  .table100-body {
+    width: 720px;
+  }
+  
+  /*==================================================================
+  [ Fix header ]*/
+  .table100 {
+    position: relative;
+    padding-top: 60px;
+  }
+  
+  .table100-head {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .table100-body {
+    left: -12px;
+    max-height: 585px;
+    overflow: auto;
+  }
+  
+  /*==================================================================
+  [ Ver1 ]*/
+  
+  .table100.ver1 th {
+    font-family: "Lato", sans-serif;
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.4;
+  
+    background-color: #6c7ae0;
+  
+    padding-right: 15px;
+  }
+  
+  .table100.ver1 td {
+    font-family: "Lato", sans-serif;
+    font-size: 15px;
+    color: #808080;
+    line-height: 1.4;
+  
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 1000px;
+    padding-right: 15px;
+  }
+  
+  .table100.ver1 .table100-body tr:nth-child(even) {
+    background-color: #f8f6ff;
+  }
+  
+  /*---------------------------------------------*/
+  
+  .table100.ver1 {
+    border-radius: 10px;
+    overflow: auto;
+    box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+    -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  }
+  
+  .table100.ver1 .ps__rail-y {
+    right: 5px;
+  }
+  
+  .table100.ver1 .ps__rail-y::before {
+    background-color: #ebebeb;
+  }
+  
+  .table100.ver1 .ps__rail-y .ps__thumb-y::before {
+    background-color: #cccccc;
+    background-color: RoyalBlue;
+  }

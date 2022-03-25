@@ -183,7 +183,7 @@ td {
 }
 
 .column3 {
-  width: 35%;
+  width: 30%;
 }
 
 .column4 {
@@ -201,6 +201,10 @@ td {
 
 .column7 {
   width: 10%;
+}
+
+.column8 {
+  width: 5%;
 }
 
 .table100-head th {

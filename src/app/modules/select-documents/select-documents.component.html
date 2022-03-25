@@ -152,6 +152,11 @@
                   style="cursor: pointer"
                 ></i>
               </th>
+              <th class="cell100 column8">
+                <ng-container *ngIf="appComponent.user">
+                  <p *ngIf="appComponent.user.roles.admin === true">Supprimer</p>
+                </ng-container> 
+              </th>
             </tr>
           </thead>
         </table>
@@ -236,6 +241,14 @@
                       class="disslike fa-solid fa-thumbs-down fa-xl"
                     ></i>
                   </div>
+                </td>
+                <td class="cell100 column8">
+                  <ng-container *ngIf="appComponent.user">
+                    <i
+                      *ngIf="appComponent.user.roles.admin === true"
+                      class="icon fas fa-trash fa-xl"
+                    ></i>
+                  </ng-container> 
                 </td>
               </tr>
             </ng-container>
