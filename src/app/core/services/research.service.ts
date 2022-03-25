@@ -17,8 +17,11 @@ export class ResearchService {
     const db = getFirestore();
     const querySnapshot = await getDocs(collection(db, 'efrei'));
     querySnapshot.forEach(async (doc) => {
-      if (doc.id.toLowerCase().includes(recherche)) {
-        this.resultResearch.push(doc.get('name'));
+      if (doc.get('name').toLowerCase().includes(recherche)) {
+        this.resultResearch.push({
+          displayUrlname: doc.get('name'),
+          urlPath: doc.id,
+        });
       }
 
       const querySnapshot2 = await getDocs(
@@ -26,7 +29,7 @@ export class ResearchService {
       );
 
       querySnapshot2.forEach(async (doc2) => {
-        if (doc2.id.toLowerCase().includes(recherche)) {
+        if (doc2.get('name').toLowerCase().includes(recherche)) {
           this.resultResearch.push({
             displayUrlname: doc.get('name') + '/' + doc2.get('name'),
             urlPath: doc.id + '/' + doc2.id,
@@ -38,7 +41,7 @@ export class ResearchService {
         );
 
         querySnapshot3.forEach(async (doc3) => {
-          if (doc3.id.toLowerCase().includes(recherche)) {
+          if (doc3.get('name').toLowerCase().includes(recherche)) {
             this.resultResearch.push({
               displayUrlname:
                 doc.get('name') +
@@ -63,7 +66,7 @@ export class ResearchService {
           );
 
           querySnapshot4.forEach(async (doc4) => {
-            if (doc4.id.toLowerCase().includes(recherche)) {
+            if (doc4.get('name').toLowerCase().includes(recherche)) {
               this.resultResearch.push({
                 displayUrlname:
                   doc.get('name') +
