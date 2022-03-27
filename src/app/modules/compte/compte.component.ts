@@ -45,8 +45,11 @@ export class CompteComponent implements OnInit {
       .ref.get()
       .then((promos) => {
         promos.forEach((promo) => {
+          console.log('1');
           this.promos.push(promo.get('name'));
         });
+        console.log('2');
+        this.promos.sort((a, b) => this.compare(a, b));
       });
     this.afAuth.currentUser.then((user) => {
       this.afs
@@ -57,6 +60,16 @@ export class CompteComponent implements OnInit {
           this.selectedPromo = users.get('promotion.promotion');
         });
     });
+  }
+
+  compare(a: any, b: any) {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
   }
 
   modify() {

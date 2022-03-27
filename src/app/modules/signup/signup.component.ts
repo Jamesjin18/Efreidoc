@@ -18,7 +18,7 @@ export class SignupComponent implements OnInit {
       [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)],
     ],
     promotion: ['', [Validators.required]],
-    cgu: ['', [Validators.required, Validators.requiredTrue]]
+    cgu: ['', [Validators.required, Validators.requiredTrue]],
   });
   promos: string[] = [];
 
@@ -36,7 +36,18 @@ export class SignupComponent implements OnInit {
         promos.forEach((promo) => {
           this.promos.push(promo.get('name'));
         });
+        this.promos.sort((a, b) => this.compare(a, b));
       });
+  }
+
+  compare(a: any, b: any) {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+    return 0;
   }
 
   onSubmit() {
