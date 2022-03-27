@@ -14,7 +14,7 @@
 >
   <mat-drawer
     [ngStyle]="{
-      'background-color': 'grey',
+      'background-color': '#c4c2c2',
       'border-right': '2px solid',
       'border-color': 'black'
     }"
@@ -22,11 +22,14 @@
     #drawer
     mode="over"
   >
-    <a routerLink="/home" class="aRouter">Accueil</a>
-    <a routerLink="/classement" class="aRouter">Classement</a>
-    <a routerLink="/compte" class="aRouter">Compte</a>
-    <a routerLink="/login" class="aRouter" (click)="signout()"
-      >Se déconnecter</a
+    <button routerLink="/home" class="aRouter button-54" style="text-decoration: none; cursor: pointer;">Accueil</button>
+    <hr>
+    <button routerLink="/classement" class="aRouter button-54" style="text-decoration: none; cursor: pointer;">Classement</button>
+    <hr>
+    <button routerLink="/compte" class="aRouter button-54" style="text-decoration: none; cursor: pointer;">Compte</button>
+    <hr>
+    <button routerLink="/login" class="aRouter button-54" (click)="signout()" style="text-decoration: none; cursor: pointer;"
+      >Se déconnecter</button
     >
   </mat-drawer>
   <mat-drawer-content
