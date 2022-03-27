@@ -62,7 +62,7 @@ export class SelectCoursTypeComponent implements OnInit {
 
   openAddCoursType() {
     Swal.fire({
-      title: 'Nom de la matière',
+      title: 'Nom du type de cours',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
@@ -104,7 +104,7 @@ export class SelectCoursTypeComponent implements OnInit {
         autocapitalize: 'off',
       },
       showCancelButton: true,
-      confirmButtonText: 'Finish',
+      confirmButtonText: 'Valider',
       showLoaderOnConfirm: true,
       allowOutsideClick: () => !Swal.isLoading(),
     }).then(async (result) => {
@@ -129,7 +129,7 @@ export class SelectCoursTypeComponent implements OnInit {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await this.deleteFiles(target);
-        Swal.fire('Supprimer!', 'Tout a été supprimé.', 'success');
+        Swal.fire('Supprimé!', 'Tout a été supprimé.', 'success');
         this.ngOnInit();
       }
     });

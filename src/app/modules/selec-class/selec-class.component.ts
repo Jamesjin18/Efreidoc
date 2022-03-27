@@ -90,7 +90,7 @@ export class SelecClassComponent implements OnInit {
         autocapitalize: 'off',
       },
       showCancelButton: true,
-      confirmButtonText: 'Finish',
+      confirmButtonText: 'Valider',
       showLoaderOnConfirm: true,
       allowOutsideClick: () => !Swal.isLoading(),
     }).then(async (result) => {
@@ -115,7 +115,7 @@ export class SelecClassComponent implements OnInit {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await this.deleteFiles(target);
-        Swal.fire('Supprimer!', 'Tout a été supprimé.', 'success');
+        Swal.fire('Supprimé!', 'Tout a été supprimé.', 'success');
         this.ngOnInit();
       }
     });
