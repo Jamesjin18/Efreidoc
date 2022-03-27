@@ -113,6 +113,7 @@ export class CompteComponent implements OnInit {
                   date: dateChange,
                 },
               });
+            this.appComponent.user!.promotion.promotion = this.selectedPromo;
           }
         });
       } else {

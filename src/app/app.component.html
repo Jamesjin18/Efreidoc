@@ -1,1 +1,51 @@
-<router-outlet></router-outlet>
+<mat-drawer-container
+  *ngIf="mobile === true"
+  [ngStyle]="{
+    transition: '2s',
+    'background-repeat': 'no-repeat',
+    height: '100%',
+    width: '100%',
+    'background-size': 'auto 100%',
+    'background-position-y': 'center',
+    'background-attachment': 'fixed'
+  }"
+  class="example-container"
+  hasBackdrop="true"
+>
+  <mat-drawer
+    [ngStyle]="{
+      'background-color': 'grey',
+      'border-right': '2px solid',
+      'border-color': 'black'
+    }"
+    class="example-sidenav"
+    #drawer
+    mode="over"
+  >
+    <a routerLink="/home" class="aRouter">Accueil</a>
+    <a routerLink="/classement" class="aRouter">Classement</a>
+    <a routerLink="/compte" class="aRouter">Compte</a>
+    <a routerLink="/login" class="aRouter" (click)="signout()"
+      >Se déconnecter</a
+    >
+  </mat-drawer>
+  <mat-drawer-content
+    class="example-sidenav-content"
+    [ngStyle]="{
+      'background-color': '#CAF0F8',
+      transition: '2s'
+    }"
+  >
+    <img
+      style="position: fixed; z-index: 6"
+      class="imgmenu"
+      (click)="drawer.toggle()"
+      src="assets/images/menu.png"
+    />
+    <router-outlet (window:resize)="onResize($event)"></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
+<router-outlet
+  *ngIf="mobile === false"
+  (window:resize)="onResize($event)"
+></router-outlet>

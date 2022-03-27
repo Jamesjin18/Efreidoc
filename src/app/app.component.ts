@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from './models/user';
 import { AuthService } from './core/services/auth.service';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { MatSidenav } from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,11 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  @ViewChild('drawer') drawer: MatSidenav | undefined;
   public user: User | undefined;
   public percent: number = 0;
-
+  public mobile = false;
+  public hovered = 'false';
   constructor(
     private auth: AuthService,
     public afAuth: AngularFireAuth,
@@ -20,6 +23,7 @@ export class AppComponent implements OnInit {
   ) {}
   title = 'Efreidoc_front';
   ngOnInit(): void {
+    this.onResize();
     this.afAuth.onAuthStateChanged((user) => {
       if (user) {
         if (user.emailVerified) {
@@ -48,5 +52,17 @@ export class AppComponent implements OnInit {
         this.user = undefined;
       }
     });
+  }
+  signout() {
+    this.auth.SignOut();
+  }
+  onResize(event?: any) {
+    if (window.screen.width < 1200) {
+      // 768px portrait
+      this.mobile = true;
+    } else {
+      this.mobile = false;
+    }
+    console.log('resize event', event);
   }
 }

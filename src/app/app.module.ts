@@ -32,6 +32,7 @@ import { CompteComponent } from './modules/compte/compte.component';
 import { ResearchBarComponent } from './modules/research-bar/research-bar.component';
 import { ClassementComponent } from './modules/classement/classement.component';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -64,6 +65,7 @@ import { NgCircleProgressModule } from 'ng-circle-progress';
     AngularFireDatabaseModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSidenavModule,
     NgCircleProgressModule.forRoot({
       backgroundOpacity: 0.9,
       backgroundPadding: 4,

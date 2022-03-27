@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppComponent } from 'src/app/app.component';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -9,7 +10,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class NavbarComponent {
   current_route = '';
-  constructor(public authservice: AuthService, private router: Router) {
+
+  constructor(
+    public authservice: AuthService,
+    private router: Router,
+    public appComponent: AppComponent
+  ) {
     this.current_route = this.router.url;
   }
 

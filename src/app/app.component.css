@@ -1,0 +1,32 @@
+#imgbutton {
+  position: absolute;
+  margin-top: 2em;
+  height: 1.5em !important;
+  transition-duration: 0.4s;
+}
+.example-container {
+  height: 100%;
+  width: 100%;
+}
+.example-sidenav-content {
+  position: relative;
+
+  align-items: baseline;
+  justify-content: normal;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+.imgmenu {
+  position: absolute;
+  margin: 2em;
+  width: 3em;
+  height: 3em;
+}
+
+.imgmenu:hover {
+  margin: 1.9em;
+  width: 3.2em;
+  height: 3.2em;
+}
