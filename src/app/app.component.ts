@@ -60,8 +60,10 @@ export class AppComponent implements OnInit {
     if (window.window.innerWidth < 1200) {
       // 768px portrait
       this.mobile = true;
+      this.ngOnInit();
     } else {
       this.mobile = false;
+      this.ngOnInit();
     }
   }
 }

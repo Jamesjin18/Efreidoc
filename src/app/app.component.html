@@ -42,7 +42,10 @@
       (click)="drawer.toggle()"
       src="assets/images/menu.png"
     />
-    <router-outlet (window:resize)="onResize($event)"></router-outlet>
+    <router-outlet
+      *ngIf="mobile === true"
+      (window:resize)="onResize($event)"
+    ></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
 <router-outlet
