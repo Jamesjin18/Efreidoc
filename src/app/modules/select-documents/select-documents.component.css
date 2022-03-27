@@ -310,7 +310,7 @@ td {
 }
 
 .icon:hover {
-  color: gray;
+  color: rgb(90, 90, 90);
   transition: 0.2s;
 }
 

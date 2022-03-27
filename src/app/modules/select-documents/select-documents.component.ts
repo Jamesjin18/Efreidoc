@@ -14,7 +14,7 @@ import { FormGroup } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AppComponent } from 'src/app/app.component';
-import { doc } from 'firebase/firestore';
+import { deleteDoc, doc, getFirestore } from 'firebase/firestore';
 import { TableService } from 'src/app/core/services/table.service';
 
 @Component({
@@ -304,6 +304,7 @@ export class SelectDocumentsComponent implements OnInit {
                         metadata.size
                       );
                     });
+                    this.ngOnInit();
                   });
                 this.afAuth.currentUser.then((user) => {
                   const ref2 = this.afs
@@ -557,6 +558,7 @@ export class SelectDocumentsComponent implements OnInit {
                         },
                         { merge: true }
                       );
+                    this.ngOnInit();
                   });
                 });
               this.afAuth.currentUser.then((user) => {
@@ -927,5 +929,44 @@ export class SelectDocumentsComponent implements OnInit {
         .then((data) => (this.documentsSnap = data.docs));
       this.triLike = 'asc';
     }
+  }
+
+  delete(target: string, name: string) {
+    Swal.fire({
+      title: 'Êtes vous sûr de vouloir supprimer ' + name + '?',
+      text: 'Vous ne pourrez plus revenir en arrière',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Non, annuler',
+      confirmButtonText: 'Oui, supprimer!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.deleteFiles(target);
+        Swal.fire('Supprimer!', 'Tout a été supprimé.', 'success');
+        this.ngOnInit();
+      }
+    });
+  }
+
+  async deleteFiles(target: string) {
+    const db = getFirestore();
+    // Remove the 'capital' field from the document
+    await deleteDoc(
+      doc(
+        db,
+        'efrei',
+        this.selectedPromo,
+        'class',
+        this.selectedClass,
+        'cours',
+        this.selectedCours,
+        'coursType',
+        this.selectedCoursType,
+        'documents',
+        target
+      )
+    );
   }
 }

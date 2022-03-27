@@ -136,7 +136,7 @@ export class SelectCoursComponent implements OnInit {
         'efrei',
         this.selectedPromo,
         'class',
-        this.selectedPromo,
+        this.selectedClass,
         'cours',
         target
       )
@@ -150,7 +150,7 @@ export class SelectCoursComponent implements OnInit {
       'efrei',
       this.selectedPromo,
       'class',
-      this.selectedPromo,
+      this.selectedClass,
       'cours',
       target
     );
