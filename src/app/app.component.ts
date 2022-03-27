@@ -57,12 +57,11 @@ export class AppComponent implements OnInit {
     this.auth.SignOut();
   }
   onResize(event?: any) {
-    if (window.screen.width < 1200) {
+    if (window.window.innerWidth < 1200) {
       // 768px portrait
       this.mobile = true;
     } else {
       this.mobile = false;
     }
-    console.log('resize event', event);
   }
 }
