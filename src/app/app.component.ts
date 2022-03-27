@@ -56,14 +56,12 @@ export class AppComponent implements OnInit {
   signout() {
     this.auth.SignOut();
   }
-  onResize(event?: any) {
+  onResize() {
     if (window.window.innerWidth < 1200) {
       // 768px portrait
       this.mobile = true;
-      this.ngOnInit();
     } else {
       this.mobile = false;
-      this.ngOnInit();
     }
   }
 }

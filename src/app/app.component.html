@@ -44,11 +44,11 @@
     />
     <router-outlet
       *ngIf="mobile === true"
-      (window:resize)="onResize($event)"
+      (window:resize)="onResize()"
     ></router-outlet>
   </mat-drawer-content>
 </mat-drawer-container>
 <router-outlet
   *ngIf="mobile === false"
-  (window:resize)="onResize($event)"
+  (window:resize)="onResize()"
 ></router-outlet>
