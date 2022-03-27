@@ -2,24 +2,44 @@
 <circle-progress
   *ngIf="percentDownload !== 0"
   [percent]="percentDownload"
-  [radius]="100"
+  [title]="'Votre téléchargement est en cours'"
+  [radius]="300"
   [outerStrokeWidth]="16"
   [innerStrokeWidth]="8"
   [outerStrokeColor]="'#78C000'"
   [innerStrokeColor]="'#C7E596'"
   [animation]="true"
   [animationDuration]="300"
+  style="background:rgba(50, 50, 50, 0.6);
+  position:absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  z-index: 2000;
+  text-align: center;
+  padding-top: 5%;"
 ></circle-progress>
 <circle-progress
   *ngIf="progress !== 0"
   [percent]="progress"
-  [radius]="100"
+  [title]="'Votre téléchargement est en cours'"
+  [radius]="300"
   [outerStrokeWidth]="16"
   [innerStrokeWidth]="8"
   [outerStrokeColor]="'#78C000'"
   [innerStrokeColor]="'#C7E596'"
   [animation]="true"
   [animationDuration]="300"
+  style="background:rgba(50, 50, 50, 0.6);
+  position:absolute;
+  top:0px;
+  right:0px;
+  bottom:0px;
+  left:0px;
+  z-index: 2000;
+  text-align: center;
+  padding-top: 5%;"
 ></circle-progress>
 <div class="container">
   <app-previous-route [arrPath]="arrPath"></app-previous-route>
