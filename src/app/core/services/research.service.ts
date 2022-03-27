@@ -137,10 +137,10 @@ export class ResearchService {
     if (array.length === 0) {
       return '<p>resources not found.</p>';
     }
-    let html = '<ul>';
+    let html = '<ul style="list-style: none;">';
     for (const index in array) {
       html +=
-        '<li><a href="home/' +
+        '<li><a class="list-group-item list-group-item-action" style="text-align: start;" href="home/' +
         array[index].urlPath +
         '">' +
         array[index].displayUrlname +

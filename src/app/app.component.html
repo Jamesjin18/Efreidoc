@@ -14,22 +14,25 @@
 >
   <mat-drawer
     [ngStyle]="{
-      'background-color': '#c4c2c2',
+      'background-color': '#CAF0F8',
       'border-right': '2px solid',
-      'border-color': 'black'
+      'border-color': 'black',
+      'overflow-x': 'hidden'
     }"
     class="example-sidenav"
     #drawer
     mode="over"
   >
-    <button routerLink="/home" class="aRouter button-54" style="text-decoration: none; cursor: pointer;">Accueil</button>
+    <app-research-bar></app-research-bar>
     <hr>
-    <button routerLink="/classement" class="aRouter button-54" style="text-decoration: none; cursor: pointer;">Classement</button>
+    <button routerLink="/home" class="aRouter rectanglarondi" style="text-decoration: none; cursor: pointer; text-align: center; width: 200px;"><p>Accueil</p></button>
     <hr>
-    <button routerLink="/compte" class="aRouter button-54" style="text-decoration: none; cursor: pointer;">Compte</button>
+    <button routerLink="/classement" class="aRouter rectanglarondi" style="text-decoration: none; cursor: pointer; text-align: center; width: 200px;"><p>Classement</p></button>
     <hr>
-    <button routerLink="/login" class="aRouter button-54" (click)="signout()" style="text-decoration: none; cursor: pointer;"
-      >Se déconnecter</button
+    <button routerLink="/compte" class="aRouter rectanglarondi" style="text-decoration: none; cursor: pointer; text-align: center; width: 200px;"><p>Compte</p></button>
+    <hr>
+    <button routerLink="/login" class="aRouter rectanglarondi" (click)="signout()" style="text-decoration: none; cursor: pointer; text-align: center; width: 200px;"
+      ><p>Se déconnecter</p></button
     >
   </mat-drawer>
   <mat-drawer-content

@@ -31,35 +31,50 @@
   height: 3.2em;
 }
 
-/* CSS */
-.button-54 {
-  font-family: "Open Sans", sans-serif;
-  font-size: 16px;
-  letter-spacing: 2px;
-  text-decoration: none;
-  text-transform: uppercase;
-  color: #000;
-  cursor: pointer;
-  border: 3px solid;
-  padding: 0.25em 0.5em;
-  box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
+.rectanglarondi {
+  transition: 0.5s;
+  text-align: center;
+  border: 2px solid rgb(2, 62, 138, 0.75);
+  background-color: #caf0f8;
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
   position: relative;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
-.button-54:active {
-  box-shadow: 0px 0px 0px 0px;
-  top: 5px;
-  left: 5px;
+.rectanglarondi p {
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: rgb(2, 62, 138, 0.75);
+  transform: translateY(-50%);
+  resize: vertical;
+  font-size: 20px;
 }
 
-@media (min-width: 768px) {
-  .button-54 {
-    padding: 0.25em 0.75em;
-  }
+.rectanglarondi:hover {
+  transition: 0.5s;
+  text-align: center;
+  background-color: rgb(2, 62, 138, 0.75);
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
+  border: 1px solid rgb(2, 62, 138, 0);
+  position: relative;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
-
-
+.rectanglarondi:hover p {
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: #caf0f8;
+  transform: translateY(-50%);
+  resize: vertical;
+  font-size: 20px;
+}
