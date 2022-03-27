@@ -158,7 +158,7 @@ export class CompteComponent implements OnInit {
     }).then(async (result) => {
       if (result.isConfirmed) {
         await this.deleteFiles(path);
-        Swal.fire('Supprimer!', 'Tout a été supprimé.', 'success');
+        Swal.fire('Supprimé!', 'Tout a été supprimé.', 'success');
         this.ngOnInit();
       }
     });
