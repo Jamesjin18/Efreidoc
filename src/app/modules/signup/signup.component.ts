@@ -55,7 +55,6 @@ export class SignupComponent implements OnInit {
     .then(response => response)
     .then(response => response.text())
     .then(data => {
-      console.log(data)
       Swal.fire({
         title:'CGU',
         html:data
