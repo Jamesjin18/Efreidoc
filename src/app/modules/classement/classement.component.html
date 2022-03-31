@@ -18,12 +18,12 @@
         <table>
           <tbody>
             <tr
-              *ngFor="let user of array | keyvalue: unsorted; let index = index"
+              *ngFor="let user of array; let index = index"
               class="row100 body"
             >
               <ng-container
                 *ngIf="
-                  user.key === appComponent.user!.email ||
+                  user.email === appComponent.user!.email ||
                   appComponent.user!.roles.admin === true
                 "
               >
@@ -31,10 +31,10 @@
                   {{ index + 1 }}
                 </td>
                 <td class="cell100 column2">
-                  {{ user.key }}
+                  {{ user.email }}
                 </td>
                 <td class="cell100 column3">
-                  {{ user.value }}
+                  {{ user.score }}
                 </td>
               </ng-container>
             </tr>

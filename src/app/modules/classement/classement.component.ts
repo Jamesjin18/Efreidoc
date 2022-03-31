@@ -5,6 +5,7 @@ import {
   QuerySnapshot,
 } from '@angular/fire/compat/firestore';
 import { AppComponent } from 'src/app/app.component';
+import { Classement } from 'src/app/models/classement';
 
 @Component({
   selector: 'app-classement',
@@ -12,13 +13,11 @@ import { AppComponent } from 'src/app/app.component';
   styleUrls: ['./classement.component.css'],
 })
 export class ClassementComponent implements OnInit {
-  public array: Array<number>;
+  public array: Classement[] = [];
   constructor(
     private afs: AngularFirestore,
     public appComponent: AppComponent
-  ) {
-    this.array = new Array<number>();
-  }
+  ) {}
 
   ngOnInit(): void {
     this.afs
@@ -27,10 +26,23 @@ export class ClassementComponent implements OnInit {
       .then((data) => {
         data.docs.forEach(async (element) => {
           const score = await this.getScore(element);
-          this.array[element.get('email')] = score;
-          this.array.sort();
+          this.array.push({ email: element.get('email'), score: score });
+          this.array.sort((a, b) => this.compare(a, b));
         });
+        console.log(this.array);
       });
+  }
+
+  compare(a: any, b: any) {
+    console.log('hey');
+    console.log(a);
+    if (a.score < b.score) {
+      return 1;
+    }
+    if (a.score > b.score) {
+      return -1;
+    }
+    return 0;
   }
 
   async getScore(
