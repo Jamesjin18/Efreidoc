@@ -12,7 +12,14 @@ import Swal from 'sweetalert2';
 })
 export class SignupComponent implements OnInit {
   signUpForm = this.formBuilder.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: [
+      '',
+      [
+        Validators.required,
+        Validators.email,
+        Validators.pattern('^[a-z0-9._%+-]+@efrei.net'),
+      ],
+    ],
     password: [
       '',
       [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)],
