@@ -10,9 +10,9 @@ Constituant le contrat entre la société <> et l’Utilisateur, l’accès au s
 
 <h5>Article 2 : Mentions légales</h5>
 
-L’édition du site <> est assurée par la société La Petite Perle inscrite au RCS sous le numéro 451 432 228, dont le siège social est localisé au <>.
+L’édition du site <> est assurée par la société <> inscrite au RCS sous le numéro <>, dont le siège social est localisé au <>.
 
-L’hébergeur du site <>.fr est la société LHW, sise au 5 Rue Keller, 59100 Roubaix, France.
+L’hébergeur du site <>.fr est la société <>, sise au <>.
 
 <h5>Article 3 : Accès au site</h5>
 
