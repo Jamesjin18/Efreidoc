@@ -79,7 +79,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
       innerStrokeColor: '#e7e8ea',
       innerStrokeWidth: 10,
       title: '',
-      imageHeight: 147,
+      imageHeight: 100,
       imageWidth: 100,
       animateTitle: false,
       animationDuration: 1000,

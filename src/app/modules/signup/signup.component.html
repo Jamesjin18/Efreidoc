@@ -6,7 +6,7 @@
       alt="Efrei Paris Logo"
     />
   </div>
-  <div class="row" style="margin-top: -20px;">
+  <div class="row" style="margin-top: -20px">
     <p id="titre">
       Accédez aux <strong>ressouces</strong> en seulement
       <strong>quelques clics</strong>!
@@ -41,8 +41,14 @@
         </div>
         <div>
           <label id="prom" for="promo">Choisir une promotion :</label>
-          <br><br>
-          <select class="form-select" formControlName="promotion" name="promo" id="promo" required>
+          <br /><br />
+          <select
+            class="form-select"
+            formControlName="promotion"
+            name="promo"
+            id="promo"
+            required
+          >
             <option value="">Aucune</option>
             <ng-container *ngFor="let promo of promos">
               <option value="{{ promo }}">{{ promo }}</option>
@@ -50,24 +56,26 @@
           </select>
         </div>
         <div class="form-check">
-          <br>
-          <input class="form-check-input checkbox" type="checkbox" value="" id="flexCheckDefault" formControlName="cgu">
-          <label id="prom" class="form-check-label" >
+          <br />
+          <input
+            class="form-check-input checkbox"
+            type="checkbox"
+            value=""
+            id="flexCheckDefault"
+            formControlName="cgu"
+          />
+          <label id="prom" class="form-check-label">
             Je confirme avoir pris connaissance des
             <a role="button" (click)="showCGU()"><u>CGU</u></a>
           </label>
         </div>
         <div class="text-center">
-          <br>
+          <br />
           <button
             type="submit"
             id="connexionbouton"
             [disabled]="!signUpForm.valid"
-            [ngStyle]="
-            signUpForm.invalid
-            ? { backgroundColor: 'grey'}
-            : {}
-        "
+            [ngStyle]="signUpForm.invalid ? { backgroundColor: 'grey' } : {}"
           >
             S'inscrire
           </button>
@@ -77,11 +85,11 @@
     <div class="col-3"></div>
   </div>
 </div>
-<div style="text-align: center; font-family: Poppins;">
-  <br>
+<div style="text-align: center; font-family: Poppins">
+  <br />
   Déjà un compte ? <a routerLink="/login">Connectez-vous !</a>
 </div>
-<footer id="footer" style="height: 90px;">
+<footer id="footer" style="height: 90px">
   <div class="container">
     <p>
       En cas de problèmes avec votre compte veuillez contacter la scolarité:

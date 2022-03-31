@@ -1,46 +1,45 @@
 <app-navbar></app-navbar>
 <circle-progress
+  class="circle"
   *ngIf="percentDownload !== 0"
   [percent]="percentDownload"
-  [title]="'Votre téléchargement est en cours'"
-  [radius]="300"
+  [title]="'Téléchargement'"
+  [radius]="100"
   [outerStrokeWidth]="16"
   [innerStrokeWidth]="8"
   [outerStrokeColor]="'#78C000'"
   [innerStrokeColor]="'#C7E596'"
   [animation]="true"
   [animationDuration]="300"
-  style="background:rgba(50, 50, 50, 0.6);
-  position:absolute;
-  top:0px;
-  right:0px;
-  bottom:0px;
-  left:0px;
-  z-index: 2000;
-  text-align: center;
-  padding-top: 5%;"
 ></circle-progress>
 <circle-progress
+  class="circle"
   *ngIf="progress !== 0"
   [percent]="progress"
-  [title]="'Votre téléchargement est en cours'"
-  [radius]="300"
+  [title]="'Téléchargement'"
+  [radius]="100"
   [outerStrokeWidth]="16"
   [innerStrokeWidth]="8"
   [outerStrokeColor]="'#78C000'"
   [innerStrokeColor]="'#C7E596'"
   [animation]="true"
   [animationDuration]="300"
-  style="background:rgba(50, 50, 50, 0.6);
-  position:absolute;
-  top:0px;
-  right:0px;
-  bottom:0px;
-  left:0px;
-  z-index: 2000;
-  text-align: center;
-  padding-top: 5%;"
 ></circle-progress>
+<div
+  *ngIf="percentDownload !== 0 || progress !== 0"
+  style="
+    background: rgba(50, 50, 50, 0.6);
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    z-index: 50;
+    text-align: center;
+    padding-top: 5%;
+  "
+></div>
+
 <div class="container">
   <app-previous-route [arrPath]="arrPath"></app-previous-route>
   <div class="row">
@@ -50,6 +49,7 @@
     </button>
   </div>
 </div>
+
 <div class="container" *ngIf="load === 'upload'">
   <div class="row">
     <p style="padding-left: 0px">

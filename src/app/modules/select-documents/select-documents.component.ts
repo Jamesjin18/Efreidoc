@@ -255,7 +255,11 @@ export class SelectDocumentsComponent implements OnInit {
             // Upload completed successfully, now we can get the download URL
             this.indexUpload++;
             this.progress = (this.indexUpload / allFile.length) * 100;
-            this.progress === 100 ? (this.progress = 0) : '';
+            console.log('progress ' + this.progress);
+            if (this.progress === 100) {
+              this.progress = 0;
+              this.indexUpload = 0;
+            }
             uploadTask.snapshot.ref
               .getDownloadURL()
               .then((downloadURL: any) => {
@@ -354,7 +358,7 @@ export class SelectDocumentsComponent implements OnInit {
     for (const nameFolder of allNameFolder) {
       path = path + '/' + nameFolder;
       if (index < allNameFolder.length - 1) {
-        refUpdate
+        /* refUpdate
           .collection('folder')
           .doc(nameFolder)
           .set(
@@ -366,10 +370,10 @@ export class SelectDocumentsComponent implements OnInit {
               username: this.appComponent.user!.email,
             },
             { merge: true }
-          );
+          ); */
         refUpdate = refUpdate.collection('folder').doc(nameFolder);
       } else {
-        refUpdate.collection('file').doc(nameFolder).set(
+        /* refUpdate.collection('file').doc(nameFolder).set(
           {
             path: path,
             name: nameFolder,
@@ -378,7 +382,7 @@ export class SelectDocumentsComponent implements OnInit {
             username: this.appComponent.user!.email,
           },
           { merge: true }
-        );
+        ); */
         refUpdate = refUpdate.collection('folder').doc(nameFolder);
       }
       index++;
@@ -476,6 +480,7 @@ export class SelectDocumentsComponent implements OnInit {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             this.progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('progress ' + this.progress);
             this.progress === 100 ? (this.progress = 0) : '';
             switch (snapshot.state) {
               case firebase.storage.TaskState.PAUSED:
