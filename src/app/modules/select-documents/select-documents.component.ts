@@ -106,7 +106,7 @@ export class SelectDocumentsComponent implements OnInit {
     let displaySize = this.displaySize(size);
     Swal.fire({
       icon: 'error',
-      title: 'Taille trop grande',
+      title: 'Limite de taille dépassée',
       text: 'La taille fait ' + displaySize + ', le maximum est de 100 MO',
     });
   }

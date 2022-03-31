@@ -44,7 +44,7 @@
   <app-previous-route [arrPath]="arrPath"></app-previous-route>
   <div class="row">
     <button class="btn btn-primary mt-3 mb-3" (click)="changeload()">
-      <p *ngIf="load === 'upload'">Download</p>
+      <p *ngIf="load === 'upload'">Télécharger</p>
       <p *ngIf="load === 'download'">Upload</p>
     </button>
   </div>
@@ -52,7 +52,7 @@
 
 <div class="container" *ngIf="load === 'upload'">
   <div class="row">
-    <p style="padding-left: 0px">
+    <p id="hov2" style="padding-left: 0px">
       <label
         for="input1"
         class="btn btn-primary"
@@ -63,7 +63,7 @@
             : {}
         "
       >
-        Folder upload button
+        Upload de dossier
       </label>
       <input
         id="input1"
@@ -80,9 +80,10 @@
         (change)="uploading($event)"
       />
     </p>
+    <p id="desc" *ngIf="description.length === 0">Renseigner une description</p>
   </div>
   <div class="row">
-    <p style="padding-left: 0px">
+    <p id="hov" style="padding-left: 0px">
       <label
         for="file"
         class="btn btn-primary"
@@ -93,7 +94,7 @@
             : {}
         "
       >
-        File upload button
+        Upload de fichier
       </label>
       <input
         id="file"
@@ -110,6 +111,8 @@
         multiple
       />
     </p>
+
+    <p id="desc" *ngIf="description.length === 0">Renseigner une description</p>
     <p style="padding-left: 0px">Description de l'upload</p>
   </div>
   <div class="row">
