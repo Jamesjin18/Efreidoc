@@ -52,8 +52,9 @@
         <div class="form-check">
           <br>
           <input class="form-check-input checkbox" type="checkbox" value="" id="flexCheckDefault" formControlName="cgu">
-          <label id="prom" class="form-check-label" for="flexCheckDefault">
-            Je confirme avoir pris connaissance des CGU
+          <label id="prom" class="form-check-label" >
+            Je confirme avoir pris connaissance des
+            <a role="button" (click)="showCGU()"><u>CGU</u></a>
           </label>
         </div>
         <div class="text-center">

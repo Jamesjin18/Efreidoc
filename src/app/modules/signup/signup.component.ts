@@ -50,6 +50,19 @@ export class SignupComponent implements OnInit {
     return 0;
   }
 
+  showCGU() {
+    fetch('../../assets/cgu.txt')
+    .then(response => response)
+    .then(response => response.text())
+    .then(data => {
+      console.log(data)
+      Swal.fire({
+        title:'CGU',
+        html:data
+      })
+    });
+  }
+
   onSubmit() {
     const email = this.signUpForm.get('email')!.value;
     const password = this.signUpForm.get('password')!.value;

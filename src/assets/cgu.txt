@@ -1,18 +1,20 @@
-Conditions générales d’utilisation du site <>
+<h2>Conditions générales d’utilisation du site <></h2>
 
-Article 1 : Objet
+<h5>Article 1 : Objet</h5>
+<p>
 
 Les présentes CGU ou Conditions Générales d’Utilisation encadrent juridiquement l’utilisation des services du site <>.
 
 Constituant le contrat entre la société <> et l’Utilisateur, l’accès au site doit être précédé de l’acceptation de ces CGU. L’accès à cette plateforme signifie l’acceptation des présentes CGU.
+</p>
 
-Article 2 : Mentions légales
+<h5>Article 2 : Mentions légales</h5>
 
-L’édition du site <> est assurée par la société La Petite Perle inscrite au RCS sous le numéro 451 432 228, dont le siège social est localisé au <address>.
+L’édition du site <> est assurée par la société La Petite Perle inscrite au RCS sous le numéro 451 432 228, dont le siège social est localisé au <>.
 
 L’hébergeur du site <>.fr est la société LHW, sise au 5 Rue Keller, 59100 Roubaix, France.
 
-Article 3 : Accès au site
+<h5>Article 3 : Accès au site</h5>
 
 Le site <> permet d’accéder gratuitement aux services suivants :
 
@@ -25,19 +27,19 @@ L’accès aux services dédiés aux membres s’effectue à l’aide d’un ide
 
 Pour des raisons de maintenance ou autres, l’accès au site peut être interrompu ou suspendu par l’éditeur sans préavis ni justification.
 
-Article 4 : Collecte des données
+<h5>Article 4 : Collecte des données</h5>
 
 Pour la création du compte de l’Utilisateur, la collecte des informations au moment de l’inscription sur le site est nécessaire et obligatoire. Conformément à la loi n°78-17 du 6 janvier relative à l’informatique, aux fichiers et aux libertés, la collecte et le traitement d’informations personnelles s’effectuent dans le respect de la vie privée.
 
 Suivant la loi Informatique et Libertés en date du 6 janvier 1978, articles 39 et 40, l’Utilisateur dispose du droit d’accéder, de rectifier, de supprimer et d’opposer ses données personnelles.
 
-Article 5 : Propriété intellectuelle
+<h5>Article 5 : Propriété intellectuelle</h5>
 
 Les marques, logos ainsi que les contenus du site <> (illustrations graphiques, textes…) sont protégés par le Code de la propriété intellectuelle et par le droit d’auteur.
 
 La reproduction et la copie des contenus par l’Utilisateur requièrent une autorisation préalable du site. Dans ce cas, toute utilisation à des usages commerciaux ou à des fins publicitaires est proscrite.
 
-Article 6 : Responsabilité
+<h5>Article 6 : Responsabilité</h5>
 
 Bien que les informations publiées sur le site soient réputées fiables, le site se réserve la faculté d’une non-garantie de la fiabilité des sources.
 
@@ -49,15 +51,15 @@ Le site ne peut être tenu pour responsable en cas de force majeure ou du fait i
 
 La garantie totale de la sécurité et la confidentialité des données n’est pas assurée par le site. Cependant, le site s’engage à mettre en œuvre toutes les méthodes requises pour le faire au mieux.
 
-Article 7 : Partage de données
+<h5>Article 7 : Partage de données</h5>
 
 L'utilisateur s'engage à partager uniquement ses propres documents et le site <> n'est pas tenu responsable de la partage frauduleux des utilisateurs (plagiat, partage de virus ...) mais s'engage à supprimer les contenus frauduleux au moments ou ce contenu est signaler. La signalisation s'effectuer via:
 
 - formulaire de contact;
 - par mail à l'address;
-- par couriel aux <address>;
+- par couriel aux <>;
 
-Article 8 : Cookies
+<h5>Article 8 : Cookies</h5>
 
 Lors des visites sur le site, l’installation automatique d’un cookie sur le logiciel de navigation de l’Utilisateur peut survenir.
 
@@ -67,7 +69,7 @@ L’information présente dans les cookies est utilisée pour améliorer les per
 
 En naviguant sur le site, l’Utilisateur accepte les cookies. Leur désactivation peut s’effectuer via les paramètres du logiciel de navigation.
 
-Article 9 : Publication par l’Utilisateur
+<h5>Article 9 : Publication par l’Utilisateur</h5>
 
 Le site <> permet aux membres de publier des commentaires.
 
@@ -83,10 +85,10 @@ L’Utilisateur est tenu responsable de tout contenu qu’il met en ligne. L’U
 
 La suppression ou la modification par le site du contenu de l’Utilisateur peut s’effectuer à tout moment, pour n’importe quelle raison et sans préavis.
 
-Article 11 : Durée du contrat
+<h5>Article 10 : Durée du contrat</h5>
 
 Le présent contrat est valable pour une durée indéterminée. Le début de l’utilisation des services du site marque l’application du contrat à l’égard de l’Utilisateur.
 
-Article 12 : Droit applicable et juridiction compétente
+<h5>Article 12 : Droit applicable et juridiction compétente</h5>
 
 Le présent contrat est soumis à la législation française. L’absence de résolution à l’amiable des cas de litige entre les parties implique le recours aux tribunaux français compétents pour régler le contentieux.
