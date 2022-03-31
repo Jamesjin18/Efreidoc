@@ -4,6 +4,7 @@ import {
   QueryDocumentSnapshot,
   QuerySnapshot,
 } from '@angular/fire/compat/firestore';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-classement',
@@ -12,7 +13,10 @@ import {
 })
 export class ClassementComponent implements OnInit {
   public array: Array<number>;
-  constructor(private afs: AngularFirestore) {
+  constructor(
+    private afs: AngularFirestore,
+    public appComponent: AppComponent
+  ) {
     this.array = new Array<number>();
   }
 
