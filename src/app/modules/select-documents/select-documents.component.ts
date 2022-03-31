@@ -301,7 +301,7 @@ export class SelectDocumentsComponent implements OnInit {
                     uploadTask.snapshot.ref.getMetadata().then((metadata) => {
                       this.setUploadName(
                         ref,
-                        file.webkitRelativePath,
+                        file.webkitRelativePath.split('/')[0],
                         dateUpload.toString() +
                           '' +
                           this.appComponent.user!.email,
@@ -371,7 +371,7 @@ export class SelectDocumentsComponent implements OnInit {
             },
             { merge: true }
           ); */
-        refUpdate = refUpdate.collection('folder').doc(nameFolder);
+        /* refUpdate = refUpdate.collection('folder').doc(nameFolder); */
       } else {
         /* refUpdate.collection('file').doc(nameFolder).set(
           {
@@ -383,7 +383,7 @@ export class SelectDocumentsComponent implements OnInit {
           },
           { merge: true }
         ); */
-        refUpdate = refUpdate.collection('folder').doc(nameFolder);
+        /*  refUpdate = refUpdate.collection('folder').doc(nameFolder); */
       }
       index++;
     }

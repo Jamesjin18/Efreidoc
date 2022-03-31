@@ -12,14 +12,7 @@ import Swal from 'sweetalert2';
 })
 export class SignupComponent implements OnInit {
   signUpForm = this.formBuilder.group({
-    email: [
-      '',
-      [
-        Validators.required,
-        Validators.email,
-        Validators.pattern('^[a-z0-9._%+-]+@efrei+\\.[a-z]{2,4}$'),
-      ],
-    ],
+    email: ['', [Validators.required, Validators.email]],
     password: [
       '',
       [Validators.required, Validators.pattern(/[0-9a-zA-Z]{6,}/)],
@@ -59,14 +52,14 @@ export class SignupComponent implements OnInit {
 
   showCGU() {
     fetch('../../assets/cgu.txt')
-    .then(response => response)
-    .then(response => response.text())
-    .then(data => {
-      Swal.fire({
-        title:'CGU',
-        html:data
-      })
-    });
+      .then((response) => response)
+      .then((response) => response.text())
+      .then((data) => {
+        Swal.fire({
+          title: 'CGU',
+          html: data,
+        });
+      });
   }
 
   onSubmit() {

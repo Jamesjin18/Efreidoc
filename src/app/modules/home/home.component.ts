@@ -67,7 +67,7 @@ export class HomeComponent implements OnInit {
   }
   openAddPromo() {
     Swal.fire({
-      title: 'Name of promotion',
+      title: 'Nom de la promotion',
       input: 'text',
       inputAttributes: {
         autocapitalize: 'off',
