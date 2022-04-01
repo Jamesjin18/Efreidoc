@@ -167,19 +167,16 @@ export class SelectDocumentsComponent implements OnInit {
 
   async pageTokenExample(folder: string, folderinit: string) {
     this.tableService.pageTokenExample(folder, folderinit);
-    console.log(this.tableService.downloadProgress);
   }
 
   uploading(event: any) {
     const allFile = event.target.files;
-    console.log(allFile);
     let size = 0;
     for (let i = 0; i < allFile.length; i++) {
       size += allFile[i].size;
     }
     if (size < 100000000) {
       // < 100 MO
-      console.log('size' + size);
       this.submiteUploadFormPictures(allFile);
     } else {
       this.toBig(size);
@@ -225,7 +222,6 @@ export class SelectDocumentsComponent implements OnInit {
           (snapshot: any) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
 
-            console.log(this.progress);
             switch (snapshot.state) {
               case firebase.storage.TaskState.PAUSED:
                 break;
@@ -255,7 +251,6 @@ export class SelectDocumentsComponent implements OnInit {
             // Upload completed successfully, now we can get the download URL
             this.indexUpload++;
             this.progress = (this.indexUpload / allFile.length) * 100;
-            console.log('progress ' + this.progress);
             if (this.progress === 100) {
               this.progress = 0;
               this.indexUpload = 0;
@@ -440,7 +435,6 @@ export class SelectDocumentsComponent implements OnInit {
     }
     if (size < 100000000) {
       // < 100 MO
-      console.log('size' + size);
       this.submiteUploadForm(allFile);
     } else {
       this.toBig(size);
@@ -480,7 +474,6 @@ export class SelectDocumentsComponent implements OnInit {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             this.progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('progress ' + this.progress);
             this.progress === 100 ? (this.progress = 0) : '';
             switch (snapshot.state) {
               case firebase.storage.TaskState.PAUSED:
@@ -490,7 +483,6 @@ export class SelectDocumentsComponent implements OnInit {
             }
           },
           (error) => {
-            console.log(error);
             switch (error.code) {
               case 'storage/unauthorized':
                 // User doesn't have permission to access the object

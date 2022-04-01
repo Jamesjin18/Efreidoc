@@ -29,13 +29,10 @@ export class ClassementComponent implements OnInit {
           this.array.push({ email: element.get('email'), score: score });
           this.array.sort((a, b) => this.compare(a, b));
         });
-        console.log(this.array);
       });
   }
 
   compare(a: any, b: any) {
-    console.log('hey');
-    console.log(a);
     if (a.score < b.score) {
       return 1;
     }

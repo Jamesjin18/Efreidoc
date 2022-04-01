@@ -45,10 +45,8 @@ export class CompteComponent implements OnInit {
       .ref.get()
       .then((promos) => {
         promos.forEach((promo) => {
-          console.log('1');
           this.promos.push(promo.get('name'));
         });
-        console.log('2');
         this.promos.sort((a, b) => this.compare(a, b));
       });
     this.afAuth.currentUser.then((user) => {
