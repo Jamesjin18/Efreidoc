@@ -92,7 +92,6 @@ export class TableService {
             .generateAsync({ type: 'blob' }, (metadata) => {
               this.percentChange.next(metadata.percent);
               metadata.percent === 100 ? this.percentChange.next(0) : '';
-              console.log(this.downloadProgress);
             })
             .then((content: any) => {
               FileSaver.saveAs(content, 'file.zip');
@@ -131,7 +130,6 @@ export class TableService {
                 .generateAsync({ type: 'blob' }, (metadata) => {
                   this.percentChange.next(metadata.percent);
                   metadata.percent === 100 ? this.percentChange.next(0) : '';
-                  console.log(this.downloadProgress);
                 })
                 .then((content: any) => {
                   FileSaver.saveAs(content, 'file.zip');
