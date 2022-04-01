@@ -13,7 +13,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 export class AppComponent implements OnInit {
   @ViewChild('drawer') drawer: MatSidenav | undefined;
   public user: User | undefined;
-  public percent: number = 0;
+  public percent = 0;
   public mobile = false;
   public hovered = 'false';
   constructor(

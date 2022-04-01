@@ -46,7 +46,7 @@ export class SelectDocumentsComponent implements OnInit {
   public progress = 0;
   public folderinit = '';
 
-  public percentDownload: number = 0;
+  public percentDownload = 0;
 
   public indexUpload = 0;
 
@@ -103,7 +103,7 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   public toBig(size: number) {
-    let displaySize = this.displaySize(size);
+    const displaySize = this.displaySize(size);
     Swal.fire({
       icon: 'error',
       title: 'Limite de taille dépassée',
@@ -352,7 +352,7 @@ export class SelectDocumentsComponent implements OnInit {
     size: number
   ) {
     const allNameFolder: string[] = filePath.split('/');
-    let refUpdate = ref;
+    const refUpdate = ref;
     let index = 0;
     let path = this.folderinit + '/' + date;
     for (const nameFolder of allNameFolder) {

@@ -8,7 +8,10 @@ import { ResearchService } from 'src/app/core/services/research.service';
   styleUrls: ['./research-bar.component.css'],
 })
 export class ResearchBarComponent {
-  constructor(public researchService: ResearchService, public appComponent: AppComponent) {}
+  constructor(
+    public researchService: ResearchService,
+    public appComponent: AppComponent
+  ) {}
 
   async search() {
     this.researchService.search();

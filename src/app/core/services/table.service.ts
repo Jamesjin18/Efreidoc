@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class TableService {
-  public downloadProgress: number = 0;
+  public downloadProgress = 0;
   public filesArray = [];
   public links: string[] = [];
   public listFileToZip: fileToZip[] = [];
