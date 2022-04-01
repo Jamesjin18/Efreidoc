@@ -1,0 +1,46 @@
+<app-navbar></app-navbar>
+
+<div class="container">
+  <div class="row" style="width: 720px; margin: 0 auto; margin-top: 15px">
+    <div class="table100 ver1 m-b-110">
+      <div class="table100-head">
+        <table>
+          <thead>
+            <tr class="row100 head">
+              <th class="cell100 column1">Rang</th>
+              <th class="cell100 column2">Email</th>
+              <th class="cell100 column3">Score</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="table100-body js-pscroll">
+        <table>
+          <tbody>
+            <tr
+              *ngFor="let user of array; let index = index"
+              class="row100 body"
+            >
+              <ng-container
+                *ngIf="
+                  user.email === appComponent.user!.email ||
+                  appComponent.user!.roles.admin === true
+                "
+              >
+                <td class="cell100 column1">
+                  {{ index + 1 }}
+                </td>
+                <td class="cell100 column2">
+                  {{ user.email }}
+                </td>
+                <td class="cell100 column3">
+                  {{ user.score }}
+                </td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

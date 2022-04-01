@@ -4,19 +4,24 @@ import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 import { HomeComponent } from './modules/home/home.component';
 import { LoginComponent } from './modules/login/login.component';
-import { ResourcesComponent } from './modules/resources/resources.component';
-import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
-import { SelecmatComponent } from './modules/selecmat/selecmat.component';
 import { SignupComponent } from './modules/signup/signup.component';
 import { SelecClassComponent } from './modules/selec-class/selec-class.component';
 import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
 import { SelectCoursComponent } from './modules/select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
+import { CompteComponent } from './modules/compte/compte.component';
+import { LoginGuard } from './core/services/AuthGard/login-guard.service';
+import { ClassementComponent } from './modules/classement/classement.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
+  { canActivate: [LoginGuard], path: 'login', component: LoginComponent },
+  { canActivate: [LoginGuard], path: 'signup', component: SignupComponent },
   { canActivate: [AuthGuard], path: 'home', component: HomeComponent },
+  {
+    canActivate: [AuthGuard],
+    path: 'classement',
+    component: ClassementComponent,
+  },
   {
     canActivate: [AuthGuard],
     path: 'home/:promo',
@@ -37,25 +42,19 @@ const routes: Routes = [
     path: 'home/:promo/:class/:cours/:coursType',
     component: SelectDocumentsComponent,
   },
-  { canActivate: [AuthGuard], path: 'selecmat', component: SelecmatComponent },
   {
     canActivate: [AuthGuard],
-    path: 'resources',
-    component: ResourcesComponent,
-  },
-  {
-    canActivate: [AuthGuard],
-    path: 'resourcespage',
-    component: ResourcespageComponent,
+    path: 'compte',
+    component: CompteComponent,
   },
   { canActivate: [AuthGuard], path: 'ajoutdoc', component: AjoutdocComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: '**', redirectTo: '/login' },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: '/home' },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard],
+  providers: [AuthGuard, LoginGuard],
 })
 export class AppRoutingModule {}

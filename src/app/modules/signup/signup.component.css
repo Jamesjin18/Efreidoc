@@ -60,6 +60,17 @@
     margin-left: 1.25vw;
 }
 
+#prom {
+    font-family: Poppins;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: 0em;
+    text-align: left;
+    color: #001250;
+}
+
 #connexionbouton {
     font-family: Poppins;
     font-style: normal;
@@ -86,5 +97,9 @@
     letter-spacing: 0em;
     text-align: left;
     color: #001250;
+}
+
+.checkbox:hover {
+    cursor: pointer;
 }
 

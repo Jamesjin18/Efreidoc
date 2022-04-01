@@ -1,0 +1,80 @@
+#imgbutton {
+  position: absolute;
+  margin-top: 2em;
+  height: 1.5em !important;
+  transition-duration: 0.4s;
+}
+.example-container {
+  height: 100%;
+  width: 100%;
+}
+.example-sidenav-content {
+  position: relative;
+
+  align-items: baseline;
+  justify-content: normal;
+}
+
+.example-sidenav {
+  padding: 20px;
+}
+.imgmenu {
+  position: absolute;
+  margin: 2em;
+  width: 3em;
+  height: 3em;
+}
+
+.imgmenu:hover {
+  margin: 1.9em;
+  width: 3.2em;
+  height: 3.2em;
+}
+
+.rectanglarondi {
+  transition: 0.5s;
+  text-align: center;
+  border: 2px solid rgb(2, 62, 138, 0.75);
+  background-color: #caf0f8;
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
+  position: relative;
+  /* box-shadow: 5px 5px 5px black; */
+}
+
+.rectanglarondi p {
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: rgb(2, 62, 138, 0.75);
+  transform: translateY(-50%);
+  resize: vertical;
+  font-size: 20px;
+}
+
+.rectanglarondi:hover {
+  transition: 0.5s;
+  text-align: center;
+  background-color: rgb(2, 62, 138, 0.75);
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
+  border: 1px solid rgb(2, 62, 138, 0);
+  position: relative;
+  /* box-shadow: 5px 5px 5px black; */
+}
+
+.rectanglarondi:hover p {
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: #caf0f8;
+  transform: translateY(-50%);
+  resize: vertical;
+  font-size: 20px;
+}

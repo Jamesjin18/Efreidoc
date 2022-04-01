@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelecmatComponent } from './selecmat.component';
+import { ClassementComponent } from './classement.component';
 
-describe('SelecmatComponent', () => {
-  let component: SelecmatComponent;
-  let fixture: ComponentFixture<SelecmatComponent>;
+describe('ClassementComponent', () => {
+  let component: ClassementComponent;
+  let fixture: ComponentFixture<ClassementComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SelecmatComponent],
+      declarations: [ClassementComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelecmatComponent);
+    fixture = TestBed.createComponent(ClassementComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

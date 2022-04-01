@@ -3,7 +3,7 @@ import {
   AngularFirestore,
   AngularFirestoreDocument,
 } from '@angular/fire/compat/firestore';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import firebase from 'firebase/compat/app';
 import Swal from 'sweetalert2';
 import { FormsModule } from '@angular/forms';
@@ -14,6 +14,8 @@ import { FormGroup } from '@angular/forms';
 import * as FileSaver from 'file-saver';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AppComponent } from 'src/app/app.component';
+import { deleteDoc, doc, getFirestore } from 'firebase/firestore';
+import { TableService } from 'src/app/core/services/table.service';
 
 @Component({
   selector: 'app-select-documents',
@@ -25,47 +27,45 @@ export class SelectDocumentsComponent implements OnInit {
   selectedClass!: string;
   selectedCours!: string;
   selectedCoursType!: string;
+
+  promoName = '';
+  className = '';
+  coursName = '';
+  coursTypeName = '';
+
+  arrPath: string[];
+  documentsSnap: any;
+
   description = '';
   load = 'download';
 
+  triName!: string;
+  triType!: string;
+  triLike!: string;
+
   public progress = 0;
   public folderinit = '';
-  public folder: any = null;
-  documentsSnap: any;
-  jsonHeader = 'application/json; odata=verbose';
-  headersOld = new Headers({
-    'Content-Type': this.jsonHeader,
-    Accept: this.jsonHeader,
-  });
-  headers = { 'Content-Type': this.jsonHeader, Accept: this.jsonHeader };
-  title = 'uploadtest';
-  public progressFile = 0;
-  public numberFiles = 0;
-  public downloadProgress = 0;
 
-  errorMessage = '';
-  signInForm!: FormGroup;
-  authStatus: boolean | undefined;
-  public hovered = false;
+  public percentDownload: number = 0;
 
-  public isAuth = false;
-
-  public url = '';
-
-  public filesArray = [];
-
-  public links: string[] = [];
-
-  public listFileToZip: fileToZip[] = [];
-  public finish: number[] = [];
+  public indexUpload = 0;
 
   constructor(
     private router: ActivatedRoute,
     private afs: AngularFirestore,
+    private route: Router,
+    private afAuth: AngularFireAuth,
+    private tableService: TableService,
     public appComponent: AppComponent
-  ) {}
+  ) {
+    this.arrPath = new Array<string>();
+    tableService.percentChange.subscribe((value) => {
+      this.percentDownload = value;
+    });
+  }
 
   ngOnInit(): void {
+    this.arrPath = decodeURI(this.route.url.substring(1)).split('/');
     this.router.params.subscribe((params) => {
       this.selectedPromo = params['promo'];
       this.selectedClass = params['class'];
@@ -94,166 +94,110 @@ export class SelectDocumentsComponent implements OnInit {
       )
       .ref.get()
       .then((data) => (this.documentsSnap = data.docs));
-    console.log(this.documentsSnap);
+    this.getLike();
+    this.getDisslike();
+    this.getRouteName();
+    this.triName = 'asc';
+    this.triType = 'asc';
+    this.triLike = 'asc';
   }
 
-  displaySize(size: number) {
+  public toBig(size: number) {
+    let displaySize = this.displaySize(size);
+    Swal.fire({
+      icon: 'error',
+      title: 'Limite de taille dépassée',
+      text: 'La taille fait ' + displaySize + ', le maximum est de 100 MO',
+    });
+  }
+
+  public getRouteName() {
+    this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .ref.get()
+      .then((promo) => {
+        this.promoName = promo.get('name');
+      });
+    this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .ref.get()
+      .then((promo) => {
+        this.className = promo.get('name');
+      });
+    this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .ref.get()
+      .then((promo) => {
+        this.coursName = promo.get('name');
+      });
+    this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .ref.get()
+      .then((promo) => {
+        this.coursTypeName = promo.get('name');
+      });
+  }
+
+  public displaySize(size: number) {
     if (size >= 1000000000) {
-      return size / 1000000000.0 + ' Go';
+      return Math.round(size / 1000000000.0) + ' Go';
     } else if (size >= 1000000) {
-      return size / 1000000.0 + ' Mo';
+      return Math.round(size / 1000000.0) + ' Mo';
     } else if (size >= 1000) {
-      return size / 1000.0 + ' Ko';
+      return Math.round(size / 1000.0) + ' Ko';
     }
     return size + ' o';
   }
 
   async pageTokenExample(folder: string, folderinit: string) {
-    console.log(folder);
-    console.log(folderinit);
-    this.finish.push(0);
-    const storage = getStorage();
-    const listRef = ref(storage, folder);
-
-    const firstPage = await list(listRef, { maxResults: 100 });
-    console.log(firstPage);
-    for (const folders of firstPage.prefixes) {
-      this.pageTokenExample(folders.fullPath, folderinit);
-    }
-    for (const file of firstPage.items) {
-      this.listFileToZip.push({
-        path: file.fullPath,
-        name: file.name,
-      });
-    }
-    this.finish.pop();
-    if (this.finish.length === 0) {
-      console.log('fini');
-      console.log(this.listFileToZip);
-      if (this.listFileToZip.length === 0) {
-        this.downloadBlobFile(
-          folder,
-          folderinit[folderinit.length - 1] === '/'
-            ? folderinit
-            : folderinit + '/'
-        );
-      } else {
-        this.downloadBlob(
-          folderinit[folderinit.length - 1] === '/'
-            ? folderinit
-            : folderinit + '/'
-        );
-      }
-    }
-  }
-
-  downloadBlobFile(folder: string, folderinit: string) {
-    const storage = getStorage();
-    const zip = new JSZip();
-    const docRef = ref(storage, folder);
-    getDownloadURL(docRef)
-      .then((url) => {
-        const xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = (event) => {
-          const blob = xhr.response;
-          console.log(blob);
-          const file = folder.replace(folderinit, '');
-          console.log(file);
-          zip.file(file, blob);
-          console.log('in');
-          zip
-            .generateAsync({ type: 'blob' }, (metadata) => {
-              console.log(metadata.percent);
-              this.downloadProgress = metadata.percent;
-            })
-            .then((content: any) => {
-              console.log('fini');
-              FileSaver.saveAs(content, 'file.zip');
-              this.listFileToZip = [];
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        };
-        xhr.open('GET', url);
-        xhr.send();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }
-
-  downloadBlob(folderinit: string) {
-    const storage = getStorage();
-    const zip = new JSZip();
-    let index = 0;
-
-    for (const doc of this.listFileToZip) {
-      console.log('ici');
-      console.log(doc);
-      const docRef = ref(storage, doc.path);
-      getDownloadURL(docRef)
-        .then((url) => {
-          const xhr = new XMLHttpRequest();
-          xhr.responseType = 'blob';
-          xhr.onload = (event) => {
-            const blob = xhr.response;
-            console.log(blob);
-            const folder = doc.path.replace(folderinit, '');
-            console.log(folder);
-            zip.file(folder, blob);
-            index++;
-            console.log(index, this.listFileToZip.length);
-            if (index === this.listFileToZip.length) {
-              console.log('in');
-              zip
-                .generateAsync({ type: 'blob' }, (metadata) => {
-                  console.log(metadata.percent);
-                  this.downloadProgress = metadata.percent;
-                })
-                .then((content: any) => {
-                  console.log('fini');
-                  FileSaver.saveAs(content, 'file.zip');
-                  this.listFileToZip = [];
-                })
-                .catch((error) => {
-                  console.log(error);
-                });
-            }
-          };
-          xhr.open('GET', url);
-          xhr.send();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
+    this.tableService.pageTokenExample(folder, folderinit);
+    console.log(this.tableService.downloadProgress);
   }
 
   uploading(event: any) {
-    console.log(event);
     const allFile = event.target.files;
-    this.submiteUploadFormPictures(allFile);
+    console.log(allFile);
+    let size = 0;
+    for (let i = 0; i < allFile.length; i++) {
+      size += allFile[i].size;
+    }
+    if (size < 100000000) {
+      // < 100 MO
+      console.log('size' + size);
+      this.submiteUploadFormPictures(allFile);
+    } else {
+      this.toBig(size);
+    }
   }
 
   submiteUploadFormPictures(allFile: Array<any>): void {
     if (this.appComponent.user) {
-      console.log(allFile);
       const date = new Date();
       const dateUpload = date.getTime();
       let index = -1;
       for (const file of allFile) {
         index++;
-        // Create a root reference
-        const storageRef = firebase.storage().ref();
 
-        // Create the file metadata
+        const storageRef = firebase.storage().ref();
         const metadata = {
           contentType: 'image/jpeg/gif/png/txt',
         };
-
-        // Upload file and metadata to the object 'images/mountains.jpg'
         let filePath = '';
         if (file.webkitRelativePath) {
           filePath = file.webkitRelativePath.slice(
@@ -261,10 +205,6 @@ export class SelectDocumentsComponent implements OnInit {
             file.webkitRelativePath.lastIndexOf('/')
           );
         }
-        //var filePath = allFile[0].webkitRelativePath.slice(0,allFile[0].webkitRelativePath.lastIndexOf('/'))
-        console.log(index);
-        console.log(file.webkitRelativePath);
-        console.log(filePath);
         const uploadTask = storageRef
           .child(
             this.folderinit +
@@ -284,15 +224,12 @@ export class SelectDocumentsComponent implements OnInit {
           firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
           (snapshot: any) => {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-            this.progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + this.progress + '% done');
+
+            console.log(this.progress);
             switch (snapshot.state) {
-              case firebase.storage.TaskState.PAUSED: // or 'paused'
-                console.log('Upload is paused');
+              case firebase.storage.TaskState.PAUSED:
                 break;
-              case firebase.storage.TaskState.RUNNING: // or 'running'
-                console.log('Upload is running');
+              case firebase.storage.TaskState.RUNNING:
                 break;
             }
           },
@@ -316,10 +253,16 @@ export class SelectDocumentsComponent implements OnInit {
           },
           () => {
             // Upload completed successfully, now we can get the download URL
+            this.indexUpload++;
+            this.progress = (this.indexUpload / allFile.length) * 100;
+            console.log('progress ' + this.progress);
+            if (this.progress === 100) {
+              this.progress = 0;
+              this.indexUpload = 0;
+            }
             uploadTask.snapshot.ref
               .getDownloadURL()
               .then((downloadURL: any) => {
-                console.log('File available at', downloadURL);
                 const ref = this.afs
                   .collection('efrei')
                   .doc(this.selectedPromo)
@@ -337,11 +280,20 @@ export class SelectDocumentsComponent implements OnInit {
                 ref
                   .set(
                     {
-                      path: this.folderinit + '/' + dateUpload.toString(),
+                      path:
+                        this.folderinit +
+                        '/' +
+                        dateUpload.toString() +
+                        '' +
+                        this.appComponent.user!.email,
                       name: file.webkitRelativePath.split('/')[0],
                       type: 'folder',
                       description: this.description,
                       username: this.appComponent.user!.email,
+                      like: false,
+                      disslike: false,
+                      numberLike: 0,
+                      numberDisslike: 0,
                     },
                     { merge: true }
                   )
@@ -349,14 +301,43 @@ export class SelectDocumentsComponent implements OnInit {
                     uploadTask.snapshot.ref.getMetadata().then((metadata) => {
                       this.setUploadName(
                         ref,
-                        file.webkitRelativePath,
+                        file.webkitRelativePath.split('/')[0],
                         dateUpload.toString() +
                           '' +
                           this.appComponent.user!.email,
                         metadata.size
                       );
                     });
+                    this.ngOnInit();
                   });
+                this.afAuth.currentUser.then((user) => {
+                  const ref2 = this.afs
+                    .collection('users')
+                    .doc(user!.uid)
+                    .collection('upload')
+                    .doc(
+                      dateUpload.toString() + '' + this.appComponent.user!.email
+                    )
+                    .set(
+                      {
+                        path:
+                          this.folderinit +
+                          '/' +
+                          dateUpload.toString() +
+                          '' +
+                          this.appComponent.user!.email,
+                        name: file.webkitRelativePath.split('/')[0],
+                        type: 'folder',
+                        description: this.description,
+                        username: this.appComponent.user!.email,
+                        like: false,
+                        disslike: false,
+                        numberLike: 0,
+                        numberDisslike: 0,
+                      },
+                      { merge: true }
+                    );
+                });
               });
           }
         );
@@ -377,7 +358,7 @@ export class SelectDocumentsComponent implements OnInit {
     for (const nameFolder of allNameFolder) {
       path = path + '/' + nameFolder;
       if (index < allNameFolder.length - 1) {
-        refUpdate
+        /* refUpdate
           .collection('folder')
           .doc(nameFolder)
           .set(
@@ -389,10 +370,10 @@ export class SelectDocumentsComponent implements OnInit {
               username: this.appComponent.user!.email,
             },
             { merge: true }
-          );
-        refUpdate = refUpdate.collection('folder').doc(nameFolder);
+          ); */
+        /* refUpdate = refUpdate.collection('folder').doc(nameFolder); */
       } else {
-        refUpdate.collection('file').doc(nameFolder).set(
+        /* refUpdate.collection('file').doc(nameFolder).set(
           {
             path: path,
             name: nameFolder,
@@ -401,8 +382,8 @@ export class SelectDocumentsComponent implements OnInit {
             username: this.appComponent.user!.email,
           },
           { merge: true }
-        );
-        refUpdate = refUpdate.collection('folder').doc(nameFolder);
+        ); */
+        /*  refUpdate = refUpdate.collection('folder').doc(nameFolder); */
       }
       index++;
     }
@@ -412,9 +393,6 @@ export class SelectDocumentsComponent implements OnInit {
     for (const nameFolder of allNameFolder) {
       path2 = path2 + '/' + nameFolder;
       if (index2 < allNameFolder.length - 1) {
-        console.log('update');
-        console.log(nameFolder);
-        console.log(size);
         refUpdate2
           .collection('folder')
           .doc(nameFolder)
@@ -455,8 +433,18 @@ export class SelectDocumentsComponent implements OnInit {
   }
 
   handleFileInput(event: any): void {
-    const allFile = Array.from(event.target.files);
-    this.submiteUploadForm(allFile);
+    const allFile: any = Array.from(event.target.files);
+    let size = 0;
+    for (let i = 0; i < allFile.length; i++) {
+      size += allFile[i].size;
+    }
+    if (size < 100000000) {
+      // < 100 MO
+      console.log('size' + size);
+      this.submiteUploadForm(allFile);
+    } else {
+      this.toBig(size);
+    }
   }
 
   submiteUploadForm(allFile: Array<any>): void {
@@ -492,20 +480,17 @@ export class SelectDocumentsComponent implements OnInit {
             // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
             this.progress =
               (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            console.log('Upload is ' + this.progress + '% done');
+            console.log('progress ' + this.progress);
+            this.progress === 100 ? (this.progress = 0) : '';
             switch (snapshot.state) {
-              case firebase.storage.TaskState.PAUSED: // or 'paused'
-                console.log('Upload is paused');
+              case firebase.storage.TaskState.PAUSED:
                 break;
-              case firebase.storage.TaskState.RUNNING: // or 'running'
-                console.log('Upload is running');
+              case firebase.storage.TaskState.RUNNING:
                 break;
             }
           },
           (error) => {
             console.log(error);
-            // A full list of error codes is available at
-            // https://firebase.google.com/docs/storage/web/handle-errors
             switch (error.code) {
               case 'storage/unauthorized':
                 // User doesn't have permission to access the object
@@ -513,9 +498,6 @@ export class SelectDocumentsComponent implements OnInit {
               case 'storage/canceled':
                 // User canceled the upload
                 break;
-
-              // ...
-
               case 'storage/unknown':
                 // Unknown error occurred, inspect error.serverResponse
                 break;
@@ -524,7 +506,6 @@ export class SelectDocumentsComponent implements OnInit {
           () => {
             // Upload completed successfully, now we can get the download URL
             uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-              console.log('File available at', downloadURL);
               const ref = this.afs
                 .collection('efrei')
                 .doc(this.selectedPromo)
@@ -542,12 +523,21 @@ export class SelectDocumentsComponent implements OnInit {
               ref
                 .set(
                   {
-                    path: this.folderinit + '/' + dateUpload.toString(),
+                    path:
+                      this.folderinit +
+                      '/' +
+                      dateUpload.toString() +
+                      '' +
+                      this.appComponent.user!.email,
                     name: file.name,
                     type: 'file',
                     description: this.description,
                     size: file.size,
-                    unsername: this.appComponent.user!.email,
+                    username: this.appComponent.user!.email,
+                    like: false,
+                    disslike: false,
+                    numberLike: 0,
+                    numberDisslike: 0,
                   },
                   { merge: true }
                 )
@@ -573,12 +563,415 @@ export class SelectDocumentsComponent implements OnInit {
                         },
                         { merge: true }
                       );
+                    this.ngOnInit();
                   });
                 });
+              this.afAuth.currentUser.then((user) => {
+                const ref2 = this.afs
+                  .collection('users')
+                  .doc(user!.uid)
+                  .collection('upload')
+                  .doc(
+                    dateUpload.toString() + '' + this.appComponent.user!.email
+                  )
+                  .set(
+                    {
+                      path:
+                        this.folderinit +
+                        '/' +
+                        dateUpload.toString() +
+                        '' +
+                        this.appComponent.user!.email,
+                      name: file.name,
+                      type: 'file',
+                      description: this.description,
+                      size: file.size,
+                      username: this.appComponent.user!.email,
+                      like: false,
+                      disslike: false,
+                      numberLike: 0,
+                      numberDisslike: 0,
+                    },
+                    { merge: true }
+                  );
+              });
             });
           }
         );
       });
     }
+  }
+
+  popUpDescriptionSize(desc: string) {
+    this.tableService.popUpDescriptionSize(desc);
+  }
+
+  like(docid: string) {
+    const ref = this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .collection('documents')
+      .doc(docid);
+
+    ref
+      .collection('like')
+      .doc(this.appComponent.user!.email)
+      .ref.get()
+      .then((docs) => {
+        if (!docs.exists) {
+          ('doc exist');
+          ref.collection('like').doc(this.appComponent.user!.email).set({});
+          ref
+            .update({
+              numberLike: firebase.firestore.FieldValue.increment(1),
+            })
+            .then(() => {
+              this.ngOnInit();
+            });
+          for (const docSnap of this.documentsSnap) {
+            if (docSnap.id === docid) {
+              docSnap.like = true;
+            }
+          }
+          this.afAuth.currentUser.then((user) => {
+            const ref2 = this.afs
+              .collection('users')
+              .doc(user!.uid)
+              .collection('upload')
+              .doc(docid)
+              .update({
+                numberLike: firebase.firestore.FieldValue.increment(1),
+              });
+          });
+        } else {
+          ref.collection('like').doc(this.appComponent.user!.email).delete();
+          ref
+            .update({
+              numberLike: firebase.firestore.FieldValue.increment(-1),
+            })
+            .then(() => {
+              this.ngOnInit();
+            });
+          for (const docSnap of this.documentsSnap) {
+            if (docSnap.id === docid) {
+              docSnap.like = false;
+            }
+          }
+          this.afAuth.currentUser.then((user) => {
+            const ref2 = this.afs
+              .collection('users')
+              .doc(user!.uid)
+              .collection('upload')
+              .doc(docid)
+              .update({
+                numberLike: firebase.firestore.FieldValue.increment(-1),
+              });
+          });
+        }
+      });
+    this.ngOnInit();
+  }
+
+  disslike(docid: string) {
+    const ref = this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .collection('documents')
+      .doc(docid);
+    ref
+      .collection('disslike')
+      .doc(this.appComponent.user!.email)
+      .ref.get()
+      .then((docs) => {
+        if (!docs.exists) {
+          ref.collection('disslike').doc(this.appComponent.user!.email).set({});
+          ref
+            .update({
+              numberDisslike: firebase.firestore.FieldValue.increment(1),
+            })
+            .then(() => {
+              this.ngOnInit();
+            });
+          for (const docSnap of this.documentsSnap) {
+            if (docSnap.id === docid) {
+              docSnap.disslike = true;
+            }
+          }
+          this.afAuth.currentUser.then((user) => {
+            const ref2 = this.afs
+              .collection('users')
+              .doc(user!.uid)
+              .collection('upload')
+              .doc(docid)
+              .update({
+                numberDisslike: firebase.firestore.FieldValue.increment(1),
+              });
+          });
+        } else {
+          ref
+            .collection('disslike')
+            .doc(this.appComponent.user!.email)
+            .delete();
+          ref
+            .update({
+              numberDisslike: firebase.firestore.FieldValue.increment(-1),
+            })
+            .then(() => {
+              this.ngOnInit();
+            });
+          for (const docSnap of this.documentsSnap) {
+            if (docSnap.id === docid) {
+              docSnap.disslike = false;
+            }
+          }
+          this.afAuth.currentUser.then((user) => {
+            const ref2 = this.afs
+              .collection('users')
+              .doc(user!.uid)
+              .collection('upload')
+              .doc(docid)
+              .update({
+                numberDisslike: firebase.firestore.FieldValue.increment(-1),
+              });
+          });
+        }
+      });
+  }
+
+  getLike() {
+    const ref = this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .collection('documents');
+
+    ref.ref.get().then((docs) => {
+      docs.forEach((doc) => {
+        ref
+          .doc(doc.id)
+          .collection('like')
+          .ref.get()
+          .then((docs2) => {
+            docs2.forEach((doc2) => {
+              if (doc2.id === this.appComponent.user!.email) {
+                for (const docSnap of this.documentsSnap) {
+                  if (docSnap.id === doc.id) {
+                    docSnap.like = true;
+                  }
+                }
+              }
+            });
+          });
+      });
+    });
+  }
+
+  getDisslike() {
+    const ref = this.afs
+      .collection('efrei')
+      .doc(this.selectedPromo)
+      .collection('class')
+      .doc(this.selectedClass)
+      .collection('cours')
+      .doc(this.selectedCours)
+      .collection('coursType')
+      .doc(this.selectedCoursType)
+      .collection('documents');
+
+    ref.ref.get().then((docs) => {
+      docs.forEach((doc) => {
+        ref
+          .doc(doc.id)
+          .collection('disslike')
+          .ref.get()
+          .then((docs2) => {
+            docs2.forEach((doc2) => {
+              if (doc2.id === this.appComponent.user!.email) {
+                for (const docSnap of this.documentsSnap) {
+                  if (docSnap.id === doc.id) {
+                    docSnap.disslike = true;
+                  }
+                }
+              }
+            });
+          });
+      });
+    });
+  }
+
+  sortByType() {
+    if (this.triType === 'asc') {
+      this.documentsSnap = null;
+      this.afs
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('type', 'asc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triType = 'desc';
+    } else if (this.triType === 'desc') {
+      this.documentsSnap = null;
+      this.afs
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('type', 'desc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triType = 'asc';
+    }
+  }
+
+  sortByName() {
+    if (this.triName === 'asc') {
+      this.documentsSnap = null;
+      this.afs
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('name', 'asc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triName = 'desc';
+    } else if (this.triName === 'desc') {
+      this.documentsSnap = null;
+      this.afs
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('name', 'desc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triName = 'asc';
+    }
+  }
+
+  sortByLike() {
+    if (this.triLike === 'asc') {
+      this.documentsSnap = null;
+      this.afs
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('numberLike', 'asc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triLike = 'desc';
+    } else if (this.triLike === 'desc') {
+      this.documentsSnap = null;
+      this.afs
+        .collection(
+          'efrei/' +
+            this.selectedPromo +
+            '/class/' +
+            this.selectedClass +
+            '/cours/' +
+            this.selectedCours +
+            '/coursType/' +
+            this.selectedCoursType +
+            '/documents'
+        )
+        .ref.orderBy('numberLike', 'desc')
+        .get()
+        .then((data) => (this.documentsSnap = data.docs));
+      this.triLike = 'asc';
+    }
+  }
+
+  delete(target: string, name: string) {
+    Swal.fire({
+      title: 'Êtes vous sûr de vouloir supprimer ' + name + '?',
+      text: 'Vous ne pourrez plus revenir en arrière',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Non, annuler',
+      confirmButtonText: 'Oui, supprimer!',
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        await this.deleteFiles(target);
+        Swal.fire('Supprimer!', 'Tout a été supprimé.', 'success');
+        this.ngOnInit();
+      }
+    });
+  }
+
+  async deleteFiles(target: string) {
+    const db = getFirestore();
+    // Remove the 'capital' field from the document
+    await deleteDoc(
+      doc(
+        db,
+        'efrei',
+        this.selectedPromo,
+        'class',
+        this.selectedClass,
+        'cours',
+        this.selectedCours,
+        'coursType',
+        this.selectedCoursType,
+        'documents',
+        target
+      )
+    );
   }
 }

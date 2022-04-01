@@ -1,19 +1,40 @@
 <app-navbar></app-navbar>
 <div class="container">
-  <a
-    class="rectanglarondi list-group-item list-group-item-action"
-    *ngFor="let i of classSnap"
-    style="text-align: center"
-    [routerLink]="[i.id]"
-  >
-    <p>{{ i.id }}</p>
-  </a>
-  <ng-container *ngIf="appComponent.user">
-    <a
-      *ngIf="appComponent.user.roles.admin === true"
-      class="rectanglarondiinverse list-group-item list-group-item-action"
-      (click)="openAddClasses()"
-      ><p>Ajouter une classe</p></a
-    >
-  </ng-container>
+  <app-previous-route [arrPath]="arrPath"></app-previous-route>
+  <div class="row">
+    <p id="titre">Classes</p>
+  </div>
+  <div class="row">
+    <ng-container *ngFor="let i of classSnap">
+      <div class="divicon">
+        <a
+          class="rectanglarondi list-group-item list-group-item-action"
+          style="text-align: center"
+          [routerLink]="[i.id]"
+        >
+          <p>{{ i.get("name") }}</p>
+        </a>
+        <ng-container *ngIf="appComponent.user">
+          <i
+            *ngIf="appComponent.user.roles.admin === true"
+            class="icon fas fa-trash fa-xl"
+            (click)="delete(i.id, i.get('name'))"
+          ></i>
+          <i
+            *ngIf="appComponent.user.roles.admin === true"
+            class="icon fa-solid fa-pen fa-xl"
+            (click)="modify(i.id, i.get('name'))"
+          ></i>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="appComponent.user">
+      <a
+        *ngIf="appComponent.user.roles.admin === true"
+        class="rectanglarondiinverse list-group-item list-group-item-action"
+        (click)="openAddClasses()"
+        ><p>Ajouter une classe</p></a
+      >
+    </ng-container>
+  </div>
 </div>

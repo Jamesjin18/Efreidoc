@@ -1,111 +1,442 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins&display=swap");
+@import url("https://css.gg/add.css");
+
 #titre {
-    margin-top: 1em;
-    text-align: center;
-    color: black;
-    font-size: 2em;
+  margin-top: 1em;
+  text-align: center;
+  color: black;
+  font-size: 2em;
 }
 
 .rectanglarondi {
-    text-align: center;
-    border: 2px solid rgb(2, 62, 138, 0.75);
-    background-color: #CAF0F8;
-    height: 50px;
-    margin: 5px;
-    font-size: 1em;
-    position: relative;
-    /* box-shadow: 5px 5px 5px black; */
+  text-align: center;
+  border: 2px solid rgb(2, 62, 138, 0.75);
+  background-color: #caf0f8;
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
+  position: relative;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondi p {
-    position: absolute;
-    top: 50%;
-    left: 1px;
-    right: 1px;
-    color: rgb(2, 62, 138, 0.75);
-    transform: translateY(-50%);
-    resize: vertical;
-    font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: rgb(2, 62, 138, 0.75);
+  transform: translateY(-50%);
+  resize: vertical;
+  font-size: 20px;
 }
 
 .rectanglarondiinverse {
-    text-align: center;
-    background-color: rgb(2, 62, 138, 0.75);
-    height: 50px;
-    margin: 5px;
-    font-size: 1em;
-    border: 1px solid rgb(2, 62, 138, 0);
-    position: relative;
-    /* box-shadow: 5px 5px 5px black; */
+  text-align: center;
+  background-color: rgb(2, 62, 138, 0.75);
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
+  border: 1px solid rgb(2, 62, 138, 0);
+  position: relative;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondiinverse p {
-    transition: 0.5s;
-    position: absolute;
-    top: 50%;
-    left: 1px;
-    right: 1px;
-    color: #CAF0F8;
-    padding: 20px;
-    transform: translateY(-50%);
-    resize: vertical;
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: #caf0f8;
+  padding: 20px;
+  transform: translateY(-50%);
+  resize: vertical;
 }
 
 .rectanglarondi:hover {
-    transition: 0.5s;
-    text-align: center;
-    background-color: rgb(2, 62, 138, 0.75);
-    height: 50px;
-    margin: 5px;
-    font-size: 1em;
-    border: 1px solid rgb(2, 62, 138, 0);
-    position: relative;
-    /* box-shadow: 5px 5px 5px black; */
+  transition: 0.5s;
+  text-align: center;
+  background-color: rgb(2, 62, 138, 0.75);
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
+  border: 1px solid rgb(2, 62, 138, 0);
+  position: relative;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondi:hover p {
-    transition: 0.5s;
-    position: absolute;
-    top: 50%;
-    left: 1px;
-    right: 1px;
-    color: #CAF0F8;
-    transform: translateY(-50%);
-    resize: vertical;
-    font-size: 20px;
+  transition: 0.5s;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: #caf0f8;
+  transform: translateY(-50%);
+  resize: vertical;
+  font-size: 20px;
 }
 
 .rectanglarondiinverse:hover {
-    transition: 0.5s;
-    text-align: center;
-    border: 2px solid rgb(2, 62, 138, 0.75);
-    background-color: #CAF0F8;
-    height: 50px;
-    margin: 5px;
-    font-size: 1em;
-    position: relative;
-    /* box-shadow: 5px 5px 5px black; */
+  transition: 0.5s;
+  text-align: center;
+  border: 2px solid rgb(2, 62, 138, 0.75);
+  background-color: #caf0f8;
+  height: 50px;
+  margin: 5px;
+  font-size: 1em;
+  position: relative;
+  /* box-shadow: 5px 5px 5px black; */
 }
 
 .rectanglarondiinverse:hover p {
-    position: absolute;
-    top: 50%;
-    left: 1px;
-    right: 1px;
-    color: rgb(2, 62, 138, 0.75);
-    padding: 20px;
-    transform: translateY(-50%);
-    resize: vertical;
+  position: absolute;
+  top: 50%;
+  left: 1px;
+  right: 1px;
+  color: rgb(2, 62, 138, 0.75);
+  padding: 20px;
+  transform: translateY(-50%);
+  resize: vertical;
 }
 
 .btn {
-    background-color: DodgerBlue;
-    border: none;
-    color: white;
-    padding: 12px 30px;
-    cursor: pointer;
-    font-size: 20px;
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
 }
-  
+
 .btn:hover {
-    background-color: RoyalBlue;
+  background-color: RoyalBlue;
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Scroll bar ]*/
+.js-pscroll {
+  position: relative;
+  overflow: hidden;
+}
+
+.table100 .ps__rail-y {
+  width: 9px;
+  background-color: transparent;
+  opacity: 1 !important;
+  right: 5px;
+}
+
+.table100 .ps__rail-y::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: #ebebeb;
+  border-radius: 5px;
+  width: 100%;
+  height: calc(100% - 30px);
+  left: 0;
+  top: 15px;
+}
+
+.table100 .ps__rail-y .ps__thumb-y {
+  width: 100%;
+  right: 0;
+  background-color: transparent;
+  opacity: 1 !important;
+}
+
+.table100 .ps__rail-y .ps__thumb-y::before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-color: #cccccc;
+  border-radius: 5px;
+  width: 100%;
+  height: calc(100% - 30px);
+  left: 0;
+  top: 15px;
+}
+
+/*//////////////////////////////////////////////////////////////////
+[ Table ]*/
+.table100 {
+  background-color: #fff;
+}
+
+table {
+  width: 100%;
+}
+
+th,
+td {
+  font-weight: unset;
+}
+
+.column1 {
+  width: 10%;
+  padding-left: 10px;
+}
+
+.column2 {
+  width: 10%;
+}
+
+.column3 {
+  width: 30%;
+}
+
+.column4 {
+  width: 5%;
+}
+
+.column5 {
+  width: 20%;
+}
+
+.column6 {
+  width: 10%;
+  padding-left: 10px;
+}
+
+.column7 {
+  width: 10%;
+}
+
+.column8 {
+  width: 5%;
+}
+
+.table100-head th {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.table100-body td {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.table100-head {
+  width: 1320px;
+}
+
+.table100-body {
+  width: 1320px;
+}
+
+/*==================================================================
+[ Fix header ]*/
+.table100 {
+  position: relative;
+  padding-top: 60px;
+}
+
+.table100-head {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.table100-body {
+  left: -12px;
+  max-height: 585px;
+  overflow: auto;
+}
+
+/*==================================================================
+[ Ver1 ]*/
+
+.table100.ver1 th {
+  font-family: "Lato", sans-serif;
+  font-size: 18px;
+  color: #fff;
+  line-height: 1.4;
+
+  background-color: #6c7ae0;
+
+  padding-right: 15px;
+}
+
+.table100.ver1 td {
+  font-family: "Lato", sans-serif;
+  font-size: 15px;
+  color: #808080;
+  line-height: 1.4;
+
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 1000px;
+  padding-right: 15px;
+}
+
+.table100.ver1 .table100-body tr:nth-child(even) {
+  background-color: #f8f6ff;
+}
+
+/*---------------------------------------------*/
+
+.table100.ver1 {
+  border-radius: 10px;
+  overflow: auto;
+  box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -o-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+  -ms-box-shadow: 0 0px 40px 0px rgba(0, 0, 0, 0.15);
+}
+
+.table100.ver1 .ps__rail-y {
+  right: 5px;
+}
+
+.table100.ver1 .ps__rail-y::before {
+  background-color: #ebebeb;
+}
+
+.table100.ver1 .ps__rail-y .ps__thumb-y::before {
+  background-color: #cccccc;
+  background-color: RoyalBlue;
+}
+
+.icon {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 20px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: rgb(90, 90, 90);
+  transition: 0.2s;
+}
+
+.divicon {
+  position: relative;
+  display: inline-flex;
+}
+
+.like {
+  color: gray;
+  margin-left: 20%;
+}
+
+.disslike {
+  color: gray;
+  margin-left: 20%;
+}
+
+.likeSelect {
+  color: rgb(67, 206, 109);
+  margin-left: 20%;
+  cursor: pointer;
+}
+
+.likeUnselect {
+  color: gray;
+  margin-left: 20%;
+  cursor: pointer;
+}
+
+.disslikeSelect {
+  color: rgb(226, 76, 76);
+  margin-left: 20%;
+  cursor: pointer;
+}
+
+.disslikeUnselect {
+  color: gray;
+  margin-left: 20%;
+  cursor: pointer;
+}
+
+.likeUnselect:hover {
+  color: rgb(67, 206, 109) !important;
+  transition: 0.2s;
+}
+
+.likeSelect:hover {
+  color: gray !important;
+  transition: 0.2s;
+}
+
+.disslikeUnselect:hover {
+  color: rgb(226, 76, 76) !important;
+  transition: 0.2s;
+}
+
+.disslikeSelect:hover {
+  color: gray !important;
+  transition: 0.2s;
+}
+
+.arrow {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+.plus {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+
+  background: linear-gradient(#fff 0 0), linear-gradient(#fff 0 0),
+    rgb(97, 92, 92);
+  background-position: center;
+  background-size: 50% 2px, 2px 50%; /*thickness = 2px, length = 50% (25px)*/
+  background-repeat: no-repeat;
+}
+
+.radius {
+  border-radius: 50%;
+}
+
+.circle {
+  position: relative;
+  margin-left: 44%;
+  z-index: 100;
+}
+
+#desc {
+  display: block;
+  width: auto;
+  padding: 10px;
+  border-radius: 5px;
+  opacity: 0;
+  transition: 1s;
+  position: absolute;
+  margin-top: 50px;
+  pointer-events: none;
+}
+
+#hov:hover + #desc {
+  /* visibility: visible;
+  opacity: 1; */
+  background-color: #fc9595;
+  color: rgb(85, 66, 66);
+  opacity: 100;
+  transition: 1s;
+}
+#hov2:hover + #desc {
+  /* visibility: visible;
+  opacity: 1; */
+  background-color: #fc9595;
+  color: rgb(85, 66, 66);
+  opacity: 100;
+  transition: 1s;
 }

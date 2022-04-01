@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ResourcesComponent } from './resources.component';
+import { PreviousRouteComponent } from './previous-route.component';
 
-describe('ResourcesComponent', () => {
-  let component: ResourcesComponent;
-  let fixture: ComponentFixture<ResourcesComponent>;
+describe('PreviousRouteComponent', () => {
+  let component: PreviousRouteComponent;
+  let fixture: ComponentFixture<PreviousRouteComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ResourcesComponent],
+      declarations: [PreviousRouteComponent],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ResourcesComponent);
+    fixture = TestBed.createComponent(PreviousRouteComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

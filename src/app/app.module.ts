@@ -11,9 +11,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { HomeComponent } from './modules/home/home.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
-import { SelecmatComponent } from './modules/selecmat/selecmat.component';
-import { ResourcesComponent } from './modules/resources/resources.component';
-import { ResourcespageComponent } from './modules/resourcespage/resourcespage.component';
 import { AjoutdocComponent } from './modules/ajoutdoc/ajoutdoc.component';
 
 import { environment } from 'src/environments/environment';
@@ -25,13 +22,17 @@ import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './core/services/auth.service';
-import { MajeurService } from './core/services/majeur.service';
 import { SelecClassComponent } from './modules/selec-class/selec-class.component';
 import { SelectCoursComponent } from './modules/select-cours/select-cours.component';
 import { SelectDocumentsComponent } from './modules/select-documents/select-documents.component';
 
-import { AuthGuard } from './core/services/AuthGard/auth-guard.service';
 import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cours-type.component';
+import { PreviousRouteComponent } from './modules/previous-route/previous-route.component';
+import { CompteComponent } from './modules/compte/compte.component';
+import { ResearchBarComponent } from './modules/research-bar/research-bar.component';
+import { ClassementComponent } from './modules/classement/classement.component';
+import { NgCircleProgressModule } from 'ng-circle-progress';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
@@ -40,14 +41,15 @@ import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cou
     SignupComponent,
     HomeComponent,
     NavbarComponent,
-    SelecmatComponent,
-    ResourcesComponent,
-    ResourcespageComponent,
     AjoutdocComponent,
     SelecClassComponent,
     SelectCoursComponent,
     SelectDocumentsComponent,
     SelectCoursTypeComponent,
+    PreviousRouteComponent,
+    CompteComponent,
+    ResearchBarComponent,
+    ClassementComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,9 +65,32 @@ import { SelectCoursTypeComponent } from './modules/select-cours-type/select-cou
     AngularFireDatabaseModule,
     ReactiveFormsModule,
     FormsModule,
+    MatSidenavModule,
+    NgCircleProgressModule.forRoot({
+      backgroundOpacity: 0.9,
+      backgroundPadding: 4,
+      radius: 60,
+      space: -10,
+      maxPercent: 100,
+      outerStrokeGradient: true,
+      outerStrokeWidth: 10,
+      outerStrokeColor: '#4882c2',
+      outerStrokeGradientStopColor: '#53a9ff',
+      innerStrokeColor: '#e7e8ea',
+      innerStrokeWidth: 10,
+      title: '',
+      imageHeight: 100,
+      imageWidth: 100,
+      animateTitle: false,
+      animationDuration: 1000,
+      showUnits: false,
+      showBackground: false,
+      startFromZero: false,
+      lazy: true,
+    }),
   ],
   exports: [NavbarComponent],
-  providers: [AuthService, MajeurService],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

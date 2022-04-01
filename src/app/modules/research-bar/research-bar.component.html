@@ -1,0 +1,35 @@
+
+<div class="row" [style.margin-right]="
+appComponent.mobile === true
+  ? '0px'
+  : {}
+" [ngStyle]="
+appComponent.mobile === true
+  ? { display: 'block'}
+  : {}">
+    <div class="col-10" [ngStyle]="
+    appComponent.mobile === true
+      ? { width: '230px'}
+      : {}
+  ">
+        <input
+            id="search-input"
+            [(ngModel)]="researchService.recherche"
+            class="form-control"
+            type="search"
+            placeholder="Rechercher"
+            aria-label="Rechercher"
+        />
+    </div>
+    <div class="col-2">
+        <button
+            id="search-button"
+            class="btn btn-outline-primary"
+            type="submit"
+            (click)="search()"
+            [disabled]="researchService.recherche.length === 0 ? 'disabled' : null"
+        >
+            Rechercher
+        </button>
+    </div>
+</div>

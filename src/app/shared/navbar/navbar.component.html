@@ -1,48 +1,37 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3/animate.min.css">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/animate.css@3/animate.min.css"
+/>
 <nav
+  *ngIf="appComponent.mobile === false"
   class="navbar navbar-expand-md navbar-fixed-top navbar-dark bg-dark main-nav"
 >
   <div class="nav-content d-flex order-2 col-2">
-    <img
-      src="../../../assets/images/efrei_paris.png"
-      alt="efrei_paris"
-      width="150vw"
-      height="50vh"
-      class="d-inline-block align-text-top"
-    />
+    <a href="/home">
+      <img
+        src="../../../assets/images/efrei_paris.png"
+        alt="efrei_paris"
+        width="150vw"
+        height="50vh"
+        class="d-inline-block align-text-top"
+      />
+    </a>
   </div>
   <div
     class="nav navbar-nav text-nowrap justify-content-center order-1 order-md-2 col-8"
   >
-    <div class="row">
-      <div class="col-10">
-        <input
-          [(ngModel)]="recherche"
-          class="form-control"
-          type="search"
-          placeholder="Rechercher"
-          aria-label="Rechercher"
-        />
-      </div>
-      <div class="col-2">
-        <button
-          class="btn btn-outline-success"
-          type="submit"
-          (click)="search()"
-          [disabled]="recherche.length === 0 ? 'disabled' : null"
-        >
-          Rechercher
-        </button>
-      </div>
-    </div>
+    <app-research-bar *ngIf="current_route !== '/home'"></app-research-bar>
   </div>
   <div class="ml-auto d-flex nav-content order-3 order-md-3 col-2">
     <ul
       class="nav navbar-nav text-nowrap flex-row mx-md-auto order-1 order-md-2"
     >
       <li class="m-1">
-        <a routerLink="/home" class="aRouter">Home</a>
+        <a routerLink="/home" class="aRouter">Accueil</a>
+      </li>
+      <li class="m-1">
+        <a routerLink="/classement" class="aRouter">Classement</a>
       </li>
       <li class="m-1">
         <a routerLink="/compte" class="aRouter">Compte</a>
